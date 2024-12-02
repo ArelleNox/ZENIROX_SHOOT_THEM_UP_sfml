@@ -13,19 +13,19 @@ public:
 
 int main() {
 
-	RenderWindow window(VideoMode(HEIGHT, WIDTH), "Shoot em up de fou-malade-qui-tue", Style::Fullscreen);
+	RenderWindow window(VideoMode(WIDTH, HEIGHT), "Shoot em up de fou-malade-qui-tue", Style::Fullscreen);
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
 	Sprite player;
 	player.setPosition(HEIGHT / 2, WIDTH / 2);
 	player.rotate(90);
 	Texture player4;
-	if (!player4.loadFromFile("C:\\Users\\rdumont\\source\\repos\\Shoot em up\\ship.png")) { cout << "Erreur chargement" << endl; return -1; }
+	if (!player4.loadFromFile("ship.png")) { cout << "Erreur chargement" << endl; return -1; }
 	player.setTexture(player4);
 	RectangleShape background;
 	background.setSize(Vector2f(1920, 1080));
 	Texture space;
-	if (!space.loadFromFile("C:\\Users\\rdumont\\source\\repos\\Shoot em up\\background.jpg")) { cout << "Erreur chargement" << endl; return -1; }
+	if (!space.loadFromFile("background.jpg")) { cout << "Erreur chargement" << endl; return -1; }
 	background.setTexture(&space);
 	Projectile tir;
 	tir.sprite.setRadius(5);
@@ -44,7 +44,7 @@ int main() {
 			if (event.type == Event::Closed)
 				window.close();
 			if (event.type == Event::KeyPressed)
-				if (event.key.code == Keyboard::Escape)
+				if (event.key.code == Keyboard::Enter)
 					window.close();
 			if (event.type == Event::MouseButtonPressed)
 				if (event.mouseButton.button == Mouse::Left)
