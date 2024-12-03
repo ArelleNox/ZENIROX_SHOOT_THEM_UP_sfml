@@ -1,23 +1,23 @@
-#include <SFML/Graphics.hpp>
 #include <iostream>
+#include "projectile.hpp"
+
 using namespace std;
 using namespace sf;
 
-const float HEIGHT = 1080;
-const float WIDTH = 1920;
 
-class Projectile {
-public:
-	CircleShape sprite;
-};
+
+
+Clock playerAttackClock;
+Time playerAttackCooldown = seconds(0.2);
+
 
 int main() {
 
-	RenderWindow window(VideoMode(WIDTH, HEIGHT), "Shoot em up de fou-malade-qui-tue", Style::Fullscreen);
+	RenderWindow window(VideoMode(WIDTH, HEIGHT), "Shoot em up de fou-malade-qui-tue", Style::Default);
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
 	Sprite player;
-	player.setPosition(HEIGHT / 2, WIDTH / 2);
+	player.setPosition(WIDTH / 2, HEIGHT / 2);
 	player.rotate(90);
 	Texture player4;
 	if (!player4.loadFromFile("ship.png")) { cout << "Erreur chargement" << endl; return -1; }
@@ -27,18 +27,22 @@ int main() {
 	Texture space;
 	if (!space.loadFromFile("background.jpg")) { cout << "Erreur chargement" << endl; return -1; }
 	background.setTexture(&space);
-	Projectile tir;
-	tir.sprite.setRadius(5);
-	tir.sprite.setFillColor(Color::Red);
-
+	ProjectileManager manager;
 	bool tirEC = false;
 	while (window.isOpen())
 	{
+		
 		Event event;
 		if (Keyboard::isKeyPressed(Keyboard::Up))
 			player.move(0, -5);
 		if (Keyboard::isKeyPressed(Keyboard::Down))
 			player.move(0, 5);
+		if (Mouse::isButtonPressed(Mouse::Left) && playerAttackClock.getElapsedTime().asSeconds() > playerAttackCooldown.asSeconds())
+		{
+			playerAttackClock.restart();
+			manager.creerProjectile();
+			manager.getProjectiles()[manager.getProjectiles().size() - 1]->sprite.setPosition(player.getPosition().x, player.getPosition().y + 70);
+		}
 		while (window.pollEvent(event))
 		{
 			if (event.type == Event::Closed)
@@ -46,33 +50,26 @@ int main() {
 			if (event.type == Event::KeyPressed)
 				if (event.key.code == Keyboard::Enter)
 					window.close();
-			if (event.type == Event::MouseButtonPressed)
-				if (event.mouseButton.button == Mouse::Left)
-					tirEC = true;
+			if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left )
+			{
+				
 
-
+			}
 		}
+			window.clear();
+			window.draw(background);
+			for (auto i = 0; i < manager.getProjectiles().size(); i++)
+			{
+				window.draw(manager.getProjectiles()[i]->sprite);
+				manager.getProjectiles()[i]->sprite.move(5, 0);
+				manager.checkProjectile(manager.getProjectiles()[i]);
+			}
+			window.draw(player);
+			window.display();
+			
+		
 
-		window.clear();
-		window.draw(background);
-		window.draw(player);
-		if (tir.sprite.getPosition().x > WIDTH)
-		{
-			tirEC = false;
-
-		}
-		if (tirEC == false)
-		{
-			tir.sprite.setPosition(player.getPosition().x, player.getPosition().y);
-		}
-		if (tirEC == true)
-		{
-
-			window.draw(tir.sprite);
-			tir.sprite.move(5, 0);
-		}
-		window.display();
+		
 	}
-
 	return 0;
 }
