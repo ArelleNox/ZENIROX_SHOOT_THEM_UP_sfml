@@ -1,5 +1,6 @@
 #include <iostream>
 #include "projectile.hpp"
+#include "player.hpp"
 
 using namespace std;
 using namespace sf;
@@ -16,12 +17,9 @@ int main() {
 	RenderWindow window(VideoMode(WIDTH, HEIGHT), "Shoot em up de fou-malade-qui-tue", Style::Default);
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
-	Sprite player;
-	player.setPosition(WIDTH / 2, HEIGHT / 2);
-	player.rotate(90);
-	Texture player4;
-	if (!player4.loadFromFile("ship.png")) { cout << "Erreur chargement" << endl; return -1; }
-	player.setTexture(player4);
+	Player player;
+	player.setSprite();
+	
 	RectangleShape background;
 	background.setSize(Vector2f(1920, 1080));
 	Texture space;
@@ -34,14 +32,14 @@ int main() {
 		
 		Event event;
 		if (Keyboard::isKeyPressed(Keyboard::Up))
-			player.move(0, -5);
+			player.sprite.move(0, -5);
 		if (Keyboard::isKeyPressed(Keyboard::Down))
-			player.move(0, 5);
+			player.sprite.move(0, 5);
 		if (Mouse::isButtonPressed(Mouse::Left) && playerAttackClock.getElapsedTime().asSeconds() > playerAttackCooldown.asSeconds())
 		{
 			playerAttackClock.restart();
 			manager.creerProjectile();
-			manager.getProjectiles()[manager.getProjectiles().size() - 1]->sprite.setPosition(player.getPosition().x, player.getPosition().y + 70);
+			manager.getProjectiles()[manager.getProjectiles().size() - 1]->sprite.setPosition(player.sprite.getPosition().x, player.sprite.getPosition().y + 70);
 		}
 		while (window.pollEvent(event))
 		{
@@ -61,10 +59,10 @@ int main() {
 			for (auto i = 0; i < manager.getProjectiles().size(); i++)
 			{
 				window.draw(manager.getProjectiles()[i]->sprite);
-				manager.getProjectiles()[i]->sprite.move(5, 0);
+				manager.getProjectiles()[i]->sprite.move(7, 0);
 				manager.checkProjectile(manager.getProjectiles()[i]);
 			}
-			window.draw(player);
+			window.draw(player.sprite);
 			window.display();
 			
 		
