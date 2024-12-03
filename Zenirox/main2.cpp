@@ -1,5 +1,8 @@
 #include <iostream>
 #include "level1.hpp"
+#include "projectile.hpp"
+#include "player.hpp"
+
 using namespace std;
 using namespace sf;
 
@@ -55,6 +58,9 @@ int main() {
 	Texture player4;
 	if (!player4.loadFromFile("ship.png")) { cout << "Erreur chargement" << endl; return -1; }
 	player.setTexture(player4);
+	Player player;
+	player.setSprite();
+	
 	RectangleShape background;
 	background.setSize(Vector2f(1920, 1080));
 	Texture space;
@@ -69,9 +75,16 @@ int main() {
 	{
 		Event event;
 		if (Keyboard::isKeyPressed(Keyboard::Up))
-			player.move(0, -5);
+			player.sprite.move(0, -5);
 		if (Keyboard::isKeyPressed(Keyboard::Down))
 			player.move(0, 5);
+			player.sprite.move(0, 5);
+		if (Mouse::isButtonPressed(Mouse::Left) && playerAttackClock.getElapsedTime().asSeconds() > playerAttackCooldown.asSeconds())
+		{
+			playerAttackClock.restart();
+			manager.creerProjectile();
+			manager.getProjectiles()[manager.getProjectiles().size() - 1]->sprite.setPosition(player.sprite.getPosition().x, player.sprite.getPosition().y + 70);
+		}
 		while (window.pollEvent(event))
 		{
 			if (event.type == Event::Closed)
@@ -107,5 +120,22 @@ int main() {
 		window.display();
 	}
 
+			}
+		}
+			window.clear();
+			window.draw(background);
+			for (auto i = 0; i < manager.getProjectiles().size(); i++)
+			{
+				window.draw(manager.getProjectiles()[i]->sprite);
+				manager.getProjectiles()[i]->sprite.move(7, 0);
+				manager.checkProjectile(manager.getProjectiles()[i]);
+			}
+			window.draw(player.sprite);
+			window.display();
+			
+		
+
+		
+	}
 	return 0;
 }*/

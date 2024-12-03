@@ -141,15 +141,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FileName.cpp" />
     <ClCompile Include="level1.cpp" />
     <ClCompile Include="main2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="level1.hpp" />
+    <ClCompile Include="player.cpp" />
     <ClCompile Include="projectile.cpp" />
-    <ClCompile Include="FileName.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="player.hpp" />
     <ClInclude Include="projectile.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
