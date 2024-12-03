@@ -4,8 +4,8 @@
 
 ## **1. Informations Générales**
 
-**Titre** : Project Noël  
-**Genre** : Shoot'em Up 
+**Titre** : Project Noël.  
+**Genre** : Shoot'em Up.
 **Style Visuel** : Pixel Art rétro avec effets modernes (particules, explosions dynamiques).  
 **Plateforme(s)** : PC .  
 **Public cible** : Amateurs de jeux d’arcade et de défis rapides, âgés de 8 ans et plus.  
