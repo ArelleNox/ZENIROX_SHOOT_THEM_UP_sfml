@@ -157,10 +157,3 @@ Chaque niveau se termine par un boss avec des mécaniques uniques :
 2. **Contenu additionnel** (DLC) :  
    - Niveaux supplémentaires avec de nouveaux ennemis et boss.  
    - Packs de skins pour le vaisseau.  
-
----
-
-## **10. Inspirations**
-- *Ikaruga* : Patterns de tir complexes et gameplay stratégique.  
-- *Jamestown* : Style rétro et modes multijoueurs.  
-- *Galaga* : Simplicité et focus sur le scoring.
