@@ -6,10 +6,34 @@ using namespace sf;
 
 int main() {
 
-	return 0;
+	Level1 palier1;
+	palier1.pal1_back();
+
+
+	// Créer une fenêtre SFML
+	sf::RenderWindow window(sf::VideoMode(1920, 1080), "ZENIROX");
+
+	// Boucle principale du jeu
+	while (window.isOpen()) {
+		sf::Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == sf::Event::Closed ||
+				(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter)) {
+				window.close();
+			}
+		}
+
+		// Effacer la fenêtre
+		window.clear();
+
+		// Afficher les modifications à l'écran
+		window.display();
+	}
+
+	return 0;  // Indiquer que la méthode s'est terminée sans erreurs
 }
 
-
+	
 
 
 /*const float HEIGHT = 1080;

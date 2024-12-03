@@ -4,11 +4,10 @@
 #include <SFML/Graphics.hpp>
 
 class Level1 {
-public: 
-    Level1{}();                // Constructeur
-    ~Level1 {}();               // Destructeur
+public:
+    Level1();               // Constructeur
+    ~Level1();              // Destructeur
 
-    int level1();            // Méthode pour gérer la fenêtre SFML
-};
+    int pal1_back();
 
-#endif // 
+#endif // LEVEL1_HPP

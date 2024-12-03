@@ -1,17 +1,17 @@
 #include "level1.hpp"       
 #include <stdexcept>           // Pour la gestion des exceptions
 
-Level1::() {}
+Level1::Level1 () {}
 
 Level1::~Level1() {}
 
-int Level1::level1() {
+int pal1_back() {
     // Création d'une fenêtre
-    sf::RenderWindow window(sf::VideoMode(600, 800), "Flappy Bird");
+    sf::RenderWindow window(sf::VideoMode(1920, 1080), "Flappy Bird");
 
     // Charger une texture
     sf::Texture background;
-    if (!background.loadFromFile("background2.png")) {
+    if (!background.loadFromFile("palier1.png")) {
         throw std::runtime_error("Erreur : texture de l'arrière-plan introuvable.");
     }
 
