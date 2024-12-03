@@ -1,9 +1,18 @@
-#include <SFML/Graphics.hpp>
 #include <iostream>
+#include "level1.hpp"
 using namespace std;
 using namespace sf;
 
-const float HEIGHT = 1080;
+
+int main() {
+
+	return 0;
+}
+
+
+
+
+/*const float HEIGHT = 1080;
 const float WIDTH = 1920;
 
 class Projectile {
@@ -75,4 +84,4 @@ int main() {
 	}
 
 	return 0;
-}
+}*/
