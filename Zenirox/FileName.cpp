@@ -21,7 +21,7 @@ int main() {
 	Player player;
 	player.setSprite();
 	EnemyManager enemyManager;
-	enemyManager.creerEnemy(Niveau1);
+	enemyManager.creerEnemy(Niveau3);
 
 	RectangleShape background;
 	background.setSize(Vector2f(1920, 1080));

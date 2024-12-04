@@ -13,8 +13,12 @@ int Enemy::setTexture() {
 		sprite.setTexture(texture);
 		break;
 	case Niveau2:
+		if (!texture.loadFromFile("enemy2.png")) { cout << "Erreur lors du chargement de texture d'ennemi niveau 2" << endl; return -1; }
+		sprite.setTexture(texture);
 		break;
 	case Niveau3:
+		if (!texture.loadFromFile("enemy3.png")) { cout << "Erreur lors du chargemnet de texture d'ennemi niveau 3" << endl; return -1; }
+		sprite.setTexture(texture);
 		break;
 	default:
 		break;
@@ -29,11 +33,11 @@ void Enemy::setAttackAndHP() {
 		break;
 	case Niveau2:
 		Attack = 10;
-		HP = 20;
+		HP = 40;
 		break;
 	case Niveau3:
 		Attack = 15;
-		HP = 30;
+		HP = 70;
 		break;
 	default:
 		break;
