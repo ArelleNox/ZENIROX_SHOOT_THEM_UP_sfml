@@ -9,5 +9,6 @@ public:
     ~Level1();              // Destructeur
 
     int pal1_back();
+};
 
 #endif // LEVEL1_HPP

@@ -5,7 +5,7 @@ Level1::Level1 () {}
 
 Level1::~Level1() {}
 
-int pal1_back() {
+int Level1::pal1_back() {
     // Création d'une fenêtre
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "Flappy Bird");
 
