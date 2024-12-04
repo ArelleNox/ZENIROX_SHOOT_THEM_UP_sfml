@@ -2,6 +2,8 @@
 #define CLASS_HPP
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include "enemy.hpp"
+#include "player.hpp"
 using namespace sf;
 using namespace std;
 
@@ -23,7 +25,8 @@ public:
 	~ProjectileManager();
 	Projectile* creerProjectile();
 	void detruireProjectile(Projectile* projectile);
-	void checkProjectile(Projectile* projectile);
+	void checkProjectileOutOfScreen(Projectile* projectile, EnemyManager &manager, Player &player);
+	void checkProjectileCollisions(Projectile* projectile, EnemyManager& manager, Player& player);
 	vector<Projectile* > getProjectiles();
 };
 

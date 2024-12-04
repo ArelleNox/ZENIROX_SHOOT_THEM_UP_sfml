@@ -1,6 +1,7 @@
 #include <iostream>
 #include "projectile.hpp"
 #include "player.hpp"
+#include "enemy.hpp"
 
 using namespace std;
 using namespace sf;
@@ -14,11 +15,13 @@ Time playerAttackCooldown = seconds(0.2);
 
 int main() {
 
-	RenderWindow window(VideoMode(WIDTH, HEIGHT), "Shoot em up de fou-malade-qui-tue", Style::Fullscreen);
+	RenderWindow window(VideoMode(WIDTH, HEIGHT), "Shoot em up de fou-malade-qui-tue", Style::Default);
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
 	Player player;
 	player.setSprite();
+	EnemyManager enemyManager;
+	enemyManager.creerEnemy(Niveau1);
 
 	RectangleShape background;
 	background.setSize(Vector2f(1920, 1080));
@@ -48,11 +51,7 @@ int main() {
 			if (event.type == Event::KeyPressed)
 				if (event.key.code == Keyboard::Enter)
 					window.close();
-			if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left)
-			{
-
-
-			}
+			
 		}
 		window.clear();
 		window.draw(background);
@@ -60,7 +59,12 @@ int main() {
 		{
 			window.draw(manager.getProjectiles()[i]->sprite);
 			manager.getProjectiles()[i]->sprite.move(7, 0);
-			manager.checkProjectile(manager.getProjectiles()[i]);
+			manager.checkProjectileOutOfScreen(manager.getProjectiles()[i], enemyManager, player);
+		}
+		for (auto i = 0; i < enemyManager.getEnemies().size(); i++)
+		{
+			window.draw(enemyManager.getEnemies()[i]->sprite);
+			enemyManager.checkEnemy(enemyManager.getEnemies()[i]);
 		}
 		window.draw(player.sprite);
 		window.display();

@@ -6,6 +6,7 @@ class Player
 {
 public:
 	int HP = 100;
+	int attack = 1;
 	float up = -5;
 	float down = 5;
 	Sprite sprite;
