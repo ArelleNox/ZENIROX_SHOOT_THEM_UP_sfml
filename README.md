@@ -10,6 +10,7 @@
 **Plateforme(s)** : PC .  
 **Public cible** : Amateurs de jeux d’arcade et de défis rapides, âgés de 8 ans et plus.  
 **Résumé** :  Après une invasion extraterrestre. La Terre decide alors d'envahir la planète ennemis Zenirox.
+
 ---
 
 ## **2. Concept de Base**
@@ -18,7 +19,7 @@
 - **Objectifs** : Détruire les vagues d'ennemis pour pouvoir tuer le Boss de la planète Zenirox.
   - Court terme : Survivre et accumuler des  en détruisant les ennemis.
   - Long terme : Compléter les niveaux, vaincre les boss et sauver la planète.  
-- **Déroulement** : Le jeu est divisé en plusieurs niveaux avec une difficulté croissante, chacun se terminant par un combat de boss unique. Pour terminer le jeu il faut donc tué le Boss du dernier niveau  
+- **Déroulement** : Le jeu est divisé en plusieurs niveaux avec une difficulté croissante, chacun se terminant par un combat de boss unique. Pour terminer le jeu il faut donc tué le Boss du dernier niveau. 
 - **Style de progression** : Défilement vertical automatique, avec des phases de répit pour récupérer des power-ups et réorganiser ses stratégies entre chaque niveau.
 
 ---
@@ -27,17 +28,18 @@
 
 ### **3.1. Contrôle du joueur**
 - **Déplacement** : Mouvement en 2 des touches directionnelles (clavier).  
-- **Tir principal** : Tir automatique en maintenant une touche .  
+- **Tir principal** : Tir automatique en maintenant en faisant un clique gauche sur la souris .  
 - **Tir secondaire** : Attaque spéciale, dépendant des power-ups collectés.  
 - **Obstacles** : Présence d'obstacles apportants des malus ou infligeants des dégâts au joueur .
 
 ### **3.2. Système de Scoring**
+- **Score** : Une piece est equivaut à un poitnt de score.
 - **Multiplicateurs** : Augmentez vos points en détruisant des ennemis et en ramassant des bonus.
 - **Diviseur** : Diminuez vos points en touchant un obstacle ou en touchant un malus .
 - **Shop** : Possibilité d'acheter des skins avec le score et/ou l'argent réel
   
 ### **3.3. Power-ups**
-1. **Armes** :  
+1. **Boost d'attaque**:  
    - Augmente les dégats
    - Augmente la vitesse de tir    
 2. **Boosts défensifs** :  
@@ -71,7 +73,7 @@
 ### **4.2. Boss**
 Chaque niveau se termine par un boss avec des mécaniques uniques :
 - **Niveau 1 : Sentinel Alpha**  
-   -  principale : Mitrailllette avec beaucoup de dégâts.  
+   -  principale : Mitraillette avec beaucoup de dégâts.  
    - Pattern :
 - **Niveau 2 : Kraken-7**  
    -  principale : déplacement rapide
@@ -106,7 +108,7 @@ Chaque niveau se termine par un boss avec des mécaniques uniques :
    - Ennemi : Big Boss  
 
 ### **5.2. Rythme**
--Augmentation du nombre d'ennemis pour chaque pali  
+-Augmentation du nombre d'ennemis pour chaque palier  
 
 ---
 
@@ -115,11 +117,13 @@ Chaque niveau se termine par un boss avec des mécaniques uniques :
 ### **6.1. Style Visuel**
 - Pixel art rétro combiné avec des effets modernes (glow, particules).  
 - Palette de couleurs évoluant selon les niveaux :  
-  - Niveau 1 : Tons froids (bleu, gris).  
-  - Niveau 2 : Couleurs vives et métalliques (orange, argent).  
-  - Niveau 3 : Palette sombre avec accents néon (vert, violet).  
+  - Niveau 1 : Tons Terrestre (bleu, vert).  
+  - Niveau 2 : Tons spatiaux (bleu).  
+  - Niveau 3 : Atmosphère extraterrestre(violet, bleu, rouge).
+  - Niveaux 4 : Planète extraterrestre (rose, violet, vert).  
 
 ### **6.2. Interface utilisateur**
+
 - **HUD** :  
    - Score en haut à gauche.  
    - Barre de vie du joueur en bas à gauche.  
