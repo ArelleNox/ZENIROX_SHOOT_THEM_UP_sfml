@@ -13,14 +13,18 @@ enum ennemi {
 	Niveau2 = 2,
 	Niveau3 = 3
 };
+enum Direction {
+	up = 1,
+	down = 2
+};
 
 
 
 class Enemy {
 public:
 	int HP;
-	float velocity = 5;
-	float up = 0;
+	float velocity = 2;
+	Direction direction = up;
 	Sprite sprite;
 	Texture texture;
 	int AttackDamages;
@@ -34,7 +38,7 @@ public:
 	void setAttackAndHP();
 	Enemy();
 	~Enemy();
-	void Attack();
+	void enemyMove();
 };
 
 

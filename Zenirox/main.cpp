@@ -14,7 +14,7 @@ using namespace sf;
 
 int main() {
 
-	RenderWindow window(VideoMode(WIDTH, HEIGHT), "Shoot em up de fou-malade-qui-tue", Style::Default);
+	RenderWindow window(VideoMode(WIDTH, HEIGHT), "Shoot em up de fou-malade-qui-tue", Style::Fullscreen);
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
 	Player player;
@@ -25,7 +25,7 @@ int main() {
 	RectangleShape background;
 	background.setSize(Vector2f(1920, 1080));
 	Texture space;
-	if (!space.loadFromFile("background.jpg")) { cout << "Erreur chargement" << endl; return -1; }
+	if (!space.loadFromFile("palier1.jpg")) { cout << "Erreur chargement" << endl; return -1; }
 	background.setTexture(&space);
 	ProjectileManager manager;
 	bool tirEC = false;
@@ -34,9 +34,9 @@ int main() {
 
 		Event event;
 		if (Keyboard::isKeyPressed(Keyboard::Up))
-			player.sprite.move(0, -5);
+			player.sprite.move(0, -10);
 		if (Keyboard::isKeyPressed(Keyboard::Down))
-			player.sprite.move(0, 5);
+			player.sprite.move(0, 10);
 		if (Mouse::isButtonPressed(Mouse::Left) && player.attackClock.getElapsedTime().asSeconds() > player.attackCooldown.asSeconds())
 		{
 			player.attackClock.restart();
@@ -58,7 +58,7 @@ int main() {
 		{
 			window.draw(manager.getProjectiles()[i]->sprite);
 			if(manager.getProjectiles()[i]->id == PLAYER)
-				manager.getProjectiles()[i]->sprite.move(7, 0);
+				manager.getProjectiles()[i]->sprite.move(14, 0);
 			if (manager.getProjectiles()[i]->id != PLAYER)
 				manager.getProjectiles()[i]->sprite.move(-7, 0);
 			manager.checkProjectileOutOfScreen(manager.getProjectiles()[i], enemyManager, player);
@@ -70,14 +70,21 @@ int main() {
 		}
 		for (auto i = 0; i < enemyManager.getEnemies().size(); i++)
 		{
-			if (enemyManager.getEnemies()[i]->attackClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->attackCooldown.asSeconds() && enemyManager.getEnemies()[i]->rechargeClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->rechargeCooldown.asSeconds())
+			enemyManager.getEnemies()[i]->enemyMove();
+			if(enemyManager.getEnemies()[i]->rechargeClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->rechargeCooldown.asSeconds())
 			{
-				enemyManager.getEnemies()[i]->attackClock.restart();
-				enemyManager.getEnemies()[i]->rechargeClock.restart();
-				manager.creerProjectile(enemyManager.getEnemies()[i]);
-				manager.getProjectiles()[manager.getProjectiles().size() - 1]->sprite.setPosition(enemyManager.getEnemies()[i]->sprite.getPosition().x, enemyManager.getEnemies()[i]->sprite.getPosition().y - 170);
+				
+				if (enemyManager.getEnemies()[i]->attackClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->attackCooldown.asSeconds())
+				{
+					enemyManager.getEnemies()[i]->attackClock.restart();
+					manager.creerProjectile(enemyManager.getEnemies()[i]);
+					manager.getProjectiles()[manager.getProjectiles().size() - 1]->sprite.setPosition(enemyManager.getEnemies()[i]->sprite.getPosition().x, enemyManager.getEnemies()[i]->sprite.getPosition().y - 170);
 
+				}
+				if(enemyManager.getEnemies()[i]->rechargeClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->rechargeCooldown.asSeconds() *2 )
+					enemyManager.getEnemies()[i]->rechargeClock.restart();
 			}
+
 		}
 		window.draw(player.sprite);
 		window.display();

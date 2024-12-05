@@ -12,3 +12,12 @@ int Player::setSprite() {
 }
 
 Player::Player() : attackCooldown(seconds(0.2)) {}
+
+bool Player::checkOutOfScreen() {
+	if (sprite.getPosition().y < 0)
+		return false;
+	else if (sprite.getPosition().y > HEIGHT - sprite.getGlobalBounds().height)
+		return false;
+	else
+		return true;
+}

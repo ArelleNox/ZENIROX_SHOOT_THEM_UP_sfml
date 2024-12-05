@@ -36,7 +36,7 @@ void Enemy::setAttackAndHP() {
 		break;
 	case Niveau3:
 		AttackDamages = 15;
-		HP = 300;
+		HP = 150;
 		break;
 	default:
 		break;
@@ -46,6 +46,26 @@ void Enemy::setAttackAndHP() {
 Enemy::Enemy() {}
 Enemy::~Enemy() {
 	{ cout << "Un ennemi a ete detruit" << endl; };
+}
+void Enemy::enemyMove() {
+	if (sprite.getPosition().y < 330)
+		direction = down;
+	else if (sprite.getPosition().y > HEIGHT)
+		direction = up;
+	if (id == Niveau2)
+	{
+		if (direction == up)
+			sprite.move(0, -velocity);
+		else
+			sprite.move(0, velocity);
+	}
+	if (id == Niveau3)
+	{
+		if (direction == up)
+			sprite.move(0, -velocity);
+		else
+			sprite.move(0, velocity);
+	}
 }
 
 
@@ -89,12 +109,12 @@ Enemy::~Enemy() {
 			e->rechargeCooldown = seconds(0);
 			break;
 		case ENNEMI2:
-			e->attackCooldown = seconds(0.2);
+			e->attackCooldown = seconds(0.5);
 			e->rechargeCooldown = seconds(0);
 			break;
 		case ENNEMI3:
 			e->attackCooldown = seconds(0.2);
-			e->rechargeCooldown = seconds(0);
+			e->rechargeCooldown = seconds(1);
 			break;
 		case BOSS1:
 			e->attackCooldown = seconds(0.08);

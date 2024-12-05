@@ -20,6 +20,7 @@ public:
 	ID id = PLAYER;
 	int setSprite();
 	Player();
+	bool checkOutOfScreen();
 };
 
 
