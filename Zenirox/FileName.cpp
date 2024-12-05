@@ -15,7 +15,7 @@ Time playerAttackCooldown = seconds(0.2);
 
 int main() {
 
-	RenderWindow window(VideoMode(WIDTH, HEIGHT), "Shoot em up de fou-malade-qui-tue", Style::Default);
+	RenderWindow window(VideoMode(WIDTH, HEIGHT), "Zenirox", Style::Default);
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
 	Player player;
@@ -26,7 +26,7 @@ int main() {
 	RectangleShape background;
 	background.setSize(Vector2f(1920, 1080));
 	Texture space;
-	if (!space.loadFromFile("background.jpg")) { cout << "Erreur chargement" << endl; return -1; }
+	if (!space.loadFromFile("palier1.jpg")) { cout << "Erreur chargement" << endl; return -1; }
 	background.setTexture(&space);
 	ProjectileManager manager;
 	bool tirEC = false;
