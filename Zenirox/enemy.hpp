@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "globalvar.hpp"
 
 using namespace std;
 using namespace sf;
@@ -13,6 +14,8 @@ enum ennemi {
 	Niveau3 = 3
 };
 
+
+
 class Enemy {
 public:
 	int HP;
@@ -20,12 +23,18 @@ public:
 	float up = 0;
 	Sprite sprite;
 	Texture texture;
-	int Attack;
+	int AttackDamages;
 	ennemi level;
+	ID id;
+	Clock attackClock;
+	Time attackCooldown;
+	Clock rechargeClock;
+	Time rechargeCooldown;
 	int setTexture();
 	void setAttackAndHP();
-	Enemy() {}
-	~Enemy() { cout << "Un ennemi a ete detruit" << endl; };
+	Enemy();
+	~Enemy();
+	void Attack();
 };
 
 

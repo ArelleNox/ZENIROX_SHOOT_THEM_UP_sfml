@@ -2,8 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-const float HEIGHT = 1080;
-const float WIDTH = 1920;
+
 
 int Enemy::setTexture() {
 	switch (level)
@@ -28,22 +27,26 @@ void Enemy::setAttackAndHP() {
 	switch (level)
 	{
 	case Niveau1:
-		Attack = 5;
-		HP = 10;
+		AttackDamages = 5;
+		HP = 100;
 		break;
 	case Niveau2:
-		Attack = 10;
-		HP = 40;
+		AttackDamages = 10;
+		HP = 200;
 		break;
 	case Niveau3:
-		Attack = 15;
-		HP = 70;
+		AttackDamages = 15;
+		HP = 300;
 		break;
 	default:
 		break;
 	}
 }
 
+Enemy::Enemy() {}
+Enemy::~Enemy() {
+	{ cout << "Un ennemi a ete detruit" << endl; };
+}
 
 
 
@@ -65,6 +68,50 @@ void Enemy::setAttackAndHP() {
 		e->sprite.setPosition(HEIGHT / 1.5, WIDTH/4);
 		e->sprite.rotate(-90);
 		e->sprite.setScale(2, 2);
+		switch (defLevel)
+		{
+		case Niveau1:
+			e->id = ENNEMI1;
+			break;
+		case Niveau2:
+			e->id = ENNEMI2;
+			break;
+		case Niveau3:
+			e->id = ENNEMI3;
+			break;
+		default:
+			break;
+		}
+		switch (e->id)
+		{
+		case ENNEMI1:
+			e->attackCooldown = seconds(0.5);
+			e->rechargeCooldown = seconds(0);
+			break;
+		case ENNEMI2:
+			e->attackCooldown = seconds(0.2);
+			e->rechargeCooldown = seconds(0);
+			break;
+		case ENNEMI3:
+			e->attackCooldown = seconds(0.2);
+			e->rechargeCooldown = seconds(0);
+			break;
+		case BOSS1:
+			e->attackCooldown = seconds(0.08);
+			e->rechargeCooldown = seconds(2);
+			break;
+		case BOSS2:
+			e->attackCooldown = seconds(0.2);
+			e->rechargeCooldown = seconds(0);
+			break;
+		case BOSS3:
+			e->attackCooldown = seconds(0.2);
+			e->rechargeCooldown = seconds(0);
+			break;
+		case BOSS4:
+			e->attackCooldown = seconds(0.02);
+			e->rechargeCooldown = seconds(2);
+		}
 		enemies.push_back(e);
 		return e;
 	}

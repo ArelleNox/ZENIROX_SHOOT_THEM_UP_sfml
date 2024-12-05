@@ -19,11 +19,19 @@ ProjectileManager::~ProjectileManager() {
 		}
 		projectiles.clear();
 	}
-	Projectile* ProjectileManager::creerProjectile() {
+	Projectile* ProjectileManager::creerProjectile(Player player) {
 			Projectile* p = new Projectile();
+			p->id = player.id;
 			p->setProjectile();
 			projectiles.push_back(p);
 			return p;
+	}
+	Projectile* ProjectileManager::creerProjectile(Enemy* enemy) {
+		Projectile* p = new Projectile();
+		p->id = enemy->id;
+		p->setProjectile();
+		projectiles.push_back(p);
+		return p;
 	}
 	void ProjectileManager::detruireProjectile(Projectile* projectile)
 	{
@@ -41,12 +49,19 @@ ProjectileManager::~ProjectileManager() {
 		else
 			for (auto i = 0; i < manager.getEnemies().size(); i++)
 			{
-				if (projectile->sprite.getGlobalBounds().intersects(manager.getEnemies()[i]->sprite.getGlobalBounds()))
+				if (projectile->sprite.getGlobalBounds().intersects(manager.getEnemies()[i]->sprite.getGlobalBounds()) && projectile->id == PLAYER)
 				{
 					detruireProjectile(projectile);
 					manager.getEnemies()[i]->HP -= player.attack;
 					break;
 				}
+				if (projectile->sprite.getGlobalBounds().intersects(player.sprite.getGlobalBounds()) && projectile->id != PLAYER)
+				{
+					detruireProjectile(projectile);
+					player.HP -= manager.getEnemies()[i]->AttackDamages;
+					break;
+				}
+				
 			}
 	}
 

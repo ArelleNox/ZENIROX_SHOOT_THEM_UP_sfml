@@ -4,15 +4,15 @@
 #include <vector>
 #include "enemy.hpp"
 #include "player.hpp"
+#include "globalvar.hpp"
 using namespace sf;
 using namespace std;
- 
-const float HEIGHT = 1080;
-const float WIDTH = 1920;
+
 
 class Projectile {
 public:
 	CircleShape sprite;
+	ID id;
 	Projectile();
 	~Projectile();
 	void setProjectile();
@@ -23,7 +23,8 @@ private:
 	vector<Projectile*> projectiles;
 public:
 	~ProjectileManager();
-	Projectile* creerProjectile();
+	Projectile* creerProjectile(Player player);
+	Projectile* creerProjectile(Enemy* enemy);
 	void detruireProjectile(Projectile* projectile);
 	void checkProjectileOutOfScreen(Projectile* projectile, EnemyManager &manager, Player &player);
 	void checkProjectileCollisions(Projectile* projectile, EnemyManager& manager, Player& player);
