@@ -6,7 +6,7 @@
 #include "player.hpp"
 using namespace sf;
 using namespace std;
-
+ 
 const float HEIGHT = 1080;
 const float WIDTH = 1920;
 
