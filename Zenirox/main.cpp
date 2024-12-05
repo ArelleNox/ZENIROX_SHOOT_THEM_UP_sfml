@@ -1,78 +1,90 @@
-#include <SFML/Graphics.hpp>
 #include <iostream>
+#include "projectile.hpp"
+#include "player.hpp"
+#include "enemy.hpp"
+
+
 using namespace std;
 using namespace sf;
 
-const float HEIGHT = 1080;
-const float WIDTH = 1920;
 
-class Projectile {
-public:
-	CircleShape sprite;
-};
+
+
+
 
 int main() {
 
-	RenderWindow window(VideoMode(HEIGHT, WIDTH), "Shoot em up de fou-malade-qui-tue", Style::Fullscreen);
+	RenderWindow window(VideoMode(WIDTH, HEIGHT), "Shoot em up de fou-malade-qui-tue", Style::Default);
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
-	Sprite player;
-	player.setPosition(HEIGHT / 2, WIDTH / 2);
-	player.rotate(90);
-	Texture player4;
-	if (!player4.loadFromFile("C:\\Users\\rdumont\\source\\repos\\Shoot em up\\ship.png")) { cout << "Erreur chargement" << endl; return -1; }
-	player.setTexture(player4);
+	Player player;
+	player.setSprite();
+	EnemyManager enemyManager;
+	enemyManager.creerEnemy(Niveau3);
+
 	RectangleShape background;
 	background.setSize(Vector2f(1920, 1080));
 	Texture space;
-	if (!space.loadFromFile("C:\\Users\\rdumont\\source\\repos\\Shoot em up\\background.jpg")) { cout << "Erreur chargement" << endl; return -1; }
+	if (!space.loadFromFile("background.jpg")) { cout << "Erreur chargement" << endl; return -1; }
 	background.setTexture(&space);
-	Projectile tir;
-	tir.sprite.setRadius(5);
-	tir.sprite.setFillColor(Color::Red);
-
+	ProjectileManager manager;
 	bool tirEC = false;
 	while (window.isOpen())
 	{
+
 		Event event;
 		if (Keyboard::isKeyPressed(Keyboard::Up))
-			player.move(0, -5);
+			player.sprite.move(0, -5);
 		if (Keyboard::isKeyPressed(Keyboard::Down))
-			player.move(0, 5);
+			player.sprite.move(0, 5);
+		if (Mouse::isButtonPressed(Mouse::Left) && player.attackClock.getElapsedTime().asSeconds() > player.attackCooldown.asSeconds())
+		{
+			player.attackClock.restart();
+			manager.creerProjectile(player);
+			manager.getProjectiles()[manager.getProjectiles().size() - 1]->sprite.setPosition(player.sprite.getPosition().x, player.sprite.getPosition().y + 70);
+		}
 		while (window.pollEvent(event))
 		{
 			if (event.type == Event::Closed)
 				window.close();
 			if (event.type == Event::KeyPressed)
-				if (event.key.code == Keyboard::Escape)
+				if (event.key.code == Keyboard::Enter)
 					window.close();
-			if (event.type == Event::MouseButtonPressed)
-				if (event.mouseButton.button == Mouse::Left)
-					tirEC = true;
-
-
+			
 		}
-
 		window.clear();
 		window.draw(background);
-		window.draw(player);
-		if (tir.sprite.getPosition().x > WIDTH)
+		for (auto i = 0; i < manager.getProjectiles().size(); i++)
 		{
-			tirEC = false;
+			window.draw(manager.getProjectiles()[i]->sprite);
+			if(manager.getProjectiles()[i]->id == PLAYER)
+				manager.getProjectiles()[i]->sprite.move(7, 0);
+			if (manager.getProjectiles()[i]->id != PLAYER)
+				manager.getProjectiles()[i]->sprite.move(-7, 0);
+			manager.checkProjectileOutOfScreen(manager.getProjectiles()[i], enemyManager, player);
+		}
+		for (auto i = 0; i < enemyManager.getEnemies().size(); i++)
+		{
+			window.draw(enemyManager.getEnemies()[i]->sprite);
+			enemyManager.checkEnemy(enemyManager.getEnemies()[i]);
+		}
+		for (auto i = 0; i < enemyManager.getEnemies().size(); i++)
+		{
+			if (enemyManager.getEnemies()[i]->attackClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->attackCooldown.asSeconds() && enemyManager.getEnemies()[i]->rechargeClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->rechargeCooldown.asSeconds())
+			{
+				enemyManager.getEnemies()[i]->attackClock.restart();
+				enemyManager.getEnemies()[i]->rechargeClock.restart();
+				manager.creerProjectile(enemyManager.getEnemies()[i]);
+				manager.getProjectiles()[manager.getProjectiles().size() - 1]->sprite.setPosition(enemyManager.getEnemies()[i]->sprite.getPosition().x, enemyManager.getEnemies()[i]->sprite.getPosition().y - 170);
 
+			}
 		}
-		if (tirEC == false)
-		{
-			tir.sprite.setPosition(player.getPosition().x, player.getPosition().y);
-		}
-		if (tirEC == true)
-		{
-
-			window.draw(tir.sprite);
-			tir.sprite.move(5, 0);
-		}
+		window.draw(player.sprite);
 		window.display();
-	}
 
+
+
+
+	}
 	return 0;
 }

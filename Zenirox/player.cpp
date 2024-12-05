@@ -2,8 +2,7 @@
 #include <iostream>
 using namespace std;
 
-const float HEIGHT = 1080;
-const float WIDTH = 1920;
+
 
 int Player::setSprite() {
 	if (!texture.loadFromFile("ship.png")) { cout << "Texture du vaisseau de joueur de base non trouvee" << endl; return -1; }
@@ -11,3 +10,5 @@ int Player::setSprite() {
 	sprite.rotate(90);
 	sprite.setPosition(200, HEIGHT / 2);
 }
+
+Player::Player() : attackCooldown(seconds(0.2)) {}
