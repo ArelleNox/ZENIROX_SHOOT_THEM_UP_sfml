@@ -141,12 +141,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="enemy.cpp" />
     <ClCompile Include="FileName.cpp" />
-    <ClCompile Include="level1.cpp" />
-    <ClCompile Include="main2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="level1.hpp" />
+    <ClInclude Include="enemy.hpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="projectile.cpp" />
   </ItemGroup>

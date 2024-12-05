@@ -6,22 +6,21 @@
 
 **Titre** : Project Noël.  
 **Genre** : Shoot'em Up.
-**Style Visuel** : Pixel Art rétro avec effets modernes (particules, explosions dynamiques).  
+**Style Visuel** : Pixel Art (particules, explosions dynamiques).  
 **Plateforme(s)** : PC .  
 **Public cible** : Amateurs de jeux d’arcade et de défis rapides, âgés de 8 ans et plus.  
-**Résumé** :  
-Dans un univers futuriste en guerre, le joueur incarne un pilote de chasse spatial, chargé de repousser une invasion alien menaçant l'existence de sa planète. Le jeu met l'accent sur des combats intenses, des boss épiques et des patterns de tir complexes.
+**Résumé** :  Après une invasion extraterrestre. La Terre decide alors d'envahir la planète ennemis Zenirox.
 
 ---
 
 ## **2. Concept de Base**
 
 - **Gameplay principal** : Le joueur contrôle un vaisseau spatial, détruit des vagues d’ennemis et évite des projectiles et des obstacle pour progresser dans les niveaux.  
-- **Objectifs** : 
-  - Court terme : Survivre et accumuler des points en détruisant les ennemis.
+- **Objectifs** : Détruire les vagues d'ennemis pour pouvoir tuer le Boss de la planète Zenirox.
+  - Court terme : Survivre et accumuler des  en détruisant les ennemis.
   - Long terme : Compléter les niveaux, vaincre les boss et sauver la planète.  
-- **Déroulement** : Le jeu est divisé en plusieurs niveaux avec une difficulté croissante, chacun se terminant par un combat de boss unique.  
-- **Style de progression** : Défilement vertical automatique, avec des phases de répit pour récupérer des power-ups et réorganiser ses stratégies.
+- **Déroulement** : Le jeu est divisé en plusieurs niveaux avec une difficulté croissante, chacun se terminant par un combat de boss unique. Pour terminer le jeu il faut donc tué le Boss du dernier niveau. 
+- **Style de progression** : Défilement vertical automatique, avec des phases de répit pour récupérer des power-ups et réorganiser ses stratégies entre chaque niveau.
 
 ---
 
@@ -29,17 +28,18 @@ Dans un univers futuriste en guerre, le joueur incarne un pilote de chasse spati
 
 ### **3.1. Contrôle du joueur**
 - **Déplacement** : Mouvement en 2 des touches directionnelles (clavier).  
-- **Tir principal** : Tir automatique en maintenant une touche .  
+- **Tir principal** : Tir automatique en maintenant en faisant un clique gauche sur la souris .  
 - **Tir secondaire** : Attaque spéciale, dépendant des power-ups collectés.  
 - **Obstacles** : Présence d'obstacles apportants des malus ou infligeants des dégâts au joueur .
 
 ### **3.2. Système de Scoring**
+- **Score** : Une piece est equivaut à un poitnt de score pour obtenir des pièce il faut donc tué des ennemis.
 - **Multiplicateurs** : Augmentez vos points en détruisant des ennemis et en ramassant des bonus.
 - **Diviseur** : Diminuez vos points en touchant un obstacle ou en touchant un malus .
 - **Shop** : Possibilité d'acheter des skins avec le score et/ou l'argent réel
   
 ### **3.3. Power-ups**
-1. **Armes** :  
+1. **Boost d'attaque**:  
    - Augmente les dégats
    - Augmente la vitesse de tir    
 2. **Boosts défensifs** :  
@@ -47,7 +47,7 @@ Dans un univers futuriste en guerre, le joueur incarne un pilote de chasse spati
    - Ralentissement des projectiles ennemis.
    - Dégâts des enemis divisé par 2  
 3. **Économies** :  
-   - Collecte de Spatium (pièce) pour acheter des skins, des sons et des bonus permanants entre les niveaux.  
+   - Collecte de pièce pour acheter des skins, des sons et des bonus permanants entre les niveaux.  
 
 ### **3.4. Difficulté**
 - **Modes de jeu** :  
@@ -62,26 +62,25 @@ Dans un univers futuriste en guerre, le joueur incarne un pilote de chasse spati
 ### **4.1. Types d’ennemis**
 1. **Basique** :  
    - Faible santé, tirent lentement, zero mouvement (nombreux).  
-   - Exemple : Drone alien de reconnaissance.  
+   - Exemple : vaisseau alien de reconnaissance.  
 2. **Intermédiaire** :  
-   - Mouvements verticaux , tirs rapides.  
-   - Exemple : Chasseur alien.  
+   - Mouvements Forte santé , tirs lent.  
+   - Exemple : Vaisseaux tank alien.  
 3. **Avancé** :  
-   - Déplacement Rapide, tirs rapides.  
-   - Exemple : Robot autonome.  
+   - Déplacement rapide, santé normal, tirs rapides.  
+   - Exemple : Vaisseau d'attaque.  
 
 ### **4.2. Boss**
 Chaque niveau se termine par un boss avec des mécaniques uniques :
-- **Niveau 1 : Sentinel Alpha**  
-   -  principale : Mitrailllette avec beaucoup de dégâts.  
-   - Pattern :
-- **Niveau 2 : Kraken-7**  
+- **Niveau 1 : Sentinel**  
+   -  principale : Mitraillette avec beaucoup de dégâts.
+- **Niveau 2 : Trespasser**  
    -  principale : déplacement rapide
    - Pattern :
-- **Niveau 3 : Kraken-7**
+- **Niveau 3 : Scunner**
    -  principale : Bouclier
    - Pattern :
-- **Niveau 4 : Kraken-7**
+- **Niveau 4 : Reckoner**
    -  principale : combinaison de tous les boss précédant, amplifié avec malus qui lui rendent de la vie
 ---
 
@@ -108,7 +107,7 @@ Chaque niveau se termine par un boss avec des mécaniques uniques :
    - Ennemi : Big Boss  
 
 ### **5.2. Rythme**
--Augmentation du nombre d'ennemis pour chaque pali  
+-Augmentation du nombre d'ennemis pour chaque palier  
 
 ---
 
@@ -117,11 +116,13 @@ Chaque niveau se termine par un boss avec des mécaniques uniques :
 ### **6.1. Style Visuel**
 - Pixel art rétro combiné avec des effets modernes (glow, particules).  
 - Palette de couleurs évoluant selon les niveaux :  
-  - Niveau 1 : Tons froids (bleu, gris).  
-  - Niveau 2 : Couleurs vives et métalliques (orange, argent).  
-  - Niveau 3 : Palette sombre avec accents néon (vert, violet).  
+  - Niveau 1 : Tons Terrestre (bleu, vert).  
+  - Niveau 2 : Tons spatiaux (bleu).  
+  - Niveau 3 : Atmosphère extraterrestre(violet, bleu, rouge).
+  - Niveaux 4 : Planète extraterrestre (rose, violet, vert).  
 
 ### **6.2. Interface utilisateur**
+
 - **HUD** :  
    - Score en haut à gauche.  
    - Barre de vie du joueur en bas à gauche.  
