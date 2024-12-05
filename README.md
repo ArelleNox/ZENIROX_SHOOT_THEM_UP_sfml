@@ -6,22 +6,21 @@
 
 **Titre** : Project Noël.  
 **Genre** : Shoot'em Up.
-**Style Visuel** : Pixel Art rétro avec effets modernes (particules, explosions dynamiques).  
+**Style Visuel** : Pixel Art (particules, explosions dynamiques).  
 **Plateforme(s)** : PC .  
 **Public cible** : Amateurs de jeux d’arcade et de défis rapides, âgés de 8 ans et plus.  
 **Résumé** :  
-Dans un univers futuriste en guerre, le joueur incarne un pilote de chasse spatial, chargé de repousser une invasion alien menaçant l'existence de sa planète. Le jeu met l'accent sur des combats intenses, des boss épiques et des patterns de tir complexes.
-
+Après une invasion extraterrestre. La Terre decide alors d'envahir la planète ennemis Zenirox.
 ---
 
 ## **2. Concept de Base**
 
 - **Gameplay principal** : Le joueur contrôle un vaisseau spatial, détruit des vagues d’ennemis et évite des projectiles et des obstacle pour progresser dans les niveaux.  
-- **Objectifs** : 
-  - Court terme : Survivre et accumuler des points en détruisant les ennemis.
+- **Objectifs** : Détruire les vagues d'ennemis pour pouvoir tuer le Boss de la planète Zenirox.
+  - Court terme : Survivre et accumuler des  en détruisant les ennemis.
   - Long terme : Compléter les niveaux, vaincre les boss et sauver la planète.  
-- **Déroulement** : Le jeu est divisé en plusieurs niveaux avec une difficulté croissante, chacun se terminant par un combat de boss unique.  
-- **Style de progression** : Défilement vertical automatique, avec des phases de répit pour récupérer des power-ups et réorganiser ses stratégies.
+- **Déroulement** : Le jeu est divisé en plusieurs niveaux avec une difficulté croissante, chacun se terminant par un combat de boss unique. Pour terminer le jeu il faut donc tué le Boss du dernier niveau  
+- **Style de progression** : Défilement vertical automatique, avec des phases de répit pour récupérer des power-ups et réorganiser ses stratégies entre chaque niveau.
 
 ---
 
