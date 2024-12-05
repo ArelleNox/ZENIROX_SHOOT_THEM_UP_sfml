@@ -64,7 +64,7 @@
    - Faible santé, tirent lentement, zero mouvement (nombreux).  
    - Exemple : vaisseau alien de reconnaissance.  
 2. **Intermédiaire** :  
-   - Mouvements LENT Forte santé , tirs lent.  
+   - Mouvements lent, Forte santé , tirs lent.  
    - Exemple : Vaisseaux tank alien.  
 3. **Avancé** :  
    - Déplacement rapide, santé normal, tirs rapides.  
