@@ -9,8 +9,7 @@
 **Style Visuel** : Pixel Art (particules, explosions dynamiques).  
 **Plateforme(s)** : PC .  
 **Public cible** : Amateurs de jeux d’arcade et de défis rapides, âgés de 8 ans et plus.  
-**Résumé** :  
-Après une invasion extraterrestre. La Terre decide alors d'envahir la planète ennemis Zenirox.
+**Résumé** :  Après une invasion extraterrestre. La Terre decide alors d'envahir la planète ennemis Zenirox.
 ---
 
 ## **2. Concept de Base**
