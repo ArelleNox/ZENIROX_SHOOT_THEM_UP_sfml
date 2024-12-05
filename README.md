@@ -33,7 +33,7 @@
 - **Obstacles** : Présence d'obstacles apportants des malus ou infligeants des dégâts au joueur .
 
 ### **3.2. Système de Scoring**
-- **Score** : Une piece est equivaut à un poitnt de score.
+- **Score** : Une piece est equivaut à un poitnt de score pour obtenir des pièce il faut donc tué des ennemis.
 - **Multiplicateurs** : Augmentez vos points en détruisant des ennemis et en ramassant des bonus.
 - **Diviseur** : Diminuez vos points en touchant un obstacle ou en touchant un malus .
 - **Shop** : Possibilité d'acheter des skins avec le score et/ou l'argent réel
@@ -47,7 +47,7 @@
    - Ralentissement des projectiles ennemis.
    - Dégâts des enemis divisé par 2  
 3. **Économies** :  
-   - Collecte de Spatium (pièce) pour acheter des skins, des sons et des bonus permanants entre les niveaux.  
+   - Collecte de pièce pour acheter des skins, des sons et des bonus permanants entre les niveaux.  
 
 ### **3.4. Difficulté**
 - **Modes de jeu** :  
@@ -62,26 +62,25 @@
 ### **4.1. Types d’ennemis**
 1. **Basique** :  
    - Faible santé, tirent lentement, zero mouvement (nombreux).  
-   - Exemple : Drone alien de reconnaissance.  
+   - Exemple : vaisseau alien de reconnaissance.  
 2. **Intermédiaire** :  
-   - Mouvements verticaux , tirs rapides.  
-   - Exemple : Chasseur alien.  
+   - Mouvements Forte santé , tirs lent.  
+   - Exemple : Vaisseaux tank alien.  
 3. **Avancé** :  
-   - Déplacement Rapide, tirs rapides.  
-   - Exemple : Robot autonome.  
+   - Déplacement rapide, santé normal, tirs rapides.  
+   - Exemple : Vaisseau d'attaque.  
 
 ### **4.2. Boss**
 Chaque niveau se termine par un boss avec des mécaniques uniques :
-- **Niveau 1 : Sentinel Alpha**  
-   -  principale : Mitraillette avec beaucoup de dégâts.  
-   - Pattern :
-- **Niveau 2 : Kraken-7**  
+- **Niveau 1 : Sentinel**  
+   -  principale : Mitraillette avec beaucoup de dégâts.
+- **Niveau 2 : Trespasser**  
    -  principale : déplacement rapide
    - Pattern :
-- **Niveau 3 : Kraken-7**
+- **Niveau 3 : Scunner**
    -  principale : Bouclier
    - Pattern :
-- **Niveau 4 : Kraken-7**
+- **Niveau 4 : Reckoner**
    -  principale : combinaison de tous les boss précédant, amplifié avec malus qui lui rendent de la vie
 ---
 
