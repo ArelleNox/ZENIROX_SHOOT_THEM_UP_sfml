@@ -35,7 +35,7 @@ int main() {
 	bool tirEC = false;
 	while (window.isOpen())
 	{
-
+		player.checkOutOfScreen();
 		Event event;
 		if (Keyboard::isKeyPressed(Keyboard::Up))
 			player.sprite.move(0, -10);
@@ -101,6 +101,7 @@ int main() {
 			}
 
 		}
+		player.checkOutOfScreen();
 		window.draw(player.sprite);
 		window.display();
 
