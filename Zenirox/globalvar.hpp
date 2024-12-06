@@ -14,6 +14,9 @@ enum ID {
 	BOSS4
 };
 
+
+
+
 const float HEIGHT = 1080;
 const float WIDTH = 1920;
 

@@ -2,6 +2,7 @@
 #include "projectile.hpp"
 #include "player.hpp"
 #include "enemy.hpp"
+#include "Background.hpp"
 
 
 using namespace std;
@@ -14,19 +15,22 @@ using namespace sf;
 
 int main() {
 
-	RenderWindow window(VideoMode(WIDTH, HEIGHT), "Shoot em up de fou-malade-qui-tue", Style::Fullscreen);
+	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Fullscreen);
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
+
 	Player player;
 	player.setSprite();
+
 	EnemyManager enemyManager;
 	enemyManager.creerEnemy(Niveau3);
 
-	RectangleShape background;
-	background.setSize(Vector2f(1920, 1080));
-	Texture space;
-	if (!space.loadFromFile("palier1.jpg")) { cout << "Erreur chargement" << endl; return -1; }
-	background.setTexture(&space);
+//	Background background("palier1.jpg", -1);
+	
+
+	// Initialiser l'horloge pour gérer le deltaTime
+//	sf::Clock clock;
+
 	ProjectileManager manager;
 	bool tirEC = false;
 	while (window.isOpen())
@@ -52,8 +56,19 @@ int main() {
 					window.close();
 			
 		}
+
+		// Calcul du deltaTime
+//		float deltaTime = clock.restart().asSeconds();
+
+		// Mettre à jour l'arrière-plan
+//		background.update(deltaTime);
+
+
 		window.clear();
-		window.draw(background);
+
+		// Dessiner l'arrière-plan
+//		background.draw(window);
+
 		for (auto i = 0; i < manager.getProjectiles().size(); i++)
 		{
 			window.draw(manager.getProjectiles()[i]->sprite);

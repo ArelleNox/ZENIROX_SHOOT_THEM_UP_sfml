@@ -1,5 +1,6 @@
 #include "player.hpp"
 #include <iostream>
+#include "globalvar.hpp"
 using namespace std;
 
 
