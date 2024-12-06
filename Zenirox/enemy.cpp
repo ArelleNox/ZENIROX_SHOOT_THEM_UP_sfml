@@ -48,9 +48,9 @@ Enemy::~Enemy() {
 	{ cout << "Un ennemi a ete detruit" << endl; };
 }
 void Enemy::enemyMove() {
-	if (sprite.getPosition().y < 330)
+	if (sprite.getPosition().y < 0)
 		direction = down;
-	else if (sprite.getPosition().y > HEIGHT)
+	else if (sprite.getPosition().y > HEIGHT - sprite.getGlobalBounds().height)
 		direction = up;
 	if (id == Niveau2)
 	{
@@ -79,14 +79,13 @@ void Enemy::enemyMove() {
 		enemies.clear();
 	}
 
-	Enemy* EnemyManager::creerEnemy(ennemi defLevel)
+	Enemy* EnemyManager::creerEnemy(ennemi defLevel, float width, float height)
 	{
 		Enemy* e = new Enemy();
 		e->level = defLevel;
 		e->setTexture();
 		e->setAttackAndHP();
-		e->sprite.setPosition(HEIGHT / 1.5, WIDTH/4);
-		e->sprite.rotate(-90);
+		e->sprite.setPosition(width, height);
 		e->sprite.setScale(2, 2);
 		switch (defLevel)
 		{
@@ -105,15 +104,15 @@ void Enemy::enemyMove() {
 		switch (e->id)
 		{
 		case ENNEMI1:
-			e->attackCooldown = seconds(0.5);
+			e->attackCooldown = seconds(3);
 			e->rechargeCooldown = seconds(0);
 			break;
 		case ENNEMI2:
-			e->attackCooldown = seconds(0.5);
+			e->attackCooldown = seconds(1.5);
 			e->rechargeCooldown = seconds(0);
 			break;
 		case ENNEMI3:
-			e->attackCooldown = seconds(0.2);
+			e->attackCooldown = seconds(1);
 			e->rechargeCooldown = seconds(1);
 			break;
 		case BOSS1:

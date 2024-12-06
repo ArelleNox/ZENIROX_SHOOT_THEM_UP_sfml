@@ -12,6 +12,7 @@ enum palier {
 
 class Background {
 private:
+
     
     float scrollSpeed;
 

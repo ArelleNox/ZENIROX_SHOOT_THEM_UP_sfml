@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 #include "projectile.hpp"
 #include "player.hpp"
 #include "enemy.hpp"
@@ -15,8 +16,8 @@ using namespace sf;
 
 
 int main() {
-
-	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Default);
+	srand(time(NULL));
+	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Fullscreen);
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
 
@@ -24,18 +25,22 @@ int main() {
 	player.setSprite();
 
 	EnemyManager enemyManager;
-	enemyManager.creerEnemy(Niveau3);
+	enemyManager.creerEnemy(Niveau1, 1600, 500);
+	enemyManager.creerEnemy(Niveau2, 1000, 800);
+	enemyManager.creerEnemy(Niveau3, 500, 700);
+	enemyManager.creerEnemy(Niveau1, 1600, 100);
+	enemyManager.creerEnemy(Niveau1, 1600, 300);
 
-	Background background("palier1.jpg",-10.f);
+	Background background("palier1.png",-15.f);
 
 	Starparallaxe star("star.png",-300.f);
-
 
 	// Initialiser l'horloge pour gérer le deltaTime
 	sf::Clock clock;
 
 	ProjectileManager manager;
 	bool tirEC = false;
+
 	while (window.isOpen())
 	{
 		player.checkOutOfScreen();
@@ -48,10 +53,10 @@ int main() {
 		{
 			player.attackClock.restart();
 			manager.creerProjectile(player);
-			manager.getProjectiles()[manager.getProjectiles().size() - 1]->sprite.setPosition(player.sprite.getPosition().x, player.sprite.getPosition().y + 70);
+			manager.getProjectiles()[manager.getProjectiles().size() - 1]->sprite.setPosition(player.sprite.getPosition().x, player.sprite.getGlobalBounds().top+40);
 		}
-		while (window.pollEvent(event))
-		{
+		
+		while (window.pollEvent(event)){
 			if (event.type == Event::Closed)
 				window.close();
 			if (event.type == Event::KeyPressed)
@@ -81,14 +86,16 @@ int main() {
 			if(manager.getProjectiles()[i]->id == PLAYER)
 				manager.getProjectiles()[i]->sprite.move(14, 0);
 			if (manager.getProjectiles()[i]->id != PLAYER)
-				manager.getProjectiles()[i]->sprite.move(-7, 0);
+				manager.getProjectiles()[i]->sprite.move(manager.getProjectiles()[i]->velocity, 0);
 			manager.checkProjectileOutOfScreen(manager.getProjectiles()[i], enemyManager, player);
 		}
+		
 		for (auto i = 0; i < enemyManager.getEnemies().size(); i++)
 		{
 			window.draw(enemyManager.getEnemies()[i]->sprite);
 			enemyManager.checkEnemy(enemyManager.getEnemies()[i]);
 		}
+		
 		for (auto i = 0; i < enemyManager.getEnemies().size(); i++)
 		{
 			enemyManager.getEnemies()[i]->enemyMove();
@@ -97,9 +104,26 @@ int main() {
 				
 				if (enemyManager.getEnemies()[i]->attackClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->attackCooldown.asSeconds())
 				{
+					int projVelocityChance = rand() % 3;
+					int projVelocity;
+					switch (projVelocityChance)
+					{
+					case 1:
+						projVelocity = -4;
+						break;
+					case 2:
+						projVelocity = -6;
+						break;
+					case 3:
+						projVelocity = -7;
+						break;
+					default:
+						projVelocity = -4;
+						break;
+					}
 					enemyManager.getEnemies()[i]->attackClock.restart();
-					manager.creerProjectile(enemyManager.getEnemies()[i]);
-					manager.getProjectiles()[manager.getProjectiles().size() - 1]->sprite.setPosition(enemyManager.getEnemies()[i]->sprite.getPosition().x, enemyManager.getEnemies()[i]->sprite.getPosition().y - 170);
+					manager.creerProjectile(enemyManager.getEnemies()[i], projVelocity);
+					
 
 				}
 				if(enemyManager.getEnemies()[i]->rechargeClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->rechargeCooldown.asSeconds() *2 )
@@ -107,6 +131,7 @@ int main() {
 			}
 
 		}
+		
 		player.checkOutOfScreen();
 		window.draw(player.sprite);
 		window.display();

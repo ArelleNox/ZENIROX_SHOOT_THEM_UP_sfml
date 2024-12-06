@@ -7,7 +7,7 @@ int Background::setTexture() {
 	switch (pal)
 	{
 	case palier1:
-		if (!texture.loadFromFile("palier1.jpg")) { cout << "Erreur lors du chargement de texure du palier niveau 1" << endl; return -1; }
+		if (!texture.loadFromFile("palier1.png")) { cout << "Erreur lors du chargement de texure du palier niveau 1" << endl; return -1; }
 		sprite.setTexture(texture);
 		break;
 	case palier2:
@@ -34,7 +34,7 @@ Background::Background(const std::string&texturePath, float speed)
         throw std::runtime_error("Failed to load texture");
     }
 
-	if (!texture2.loadFromFile("palier1 - Copie.jpg")) {
+	if (!texture2.loadFromFile("palier11.png")) {
         throw std::runtime_error("Failed to load texture");
     }
 
@@ -53,6 +53,7 @@ void Background::update(float deltaTime) {
 	if (sprite.getPosition().x + sprite.getGlobalBounds().width <= 0) {
 		sprite.setPosition(sprite2.getPosition().x + sprite2.getGlobalBounds().width, 0);
 	}
+	
 	if (sprite2.getPosition().x + sprite2.getGlobalBounds().width <= 0) {
 		sprite2.setPosition(sprite.getPosition().x + sprite.getGlobalBounds().width, 0);
 	}

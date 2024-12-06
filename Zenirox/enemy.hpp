@@ -48,7 +48,7 @@ private:
 	vector<Enemy*> enemies;
 public:
 	~EnemyManager();
-	Enemy* creerEnemy(ennemi defLevel);
+	Enemy* creerEnemy(ennemi defLevel, float width, float height);
 	void detruireEnemy(Enemy* enemy);
 	void checkEnemy(Enemy* enemy);
 	vector<Enemy* > getEnemies();

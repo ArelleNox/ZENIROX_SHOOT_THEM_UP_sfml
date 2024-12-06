@@ -11,11 +11,13 @@ using namespace std;
 
 class Projectile {
 public:
-	CircleShape sprite;
+	Sprite sprite;
+	Texture texture;
 	ID id;
+	int velocity;
 	Projectile();
 	~Projectile();
-	void setProjectile();
+	int setProjectile();
 };
 
 class ProjectileManager {
@@ -24,10 +26,9 @@ private:
 public:
 	~ProjectileManager();
 	Projectile* creerProjectile(Player player);
-	Projectile* creerProjectile(Enemy* enemy);
+	Projectile* creerProjectile(Enemy* enemy, int defVelocity);
 	void detruireProjectile(Projectile* projectile);
 	void checkProjectileOutOfScreen(Projectile* projectile, EnemyManager &manager, Player &player);
-	void checkProjectileCollisions(Projectile* projectile, EnemyManager& manager, Player& player);
 	vector<Projectile* > getProjectiles();
 };
 
