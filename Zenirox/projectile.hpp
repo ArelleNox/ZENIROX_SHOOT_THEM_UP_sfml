@@ -11,11 +11,12 @@ using namespace std;
 
 class Projectile {
 public:
-	CircleShape sprite;
+	Sprite sprite;
+	Texture texture;
 	ID id;
 	Projectile();
 	~Projectile();
-	void setProjectile();
+	int setProjectile();
 };
 
 class ProjectileManager {

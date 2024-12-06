@@ -45,7 +45,7 @@ int main() {
 		{
 			player.attackClock.restart();
 			manager.creerProjectile(player);
-			manager.getProjectiles()[manager.getProjectiles().size() - 1]->sprite.setPosition(player.sprite.getPosition().x, player.sprite.getPosition().y + 70);
+			manager.getProjectiles()[manager.getProjectiles().size() - 1]->sprite.setPosition(player.sprite.getPosition().x, player.sprite.getGlobalBounds().top+10);
 		}
 		while (window.pollEvent(event))
 		{
@@ -93,7 +93,7 @@ int main() {
 				{
 					enemyManager.getEnemies()[i]->attackClock.restart();
 					manager.creerProjectile(enemyManager.getEnemies()[i]);
-					manager.getProjectiles()[manager.getProjectiles().size() - 1]->sprite.setPosition(enemyManager.getEnemies()[i]->sprite.getPosition().x, enemyManager.getEnemies()[i]->sprite.getPosition().y - 170);
+					
 
 				}
 				if(enemyManager.getEnemies()[i]->rechargeClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->rechargeCooldown.asSeconds() *2 )

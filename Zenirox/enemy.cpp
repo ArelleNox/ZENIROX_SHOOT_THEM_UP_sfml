@@ -48,9 +48,9 @@ Enemy::~Enemy() {
 	{ cout << "Un ennemi a ete detruit" << endl; };
 }
 void Enemy::enemyMove() {
-	if (sprite.getPosition().y < 330)
+	if (sprite.getPosition().y < 0)
 		direction = down;
-	else if (sprite.getPosition().y > HEIGHT)
+	else if (sprite.getPosition().y > HEIGHT - sprite.getGlobalBounds().height)
 		direction = up;
 	if (id == Niveau2)
 	{
@@ -86,7 +86,6 @@ void Enemy::enemyMove() {
 		e->setTexture();
 		e->setAttackAndHP();
 		e->sprite.setPosition(HEIGHT / 1.5, WIDTH/4);
-		e->sprite.rotate(-90);
 		e->sprite.setScale(2, 2);
 		switch (defLevel)
 		{
