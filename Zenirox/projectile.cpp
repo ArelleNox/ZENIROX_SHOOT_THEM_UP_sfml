@@ -7,9 +7,18 @@ using namespace sf;
 
 Projectile::Projectile() {};
 Projectile::~Projectile() { std::cout << "Projectile detruit" << std::endl; }
-void Projectile::setProjectile() {
-	sprite.setRadius(4);
-	sprite.setFillColor(Color::Red);
+int Projectile::setProjectile() {
+	if(id == PLAYER)
+	{
+		if (!texture.loadFromFile("projectiles/01.png")) { cout << "Erreur chargement projectile joueur" << endl; return -1; }
+	}
+	else
+	{
+		if (!texture.loadFromFile("projectiles/02.png")) { cout << "Erreur chargement projectile ennemis" << endl; return -1; }
+	}
+	sprite.setTexture(texture);
+	sprite.setScale(0.5 , 0.5);
+		
 }
 
 ProjectileManager::~ProjectileManager() {
@@ -21,16 +30,34 @@ ProjectileManager::~ProjectileManager() {
 	}
 	Projectile* ProjectileManager::creerProjectile(Player player) {
 			Projectile* p = new Projectile();
+			p->sprite.setOrigin(p->sprite.getGlobalBounds().width / 2, p->sprite.getGlobalBounds().height / 2);
 			p->id = player.id;
 			p->setProjectile();
 			projectiles.push_back(p);
 			return p;
 	}
-	Projectile* ProjectileManager::creerProjectile(Enemy* enemy) {
+	Projectile* ProjectileManager::creerProjectile(Enemy* enemy, int defVelocity) {
 		Projectile* p = new Projectile();
+		p->sprite.setOrigin(p->sprite.getGlobalBounds().width, p->sprite.getGlobalBounds().height / 2);
+		p->sprite.rotate(180);
 		p->id = enemy->id;
 		p->setProjectile();
+		p->velocity = defVelocity;
 		projectiles.push_back(p);
+		switch (enemy->id)
+		{
+		case Niveau1:
+			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height -50);
+			break;
+		case Niveau2:
+			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height - 70);
+			break;
+		case Niveau3:
+			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height - 125);
+			break;
+		default:
+			break;
+		}
 		return p;
 	}
 	void ProjectileManager::detruireProjectile(Projectile* projectile)
