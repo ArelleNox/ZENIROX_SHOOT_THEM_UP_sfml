@@ -17,6 +17,7 @@ int Projectile::setProjectile() {
 		if (!texture.loadFromFile("projectiles/02.png")) { cout << "Erreur chargement projectile ennemis" << endl; return -1; }
 	}
 	sprite.setTexture(texture);
+	sprite.setScale(0.5 , 0.5);
 		
 }
 
@@ -35,23 +36,24 @@ ProjectileManager::~ProjectileManager() {
 			projectiles.push_back(p);
 			return p;
 	}
-	Projectile* ProjectileManager::creerProjectile(Enemy* enemy) {
+	Projectile* ProjectileManager::creerProjectile(Enemy* enemy, int defVelocity) {
 		Projectile* p = new Projectile();
 		p->sprite.setOrigin(p->sprite.getGlobalBounds().width, p->sprite.getGlobalBounds().height / 2);
 		p->sprite.rotate(180);
 		p->id = enemy->id;
 		p->setProjectile();
+		p->velocity = defVelocity;
 		projectiles.push_back(p);
 		switch (enemy->id)
 		{
 		case Niveau1:
-			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height -26);
+			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height -50);
 			break;
 		case Niveau2:
-			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height - 50);
+			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height - 70);
 			break;
 		case Niveau3:
-			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height - 100);
+			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height - 125);
 			break;
 		default:
 			break;

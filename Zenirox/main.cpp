@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 #include "projectile.hpp"
 #include "player.hpp"
 #include "enemy.hpp"
@@ -14,7 +15,7 @@ using namespace sf;
 
 
 int main() {
-
+	srand(time(NULL));
 	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Fullscreen);
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
@@ -23,7 +24,11 @@ int main() {
 	player.setSprite();
 
 	EnemyManager enemyManager;
-	enemyManager.creerEnemy(Niveau3);
+	enemyManager.creerEnemy(Niveau1, 1600, 500);
+	enemyManager.creerEnemy(Niveau2, 1000, 800);
+	enemyManager.creerEnemy(Niveau3, 500, 700);
+	enemyManager.creerEnemy(Niveau1, 1600, 100);
+	enemyManager.creerEnemy(Niveau1, 1600, 300);
 
 //	Background background("palier1.jpg", -1);
 	
@@ -45,7 +50,7 @@ int main() {
 		{
 			player.attackClock.restart();
 			manager.creerProjectile(player);
-			manager.getProjectiles()[manager.getProjectiles().size() - 1]->sprite.setPosition(player.sprite.getPosition().x, player.sprite.getGlobalBounds().top+10);
+			manager.getProjectiles()[manager.getProjectiles().size() - 1]->sprite.setPosition(player.sprite.getPosition().x, player.sprite.getGlobalBounds().top+40);
 		}
 		while (window.pollEvent(event))
 		{
@@ -75,7 +80,7 @@ int main() {
 			if(manager.getProjectiles()[i]->id == PLAYER)
 				manager.getProjectiles()[i]->sprite.move(14, 0);
 			if (manager.getProjectiles()[i]->id != PLAYER)
-				manager.getProjectiles()[i]->sprite.move(-7, 0);
+				manager.getProjectiles()[i]->sprite.move(manager.getProjectiles()[i]->velocity, 0);
 			manager.checkProjectileOutOfScreen(manager.getProjectiles()[i], enemyManager, player);
 		}
 		for (auto i = 0; i < enemyManager.getEnemies().size(); i++)
@@ -91,8 +96,25 @@ int main() {
 				
 				if (enemyManager.getEnemies()[i]->attackClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->attackCooldown.asSeconds())
 				{
+					int projVelocityChance = rand() % 3;
+					int projVelocity;
+					switch (projVelocityChance)
+					{
+					case 1:
+						projVelocity = -4;
+						break;
+					case 2:
+						projVelocity = -6;
+						break;
+					case 3:
+						projVelocity = -7;
+						break;
+					default:
+						projVelocity = -4;
+						break;
+					}
 					enemyManager.getEnemies()[i]->attackClock.restart();
-					manager.creerProjectile(enemyManager.getEnemies()[i]);
+					manager.creerProjectile(enemyManager.getEnemies()[i], projVelocity);
 					
 
 				}
