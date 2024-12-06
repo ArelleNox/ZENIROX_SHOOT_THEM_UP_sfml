@@ -17,7 +17,9 @@ private:
 
 public:
     sf::Texture texture;
+    sf::Texture texture2;
     sf::Sprite sprite;
+    sf::Sprite sprite2;
     int setTexture();
     palier pal;
     Background(const std::string& texturePath, float speed);

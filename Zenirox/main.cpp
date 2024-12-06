@@ -3,6 +3,7 @@
 #include "player.hpp"
 #include "enemy.hpp"
 #include "Background.hpp"
+#include "parallaxe.hpp"
 
 
 using namespace std;
@@ -15,7 +16,7 @@ using namespace sf;
 
 int main() {
 
-	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Fullscreen);
+	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Default);
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
 
@@ -25,17 +26,19 @@ int main() {
 	EnemyManager enemyManager;
 	enemyManager.creerEnemy(Niveau3);
 
-//	Background background("palier1.jpg", -1);
-	
+	Background background("palier1.jpg",-10.f);
+
+	Starparallaxe star("star.png",-300.f);
+
 
 	// Initialiser l'horloge pour gérer le deltaTime
-//	sf::Clock clock;
+	sf::Clock clock;
 
 	ProjectileManager manager;
 	bool tirEC = false;
 	while (window.isOpen())
 	{
-
+		player.checkOutOfScreen();
 		Event event;
 		if (Keyboard::isKeyPressed(Keyboard::Up))
 			player.sprite.move(0, -10);
@@ -58,16 +61,19 @@ int main() {
 		}
 
 		// Calcul du deltaTime
-//		float deltaTime = clock.restart().asSeconds();
-
+		float deltaTime = clock.restart().asSeconds();
 		// Mettre à jour l'arrière-plan
-//		background.update(deltaTime);
+		background.update(deltaTime);
+		star.update(deltaTime);
 
 
 		window.clear();
 
 		// Dessiner l'arrière-plan
-//		background.draw(window);
+		background.draw(window);
+
+		// Dessine les étoile et leur defilement
+		star.draw(window);
 
 		for (auto i = 0; i < manager.getProjectiles().size(); i++)
 		{
@@ -101,6 +107,7 @@ int main() {
 			}
 
 		}
+		player.checkOutOfScreen();
 		window.draw(player.sprite);
 		window.display();
 
