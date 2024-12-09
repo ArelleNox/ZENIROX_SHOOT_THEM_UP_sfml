@@ -25,6 +25,8 @@ int main() {
 	Game game;
 	game.state = niveau1A; 
 	bool loadLevel = true;
+	//On imagine que l'utilisateur appuie sur commencer une partie et débloque le premier niveau
+	game.niveau1A = true;
 	Player player;
 	player.setSprite();
 	int toKill;
@@ -52,19 +54,19 @@ int main() {
 	openScore(player);
 	while (window.isOpen())
 	{
-		if (game.state == niveau1A && loadLevel == true && isFightingBoss == false)
+		if (game.state == niveau1A && loadLevel == true && isFightingBoss == false && game.niveau1A == true)
 		{
 			toKill = 10;
 			enemyManager.creerEnemy(ENNEMI1, 1000, 500);
 			enemyManager.creerEnemy(ENNEMI1, 2500, 300);
-			enemyManager.creerEnemy(ENNEMI3, 4000, 700);
+			enemyManager.creerEnemy(ENNEMI1, 4000, 700);
 			enemyManager.creerEnemy(ENNEMI1, 5500, 100);
-			enemyManager.creerEnemy(ENNEMI2, 7000, 800);
+			enemyManager.creerEnemy(ENNEMI1, 7000, 800);
 			enemyManager.creerEnemy(ENNEMI1, 8500, 400);
 			enemyManager.creerEnemy(ENNEMI1, 10000, 600);
 			enemyManager.creerEnemy(ENNEMI1, 11500, 300);
-			enemyManager.creerEnemy(ENNEMI1, 13000, 500);
-			enemyManager.creerEnemy(ENNEMI2, 14500, 800);
+			enemyManager.creerEnemy(ENNEMI2, 13000, 500);
+			enemyManager.creerEnemy(ENNEMI3, 14500, 800);
 			
 			loadLevel = false;
 		}
@@ -75,8 +77,37 @@ int main() {
 			enemyManager.creerEnemy(BOSS1, 1400, 700);
 
 		}
-		if (isFightingBoss == true && toKill == 0)
-			window.close();
+		if (isFightingBoss == true && toKill == 0 && game.niveau1A == true)
+		{
+			isFightingBoss = false;
+			loadLevel = true;
+			game.niveau1B = true;
+		}
+		if (game.niveau1B == true)
+			game.state = niveau1B;
+		if (game.state == niveau1B && loadLevel == true && isFightingBoss == false && game.niveau1B == true)
+		{
+			toKill = 10;
+			enemyManager.creerEnemy(ENNEMI1, 1000, 500);
+			enemyManager.creerEnemy(ENNEMI1, 2500, 300);
+			enemyManager.creerEnemy(ENNEMI1, 4000, 700);
+			enemyManager.creerEnemy(ENNEMI1, 5500, 100);
+			enemyManager.creerEnemy(ENNEMI1, 7000, 800);
+			enemyManager.creerEnemy(ENNEMI1, 8500, 400);
+			enemyManager.creerEnemy(ENNEMI1, 10000, 600);
+			enemyManager.creerEnemy(ENNEMI2, 11500, 300);
+			enemyManager.creerEnemy(ENNEMI2, 13000, 500);
+			enemyManager.creerEnemy(ENNEMI3, 14500, 800);
+
+			loadLevel = false;
+		}
+		if (game.state == niveau1B && toKill == 0 && isFightingBoss == false)
+		{
+			isFightingBoss = true;
+			toKill = 1;
+			enemyManager.creerEnemy(BOSS1, 1400, 700);
+
+		}
 		player.checkOutOfScreen();
 		Event event;
 		if (Keyboard::isKeyPressed(Keyboard::Up))
