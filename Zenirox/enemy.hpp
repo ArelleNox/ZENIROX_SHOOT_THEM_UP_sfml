@@ -8,11 +8,6 @@
 using namespace std;
 using namespace sf;
 
-enum ennemi {
-	Niveau1 = 1,
-	Niveau2 = 2,
-	Niveau3 = 3
-};
 enum Direction {
 	up = 1,
 	down = 2
@@ -28,7 +23,6 @@ public:
 	Sprite sprite;
 	Texture texture;
 	int AttackDamages;
-	ennemi level;
 	ID id;
 	Clock attackClock;
 	Time attackCooldown;
@@ -48,9 +42,9 @@ private:
 	vector<Enemy*> enemies;
 public:
 	~EnemyManager();
-	Enemy* creerEnemy(ennemi defLevel, float width, float height);
+	Enemy* creerEnemy(ID defLevel, float width, float height);
 	void detruireEnemy(Enemy* enemy);
-	void checkEnemy(Enemy* enemy);
+	void checkEnemy(Enemy* enemy,int &toKill);
 	vector<Enemy* > getEnemies();
 };
 #endif

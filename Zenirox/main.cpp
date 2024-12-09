@@ -24,20 +24,14 @@ int main() {
 	window.setVerticalSyncEnabled(true);
 	Game game;
 	game.state = niveau1A; 
-
+	bool loadLevel = true;
 	Player player;
 	player.setSprite();
-
+	int toKill;
+	bool isFightingBoss = false;
 	EnemyManager enemyManager;
 	
-	if (game.state == niveau1A)
-	{
-		enemyManager.creerEnemy(Niveau1, 3000, 500);
-		enemyManager.creerEnemy(Niveau2, 1000, 800);
-		enemyManager.creerEnemy(Niveau3, 1500, 700);
-		enemyManager.creerEnemy(Niveau1, 5000, 100);
-		enemyManager.creerEnemy(Niveau1, 9000, 300);
-	}
+	
 
 	Text scoreText;
 	Font scoreFont;
@@ -58,7 +52,31 @@ int main() {
 	openScore(player);
 	while (window.isOpen())
 	{
-		
+		if (game.state == niveau1A && loadLevel == true && isFightingBoss == false)
+		{
+			toKill = 10;
+			enemyManager.creerEnemy(ENNEMI1, 1000, 500);
+			enemyManager.creerEnemy(ENNEMI1, 2500, 300);
+			enemyManager.creerEnemy(ENNEMI3, 4000, 700);
+			enemyManager.creerEnemy(ENNEMI1, 5500, 100);
+			enemyManager.creerEnemy(ENNEMI2, 7000, 800);
+			enemyManager.creerEnemy(ENNEMI1, 8500, 400);
+			enemyManager.creerEnemy(ENNEMI1, 10000, 600);
+			enemyManager.creerEnemy(ENNEMI1, 11500, 300);
+			enemyManager.creerEnemy(ENNEMI1, 13000, 500);
+			enemyManager.creerEnemy(ENNEMI2, 14500, 800);
+			
+			loadLevel = false;
+		}
+		if (game.state == niveau1A && toKill == 0 && isFightingBoss == false)
+		{
+			isFightingBoss = true;
+			toKill = 1;
+			enemyManager.creerEnemy(BOSS1, 1400, 700);
+
+		}
+		if (isFightingBoss == true && toKill == 0)
+			window.close();
 		player.checkOutOfScreen();
 		Event event;
 		if (Keyboard::isKeyPressed(Keyboard::Up))
@@ -109,7 +127,7 @@ int main() {
 		for (auto i = 0; i < enemyManager.getEnemies().size(); i++)
 		{
 			window.draw(enemyManager.getEnemies()[i]->sprite);
-			enemyManager.checkEnemy(enemyManager.getEnemies()[i]);
+			enemyManager.checkEnemy(enemyManager.getEnemies()[i], toKill);
 		}
 		
 		for (auto i = 0; i < enemyManager.getEnemies().size(); i++)
@@ -118,7 +136,7 @@ int main() {
 			if(enemyManager.getEnemies()[i]->rechargeClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->rechargeCooldown.asSeconds())
 			{
 				
-				if (enemyManager.getEnemies()[i]->attackClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->attackCooldown.asSeconds())
+				if (enemyManager.getEnemies()[i]->attackClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->attackCooldown.asSeconds() && enemyManager.getEnemies()[i]->id != BOSS3)
 				{
 					int projVelocityChance = rand() % 3;
 					int projVelocity;

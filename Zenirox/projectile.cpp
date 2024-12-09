@@ -47,15 +47,17 @@ ProjectileManager::~ProjectileManager() {
 		projectiles.push_back(p);
 		switch (enemy->id)
 		{
-		case Niveau1:
+		case ENNEMI1:
 			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height -50);
 			break;
-		case Niveau2:
+		case ENNEMI2:
 			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height - 70);
 			break;
-		case Niveau3:
+		case ENNEMI3:
 			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height - 125);
 			break;
+		case BOSS1:
+			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height);
 		default:
 			break;
 		}
@@ -84,7 +86,7 @@ ProjectileManager::~ProjectileManager() {
 					player.increaseScore(5);
 					if (manager.getEnemies()[i]->HP <= 0 && manager.getEnemies()[i]->id != BOSS1 && manager.getEnemies()[i]->id != BOSS2 && manager.getEnemies()[i]->id != BOSS3 && manager.getEnemies()[i]->id != BOSS4)
 						player.increaseScore(100);
-					else if (manager.getEnemies()[i]->HP <= 0 && manager.getEnemies()[i]->id != Niveau1 && manager.getEnemies()[i]->id != Niveau2 && manager.getEnemies()[i]->id != Niveau3)
+					else if (manager.getEnemies()[i]->HP <= 0 && manager.getEnemies()[i]->id != ENNEMI1 && manager.getEnemies()[i]->id != ENNEMI2 && manager.getEnemies()[i]->id != ENNEMI3)
 						player.increaseScore(200);
 					break;
 				}
