@@ -7,7 +7,7 @@
 #include "parallaxe.hpp"
 #include "score.hpp"
 #include "healthbar.hpp"
-
+#include "game.hpp"
 
 using namespace std;
 using namespace sf;
@@ -22,16 +22,22 @@ int main() {
 	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Fullscreen);
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
+	Game game;
+	game.state = niveau1A; 
 
 	Player player;
 	player.setSprite();
 
 	EnemyManager enemyManager;
-	enemyManager.creerEnemy(Niveau1, 3000, 500);
-	enemyManager.creerEnemy(Niveau2, 1000, 800);
-	enemyManager.creerEnemy(Niveau3, 1500, 700);
-	enemyManager.creerEnemy(Niveau1, 5000, 100);
-	enemyManager.creerEnemy(Niveau1, 9000, 300);
+	
+	if (game.state == niveau1A)
+	{
+		enemyManager.creerEnemy(Niveau1, 3000, 500);
+		enemyManager.creerEnemy(Niveau2, 1000, 800);
+		enemyManager.creerEnemy(Niveau3, 1500, 700);
+		enemyManager.creerEnemy(Niveau1, 5000, 100);
+		enemyManager.creerEnemy(Niveau1, 9000, 300);
+	}
 
 	Text scoreText;
 	Font scoreFont;
@@ -52,6 +58,7 @@ int main() {
 	openScore(player);
 	while (window.isOpen())
 	{
+		
 		player.checkOutOfScreen();
 		Event event;
 		if (Keyboard::isKeyPressed(Keyboard::Up))
