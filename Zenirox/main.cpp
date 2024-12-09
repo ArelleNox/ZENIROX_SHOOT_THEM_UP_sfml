@@ -27,11 +27,11 @@ int main() {
 	player.setSprite();
 
 	EnemyManager enemyManager;
-	enemyManager.creerEnemy(Niveau1, 1600, 500);
+	enemyManager.creerEnemy(Niveau1, 3000, 500);
 	enemyManager.creerEnemy(Niveau2, 1000, 800);
-	enemyManager.creerEnemy(Niveau3, 500, 700);
-	enemyManager.creerEnemy(Niveau1, 1600, 100);
-	enemyManager.creerEnemy(Niveau1, 1600, 300);
+	enemyManager.creerEnemy(Niveau3, 1500, 700);
+	enemyManager.creerEnemy(Niveau1, 5000, 100);
+	enemyManager.creerEnemy(Niveau1, 9000, 300);
 
 	Text scoreText;
 	Font scoreFont;

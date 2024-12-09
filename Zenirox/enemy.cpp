@@ -55,16 +55,28 @@ void Enemy::enemyMove() {
 	if (id == Niveau2)
 	{
 		if (direction == up)
-			sprite.move(0, -velocity);
+			sprite.move(-2, -velocity);
 		else
-			sprite.move(0, velocity);
+			sprite.move(-2, velocity);
 	}
 	if (id == Niveau3)
 	{
 		if (direction == up)
-			sprite.move(0, -velocity);
+			sprite.move(-2, -velocity);
 		else
-			sprite.move(0, velocity);
+			sprite.move(- 2, velocity);
+	}
+	if (id == Niveau1)
+	{
+		sprite.move(-2, 0);
+	}
+	if (sprite.getPosition().x < -500 && id != Niveau3)
+	{
+		sprite.setPosition(sprite.getPosition().x + WIDTH + 1000, sprite.getPosition().y);
+	}
+	if (sprite.getPosition().x < -500 && id == Niveau3)
+	{
+		sprite.setPosition(sprite.getPosition().x + WIDTH + 2000, sprite.getPosition().y);
 	}
 }
 
