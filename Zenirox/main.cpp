@@ -5,6 +5,8 @@
 #include "enemy.hpp"
 #include "Background.hpp"
 #include "parallaxe.hpp"
+#include "score.hpp"
+#include "healthbar.hpp"
 
 
 using namespace std;
@@ -31,16 +33,23 @@ int main() {
 	enemyManager.creerEnemy(Niveau1, 1600, 100);
 	enemyManager.creerEnemy(Niveau1, 1600, 300);
 
-	Background background("palier1.png",-15.f);
+	Text scoreText;
+	Font scoreFont;
+
+	setScoreText(player, scoreFont, scoreText);
+
+	Background background("palier1.jpg",-10.f);
 
 	Starparallaxe star("star.png",-300.f);
+
+	Healthbar playerHealthbar;
+	playerHealthbar.setTextureList();
 
 	// Initialiser l'horloge pour gérer le deltaTime
 	sf::Clock clock;
 
 	ProjectileManager manager;
-	bool tirEC = false;
-
+	openScore(player);
 	while (window.isOpen())
 	{
 		player.checkOutOfScreen();
@@ -87,7 +96,7 @@ int main() {
 				manager.getProjectiles()[i]->sprite.move(14, 0);
 			if (manager.getProjectiles()[i]->id != PLAYER)
 				manager.getProjectiles()[i]->sprite.move(manager.getProjectiles()[i]->velocity, 0);
-			manager.checkProjectileOutOfScreen(manager.getProjectiles()[i], enemyManager, player);
+			manager.checkProjectileOutOfScreen(manager.getProjectiles()[i], enemyManager, player, scoreText);
 		}
 		
 		for (auto i = 0; i < enemyManager.getEnemies().size(); i++)
@@ -131,14 +140,19 @@ int main() {
 			}
 
 		}
-		
+		updateScoreText(player, scoreText);
+		playerHealthbar.setHealthbar(player);
 		player.checkOutOfScreen();
-		window.draw(player.sprite);
+		if(player.HP > 0)
+			window.draw(player.sprite);
+		window.draw(scoreText);
+		window.draw(playerHealthbar.sprite);
 		window.display();
 
 
 
 
 	}
+	saveScore(player);
 	return 0;
 }
