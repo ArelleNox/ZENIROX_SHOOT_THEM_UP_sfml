@@ -19,7 +19,7 @@ using namespace sf;
 
 int main() {
 	srand(time(NULL));
-	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Default);
+	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Fullscreen);
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
 
@@ -38,7 +38,7 @@ int main() {
 
 	setScoreText(player, scoreFont, scoreText);
 
-	Background background("palier1.jpg",-10.f);
+	Background background("palier1.png",-15.f);
 
 	Starparallaxe star("star.png",-300.f);
 
@@ -64,8 +64,8 @@ int main() {
 			manager.creerProjectile(player);
 			manager.getProjectiles()[manager.getProjectiles().size() - 1]->sprite.setPosition(player.sprite.getPosition().x, player.sprite.getGlobalBounds().top+40);
 		}
-		while (window.pollEvent(event))
-		{
+		
+		while (window.pollEvent(event)){
 			if (event.type == Event::Closed)
 				window.close();
 			if (event.type == Event::KeyPressed)
@@ -98,11 +98,13 @@ int main() {
 				manager.getProjectiles()[i]->sprite.move(manager.getProjectiles()[i]->velocity, 0);
 			manager.checkProjectileOutOfScreen(manager.getProjectiles()[i], enemyManager, player, scoreText);
 		}
+		
 		for (auto i = 0; i < enemyManager.getEnemies().size(); i++)
 		{
 			window.draw(enemyManager.getEnemies()[i]->sprite);
 			enemyManager.checkEnemy(enemyManager.getEnemies()[i]);
 		}
+		
 		for (auto i = 0; i < enemyManager.getEnemies().size(); i++)
 		{
 			enemyManager.getEnemies()[i]->enemyMove();
