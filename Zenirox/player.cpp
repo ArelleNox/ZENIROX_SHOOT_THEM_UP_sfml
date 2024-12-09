@@ -21,3 +21,13 @@ void Player::checkOutOfScreen() {
 		sprite.setPosition(sprite.getPosition().x, HEIGHT-sprite.getGlobalBounds().height);
 	
 }
+void Player::increaseScore(int toIncrease)
+{
+	score += toIncrease;
+}
+void Player::decreaseScore(Text& scoreText, int toDecrease)
+{
+	score -= toDecrease;
+	if (score < 0)
+		score = 0;
+}

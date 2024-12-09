@@ -28,7 +28,7 @@ public:
 	Projectile* creerProjectile(Player player);
 	Projectile* creerProjectile(Enemy* enemy, int defVelocity);
 	void detruireProjectile(Projectile* projectile);
-	void checkProjectileOutOfScreen(Projectile* projectile, EnemyManager &manager, Player &player);
+	void checkProjectileOutOfScreen(Projectile* projectile, EnemyManager &manager, Player &player, Text &scoreText);
 	vector<Projectile* > getProjectiles();
 };
 

@@ -10,6 +10,7 @@ class Player
 {
 public:
 	int HP = 100;
+	int score = 0;
 	int attack = 10;
 	float up = -5;
 	float down = 5;
@@ -21,6 +22,8 @@ public:
 	int setSprite();
 	Player();
 	void checkOutOfScreen();
+	void increaseScore(int toIncrease);
+	void decreaseScore(Text &scoreText, int toDecrease);
 };
 
 
