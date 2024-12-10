@@ -28,7 +28,7 @@ int Background::setTexture() {
 }
 
 
-Background::Background(const std::string&texturePath, float speed)
+Background::Background(const std::string&textu0rePath, float speed)
     : scrollSpeed(speed) {
     if (!texture.loadFromFile(texturePath)) {
         throw std::runtime_error("Failed to load texture");
