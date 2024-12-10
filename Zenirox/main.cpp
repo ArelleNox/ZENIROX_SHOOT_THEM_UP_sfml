@@ -23,18 +23,12 @@ int main() {
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
 	Game game;
-	game.state = niveau1A; 
-	bool loadLevel = true;
-	//On imagine que l'utilisateur appuie sur commencer une partie et débloque le premier niveau
-	game.niveau1A = true;
 	Player player;
 	player.setSprite();
-	int toKill;
-	bool isFightingBoss = false;
 	EnemyManager enemyManager;
 	
 	
-
+	game.Univeau1A = true;
 	Text scoreText;
 	Font scoreFont;
 
@@ -54,60 +48,16 @@ int main() {
 	openScore(player);
 	while (window.isOpen())
 	{
-		if (game.state == niveau1A && loadLevel == true && isFightingBoss == false && game.niveau1A == true)
-		{
-			toKill = 10;
-			enemyManager.creerEnemy(ENNEMI1, 1000, 500);
-			enemyManager.creerEnemy(ENNEMI1, 2500, 300);
-			enemyManager.creerEnemy(ENNEMI1, 4000, 700);
-			enemyManager.creerEnemy(ENNEMI1, 5500, 100);
-			enemyManager.creerEnemy(ENNEMI1, 7000, 800);
-			enemyManager.creerEnemy(ENNEMI1, 8500, 400);
-			enemyManager.creerEnemy(ENNEMI1, 10000, 600);
-			enemyManager.creerEnemy(ENNEMI1, 11500, 300);
-			enemyManager.creerEnemy(ENNEMI2, 13000, 500);
-			enemyManager.creerEnemy(ENNEMI3, 14500, 800);
-			
-			loadLevel = false;
-		}
-		if (game.state == niveau1A && toKill == 0 && isFightingBoss == false)
-		{
-			isFightingBoss = true;
-			toKill = 1;
-			enemyManager.creerEnemy(BOSS1, 1400, 700);
-
-		}
-		if (isFightingBoss == true && toKill == 0 && game.niveau1A == true)
-		{
-			isFightingBoss = false;
-			loadLevel = true;
-			game.niveau1B = true;
-		}
-		if (game.niveau1B == true)
-			game.state = niveau1B;
-		if (game.state == niveau1B && loadLevel == true && isFightingBoss == false && game.niveau1B == true)
-		{
-			toKill = 10;
-			enemyManager.creerEnemy(ENNEMI1, 1000, 500);
-			enemyManager.creerEnemy(ENNEMI1, 2500, 300);
-			enemyManager.creerEnemy(ENNEMI1, 4000, 700);
-			enemyManager.creerEnemy(ENNEMI1, 5500, 100);
-			enemyManager.creerEnemy(ENNEMI1, 7000, 800);
-			enemyManager.creerEnemy(ENNEMI1, 8500, 400);
-			enemyManager.creerEnemy(ENNEMI1, 10000, 600);
-			enemyManager.creerEnemy(ENNEMI2, 11500, 300);
-			enemyManager.creerEnemy(ENNEMI2, 13000, 500);
-			enemyManager.creerEnemy(ENNEMI3, 14500, 800);
-
-			loadLevel = false;
-		}
-		if (game.state == niveau1B && toKill == 0 && isFightingBoss == false)
-		{
-			isFightingBoss = true;
-			toKill = 1;
-			enemyManager.creerEnemy(BOSS1, 1400, 700);
-
-		}
+		game.level1A(enemyManager, manager);
+		game.level1B(enemyManager, manager);
+		game.level1C(enemyManager, manager);
+		game.level2A(enemyManager, manager);
+		//game.level2B(enemyManager, manager);
+		//game.level2C(enemyManager, manager);
+		//game.level3A(enemyManager, manager);
+		//game.level3B(enemyManager, manager);
+		//game.level3C(enemyManager, manager);
+		
 		player.checkOutOfScreen();
 		Event event;
 		if (Keyboard::isKeyPressed(Keyboard::Up))
@@ -158,7 +108,7 @@ int main() {
 		for (auto i = 0; i < enemyManager.getEnemies().size(); i++)
 		{
 			window.draw(enemyManager.getEnemies()[i]->sprite);
-			enemyManager.checkEnemy(enemyManager.getEnemies()[i], toKill);
+			enemyManager.checkEnemy(enemyManager.getEnemies()[i], game.toKill);
 		}
 		
 		for (auto i = 0; i < enemyManager.getEnemies().size(); i++)
@@ -167,7 +117,7 @@ int main() {
 			if(enemyManager.getEnemies()[i]->rechargeClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->rechargeCooldown.asSeconds())
 			{
 				
-				if (enemyManager.getEnemies()[i]->attackClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->attackCooldown.asSeconds() && enemyManager.getEnemies()[i]->id != BOSS3)
+				if (enemyManager.getEnemies()[i]->attackClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->attackCooldown.asSeconds())
 				{
 					int projVelocityChance = rand() % 3;
 					int projVelocity;
@@ -191,7 +141,7 @@ int main() {
 					
 
 				}
-				if(enemyManager.getEnemies()[i]->rechargeClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->rechargeCooldown.asSeconds() *2 )
+				if(enemyManager.getEnemies()[i]->rechargeClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->rechargeCooldown.asSeconds() *2)
 					enemyManager.getEnemies()[i]->rechargeClock.restart();
 			}
 

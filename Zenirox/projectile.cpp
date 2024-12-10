@@ -8,6 +8,7 @@ using namespace sf;
 
 Projectile::Projectile() {};
 Projectile::~Projectile() { std::cout << "Projectile detruit" << std::endl; }
+
 int Projectile::setProjectile() {
 	if(id == PLAYER)
 	{
@@ -58,6 +59,13 @@ ProjectileManager::~ProjectileManager() {
 			break;
 		case BOSS1:
 			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height -70);
+			break;
+		case BOSS2:
+			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height -140);
+			break;
+		case BOSS3:
+			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height -68);
+			break;
 		default:
 			break;
 		}
