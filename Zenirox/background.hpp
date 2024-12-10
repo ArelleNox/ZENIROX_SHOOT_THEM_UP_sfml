@@ -12,10 +12,7 @@ enum palier {
 
 class Background {
 private:
-
-    
     float scrollSpeed;
-
 public:
     sf::Texture texture;
     sf::Texture texture2;

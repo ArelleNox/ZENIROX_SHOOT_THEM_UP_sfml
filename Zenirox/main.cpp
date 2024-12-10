@@ -5,10 +5,12 @@
 #include "enemy.hpp"
 #include "Background.hpp"
 #include "parallaxe.hpp"
+#include "parallaxe2.hpp"
 #include "score.hpp"
 #include "healthbar.hpp"
 #include "game.hpp"
 #include "obstacle.hpp"
+#include "HUD.hpp"
 
 using namespace std;
 using namespace sf;
@@ -23,12 +25,17 @@ int main() {
 	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Fullscreen);
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
+
 	Game game;
+
 	Player player;
 	player.setSprite();
+
 	EnemyManager enemyManager;
+
 	RectangleShape interface(Vector2f(1920, 95));
 	interface.setFillColor(Color::White);
+
 	Sprite coin;
 	Texture coinTexture;
 	if (!coinTexture.loadFromFile("coin.png")) { cout << "Erreur de chargement de la texture de piece" << endl; return -1; }
@@ -42,9 +49,10 @@ int main() {
 
 	setScoreText(player, scoreFont, scoreText);
 
-	Background background("palier1.png",-15.f);
+	Background background("palier22.png",-10.f);
 
 	Starparallaxe star("star.png",-300.f);
+	fastStarparallaxe faststar("star.png", -1500.f);
 
 	Healthbar healthbar;
 	healthbar.setTextureList();
@@ -83,13 +91,14 @@ int main() {
 
 		//Créé un projectile lorsqu'il y a un click gauche avec un cooldown
 
-		if (Mouse::isButtonPressed(Mouse::Left) && player.attackClock.getElapsedTime().asSeconds() > player.attackCooldown.asSeconds())
-		{
+		if (Mouse::isButtonPressed(Mouse::Left) && player.attackClock.getElapsedTime().asSeconds() > player.attackCooldown.asSeconds()){
 			player.attackClock.restart();
 			manager.creerProjectile(player);
 			manager.getProjectiles()[manager.getProjectiles().size() - 1]->sprite.setPosition(player.sprite.getPosition().x, player.sprite.getGlobalBounds().top+50);
 		}
 		
+
+
 		while (window.pollEvent(event)){
 			if (event.type == Event::Closed)
 				window.close();
@@ -104,19 +113,16 @@ int main() {
 		// Mettre à jour l'arrière-plan
 		background.update(deltaTime);
 		star.update(deltaTime);
-
+		faststar.update(deltaTime);
 
 		window.clear();
-
-		// Dessiner l'arrière-plan
 		background.draw(window);
-
 		// Dessine les étoile et leur defilement
 		star.draw(window);
+		faststar.draw(window);
 
 		//Gestion de l'affichage, de la durée de vie des projectiles et des dégâts infligés
-		for (auto i = 0; i < manager.getProjectiles().size(); i++)
-		{
+		for (auto i = 0; i < manager.getProjectiles().size(); i++){
 			window.draw(manager.getProjectiles()[i]->sprite);
 			if(manager.getProjectiles()[i]->id == PLAYER)
 				manager.getProjectiles()[i]->sprite.move(14, 0);
@@ -126,32 +132,26 @@ int main() {
 		}
 		
 		//Regarde si un ennemi sort de l'écran ou si il est mort
-		for (auto i = 0; i < enemyManager.getEnemies().size(); i++)
-		{
+		for (auto i = 0; i < enemyManager.getEnemies().size(); i++){
 			window.draw(enemyManager.getEnemies()[i]->sprite);
 			enemyManager.checkEnemy(enemyManager.getEnemies()[i], game.toKill);
 		}
 		//Gestion des obstacles
-		for (int i = 0; i < oManager.getObstacles().size(); i++)
-		{
+		for (int i = 0; i < oManager.getObstacles().size(); i++){
 			window.draw(oManager.getObstacles()[i]->sprite);
 			int randValue = rand() % 3;
 			oManager.getObstacles()[i]->moveObstacle(randValue);
 			oManager.getObstacles()[i]->checkObstacle(player);
 		}
 		//Gestion de l'attaque des ennemis
-		for (auto i = 0; i < enemyManager.getEnemies().size(); i++)
-		{
+		for (auto i = 0; i < enemyManager.getEnemies().size(); i++){
 			enemyManager.getEnemies()[i]->enemyMove();
-			if(enemyManager.getEnemies()[i]->rechargeClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->rechargeCooldown.asSeconds())
-			{
+			if(enemyManager.getEnemies()[i]->rechargeClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->rechargeCooldown.asSeconds()){
 				
-				if (enemyManager.getEnemies()[i]->attackClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->attackCooldown.asSeconds())
-				{
+				if (enemyManager.getEnemies()[i]->attackClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->attackCooldown.asSeconds()){
 					int projVelocityChance = rand() % 3;
 					int projVelocity;
-					switch (projVelocityChance)
-					{
+					switch (projVelocityChance){
 					case 1:
 						projVelocity = -4;
 						break;
@@ -178,9 +178,12 @@ int main() {
 		updateScoreText(player, scoreText);
 		healthbar.setHealthbar(player);
 		player.checkOutOfScreen();
+
 		window.draw(interface);
+
 		if(player.HP > 0)
 			window.draw(player.sprite);
+
 		window.draw(scoreText);
 		window.draw(coin);
 		window.draw(healthbar.psprite);
@@ -194,9 +197,6 @@ int main() {
 			}
 		}
 		window.display();
-
-
-
 
 	}
 	saveScore(player);
