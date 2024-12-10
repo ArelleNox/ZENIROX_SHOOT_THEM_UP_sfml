@@ -28,9 +28,6 @@ void Game::level1A(EnemyManager &eManager, ProjectileManager& pManager)
 		eManager.creerEnemy(BOSS1, 1400, 700);
 		//Ecran de victoire...
 	}
-}
-void Game::level1B(EnemyManager& eManager, ProjectileManager& pManager)
-{
 	if (isFightingBoss == true && toKill == 0 && Univeau1A == true && state == niveau1A)
 	{
 		isFightingBoss = false;
@@ -39,6 +36,10 @@ void Game::level1B(EnemyManager& eManager, ProjectileManager& pManager)
 		state = niveau1B;
 		pManager.~ProjectileManager();
 	}
+}
+void Game::level1B(EnemyManager& eManager, ProjectileManager& pManager)
+{
+	
 	if (state == niveau1B && loadLevel == true && isFightingBoss == false && Univeau1B == true)
 	{
 		toKill = 10;
@@ -61,9 +62,6 @@ void Game::level1B(EnemyManager& eManager, ProjectileManager& pManager)
 		toKill = 1;
 		eManager.creerEnemy(BOSS1, 1400, 700);
 	}
-}
-void Game::level1C(EnemyManager& eManager, ProjectileManager& pManager)
-{
 	if (isFightingBoss == true && toKill == 0 && Univeau1B == true && state == niveau1B)
 	{
 		isFightingBoss = false;
@@ -72,6 +70,9 @@ void Game::level1C(EnemyManager& eManager, ProjectileManager& pManager)
 		state = niveau1C;
 		pManager.~ProjectileManager();
 	}
+}
+void Game::level1C(EnemyManager& eManager, ProjectileManager& pManager)
+{
 	if (state == niveau1C && loadLevel == true && isFightingBoss == false && Univeau1C == true)
 	{
 		toKill = 10;
@@ -94,18 +95,19 @@ void Game::level1C(EnemyManager& eManager, ProjectileManager& pManager)
 		toKill = 1;
 		eManager.creerEnemy(BOSS1, 1400, 700);
 	}
-}
-
-void Game::level2A(EnemyManager& eManager, ProjectileManager& pManager)
-{
 	if (isFightingBoss == true && toKill == 0 && Univeau1C == true && state == niveau1C)
 	{
 		isFightingBoss = false;
 		loadLevel = true;
 		Univeau2A = true;
-		state == niveau2A;
+		state = niveau2A;
 		pManager.~ProjectileManager();
 	}
+}
+
+void Game::level2A(EnemyManager& eManager, ProjectileManager& pManager)
+{
+	
 	if (state == niveau2A && loadLevel == true && isFightingBoss == false && Univeau2A == true)
 	{
 		toKill = 10;
