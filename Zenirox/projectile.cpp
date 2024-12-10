@@ -8,6 +8,7 @@ using namespace sf;
 
 Projectile::Projectile() {};
 Projectile::~Projectile() { std::cout << "Projectile detruit" << std::endl; }
+
 int Projectile::setProjectile() {
 	if(id == PLAYER)
 	{
@@ -48,16 +49,23 @@ ProjectileManager::~ProjectileManager() {
 		switch (enemy->id)
 		{
 		case ENNEMI1:
-			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height -50);
+			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height -60);
 			break;
 		case ENNEMI2:
-			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height - 70);
+			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height - 85);
 			break;
 		case ENNEMI3:
-			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height - 125);
+			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height - 135);
 			break;
 		case BOSS1:
-			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height);
+			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height -70);
+			break;
+		case BOSS2:
+			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height -140);
+			break;
+		case BOSS3:
+			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height -68);
+			break;
 		default:
 			break;
 		}

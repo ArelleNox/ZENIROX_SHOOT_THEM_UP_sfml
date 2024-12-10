@@ -58,6 +58,14 @@ void Enemy::setAttackAndHP() {
 		AttackDamages = 10;
 		HP = 400;
 		break;
+	case BOSS2:
+		AttackDamages = 10;
+		HP = 400;
+		break;
+	case BOSS3:
+		AttackDamages = 10;
+		HP = 600;
+		break;
 	default:
 		break;
 	}
@@ -79,7 +87,7 @@ void Enemy::enemyMove() {
 		else
 			sprite.move(-2, velocity);
 	}
-	if (id == BOSS1)
+	if (id == BOSS1 || id == BOSS2 || id == BOSS3 ||id == BOSS4)
 	{
 		if (direction == up)
 			sprite.move(0, -velocity);
@@ -119,6 +127,10 @@ void Enemy::enemyMove() {
 		e->setAttackAndHP();
 		e->sprite.setPosition(width, height);
 		e->sprite.setScale(2, 2);
+		if (defLevel == BOSS2)
+			e->sprite.setScale(1.5, 1.5);
+		else if (defLevel == BOSS3)
+			e->sprite.setScale(1, 1);
 		switch (defLevel)
 		{
 		case ENNEMI1:
@@ -138,6 +150,7 @@ void Enemy::enemyMove() {
 			break;
 		case BOSS3:
 			e->id = BOSS3;
+			break;
 		case BOSS4:
 			e->id = BOSS4;
 		default:
@@ -164,15 +177,17 @@ void Enemy::enemyMove() {
 			break;
 		case BOSS2:
 			e->attackCooldown = seconds(0.2);
-			e->rechargeCooldown = seconds(0);
+			e->rechargeCooldown = seconds(2);
+			e->velocity = 5;
 			break;
 		case BOSS3:
 			e->attackCooldown = seconds(0.2);
-			e->rechargeCooldown = seconds(0);
+			e->rechargeCooldown = seconds(2);
 			break;
 		case BOSS4:
 			e->attackCooldown = seconds(0.02);
 			e->rechargeCooldown = seconds(2);
+			break;
 		}
 		enemies.push_back(e);
 		return e;
