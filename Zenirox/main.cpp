@@ -118,7 +118,7 @@ int main() {
 		{
 			player.attackClock.restart();
 			manager.creerProjectile(player);
-			manager.getProjectiles()[manager.getProjectiles().size() - 1]->sprite.setPosition(player.sprite.getPosition().x, player.sprite.getGlobalBounds().top+40);
+			manager.getProjectiles()[manager.getProjectiles().size() - 1]->sprite.setPosition(player.sprite.getPosition().x, player.sprite.getGlobalBounds().top+50);
 		}
 		
 		while (window.pollEvent(event)){

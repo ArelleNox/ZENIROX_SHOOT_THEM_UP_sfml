@@ -48,16 +48,16 @@ ProjectileManager::~ProjectileManager() {
 		switch (enemy->id)
 		{
 		case ENNEMI1:
-			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height -50);
+			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height -60);
 			break;
 		case ENNEMI2:
-			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height - 70);
+			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height - 85);
 			break;
 		case ENNEMI3:
-			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height - 125);
+			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height - 135);
 			break;
 		case BOSS1:
-			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height);
+			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height -70);
 		default:
 			break;
 		}
