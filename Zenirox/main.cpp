@@ -21,11 +21,12 @@ using namespace sf;
 int main() {
 	srand(time(NULL));
 	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Fullscreen);
-	window.setFramerateLimit(60);
-	window.setVerticalSyncEnabled(true);
+	window.setFramerateLimit(240);
+	window.setVerticalSyncEnabled(false);
 	Game game;
 	Player player;
 	player.setSprite();
+	player.attackCooldown = seconds(0.01);
 	EnemyManager enemyManager;
 	
 	
@@ -39,8 +40,8 @@ int main() {
 
 	Starparallaxe star("star.png",-300.f);
 
-	Healthbar playerHealthbar;
-	playerHealthbar.setTextureList();
+	Healthbar healthbar;
+	healthbar.setTextureList();
 
 	// Initialiser l'horloge pour gérer le deltaTime
 	sf::Clock clock;
@@ -49,24 +50,31 @@ int main() {
 	openScore(player);
 	
 	ObstacleManager oManager;
+	
 	while (window.isOpen())
 	{
-		game.level1A(enemyManager, oManager, manager);
-		game.level1B(enemyManager, oManager, manager);
-		game.level1C(enemyManager, oManager, manager);
-		game.level2A(enemyManager, oManager, manager);
+		//Chargement des niveaux
+
+		game.level1A(player, enemyManager, oManager, manager);
+		game.level1B(player, enemyManager, oManager, manager);
+		game.level1C(player, enemyManager, oManager, manager);
+		game.level2A(player, enemyManager, oManager, manager);
 		//game.level2B(enemyManager, manager);
 		//game.level2C(enemyManager, manager);
 		//game.level3A(enemyManager, manager);
 		//game.level3B(enemyManager, manager);
 		//game.level3C(enemyManager, manager);
 		
-		player.checkOutOfScreen();
+
+		player.checkOutOfScreen(); //Empêche de sortir de l'écran
 		Event event;
 		if (Keyboard::isKeyPressed(Keyboard::Up))
 			player.sprite.move(0, -10);
 		if (Keyboard::isKeyPressed(Keyboard::Down))
 			player.sprite.move(0, 10);
+
+		//Créé un projectile lorsqu'il y a un click gauche avec un cooldown
+
 		if (Mouse::isButtonPressed(Mouse::Left) && player.attackClock.getElapsedTime().asSeconds() > player.attackCooldown.asSeconds())
 		{
 			player.attackClock.restart();
@@ -98,6 +106,7 @@ int main() {
 		// Dessine les étoile et leur defilement
 		star.draw(window);
 
+		//Gestion de l'affichage, de la durée de vie des projectiles et des dégâts infligés
 		for (auto i = 0; i < manager.getProjectiles().size(); i++)
 		{
 			window.draw(manager.getProjectiles()[i]->sprite);
@@ -108,18 +117,20 @@ int main() {
 			manager.checkProjectileOutOfScreen(manager.getProjectiles()[i], enemyManager, player, scoreText);
 		}
 		
+		//Regarde si un ennemi sort de l'écran ou si il est mort
 		for (auto i = 0; i < enemyManager.getEnemies().size(); i++)
 		{
 			window.draw(enemyManager.getEnemies()[i]->sprite);
 			enemyManager.checkEnemy(enemyManager.getEnemies()[i], game.toKill);
 		}
+		//Gestion des obstacles
 		for (int i = 0; i < oManager.getObstacles().size(); i++)
 		{
 			window.draw(oManager.getObstacles()[i]->sprite);
 			oManager.getObstacles()[i]->moveObstacle();
 			oManager.getObstacles()[i]->checkObstacle(player);
 		}
-		
+		//Gestion de l'attaque des ennemis
 		for (auto i = 0; i < enemyManager.getEnemies().size(); i++)
 		{
 			enemyManager.getEnemies()[i]->enemyMove();
@@ -156,12 +167,20 @@ int main() {
 
 		}
 		updateScoreText(player, scoreText);
-		playerHealthbar.setHealthbar(player);
+		healthbar.setHealthbar(player);
 		player.checkOutOfScreen();
 		if(player.HP > 0)
 			window.draw(player.sprite);
 		window.draw(scoreText);
-		window.draw(playerHealthbar.sprite);
+		window.draw(healthbar.psprite);
+		for (int i = 0; i < enemyManager.getEnemies().size(); i++)
+		{
+			if (enemyManager.getEnemies()[i]->id == BOSS1 || enemyManager.getEnemies()[i]->id == BOSS2 || enemyManager.getEnemies()[i]->id == BOSS3)
+			{
+				healthbar.setHealthbar(enemyManager.getEnemies()[i]);
+				window.draw(healthbar.esprite);
+			}
+		}
 		window.display();
 
 

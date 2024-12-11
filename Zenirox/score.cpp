@@ -13,6 +13,7 @@ int setScoreText(Player player, Font &scoreFont, Text &scoreText)
 	scoreText.setFillColor(Color::White);
 	scoreText.setOutlineColor(Color::Black);
 	scoreText.setOutlineThickness(4);
+	scoreText.setPosition(0, 50);
 
 	if (!scoreFont.loadFromFile("font.otf")) { cout << "Erreur lors du chargement de la police d'ecriture" << endl; return -1; }
 	scoreText.setFont(scoreFont);

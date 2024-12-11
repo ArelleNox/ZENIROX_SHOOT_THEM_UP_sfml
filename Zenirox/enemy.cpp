@@ -45,26 +45,34 @@ void Enemy::setAttackAndHP() {
 	case ENNEMI1:
 		AttackDamages = 5;
 		HP = 100;
+		maxHP = 100;
 		break;
 	case ENNEMI2:
 		AttackDamages = 10;
 		HP = 200;
+		maxHP = 200;
 		break;
 	case ENNEMI3:
 		AttackDamages = 15;
 		HP = 150;
+		maxHP = 150;
 		break;
 	case BOSS1:
 		AttackDamages = 10;
 		HP = 400;
+		maxHP = 400;
 		break;
 	case BOSS2:
 		AttackDamages = 10;
-		HP = 400;
+		HP = 500;
+		maxHP = 500;
 		break;
 	case BOSS3:
 		AttackDamages = 10;
 		HP = 600;
+		maxHP = 600;
+		shield = 200;
+		maxShield = 200;
 		break;
 	default:
 		break;

@@ -10,6 +10,9 @@ class Player
 {
 public:
 	int HP = 100;
+	int maxHP = 100;
+	int shield = 0;
+	int maxShield = 50;
 	int score = 0;
 	int attack = 10;
 	float up = -5;

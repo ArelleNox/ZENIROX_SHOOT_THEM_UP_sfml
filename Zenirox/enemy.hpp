@@ -17,7 +17,10 @@ enum Direction {
 
 class Enemy {
 public:
-	int HP;
+	int HP = 0;
+	int maxHP = 0;
+	int shield = 0;
+	int maxShield = 0;
 	float velocity = 2;
 	Direction direction = up;
 	Sprite sprite;

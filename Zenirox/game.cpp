@@ -1,11 +1,16 @@
 #include "game.hpp"
 #include "projectile.hpp"
 
+void Game::setGameDuration(float duration) {
+	gameDuration = seconds(duration);
+}
 
-void Game::level1A(EnemyManager &eManager, ObstacleManager& oManager, ProjectileManager& pManager)
+void Game::level1A(Player& player, EnemyManager &eManager, ObstacleManager& oManager, ProjectileManager& pManager)
 {
 	if (state == niveau1A && loadLevel == true && isFightingBoss == false && Univeau1A == true)
 	{
+		gameClock.restart();
+		setGameDuration(120);
 		toKill = 10;
 
 		eManager.creerEnemy(ENNEMI1, 1000, 500);
@@ -24,6 +29,10 @@ void Game::level1A(EnemyManager &eManager, ObstacleManager& oManager, Projectile
 
 		loadLevel = false;
 	}
+	if (gameClock.getElapsedTime().asSeconds() > gameDuration.asSeconds())
+	{
+		player.HP = 0;
+	}
 	else if (state == niveau1A && toKill == 0 && isFightingBoss == false)
 	{
 		isFightingBoss = true;
@@ -38,13 +47,16 @@ void Game::level1A(EnemyManager &eManager, ObstacleManager& oManager, Projectile
 		Univeau1B = true;
 		state = niveau1B;
 		pManager.~ProjectileManager();
+		oManager.~ObstacleManager();
 	}
 }
-void Game::level1B(EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager)
+void Game::level1B(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager)
 {
 	
 	if (state == niveau1B && loadLevel == true && isFightingBoss == false && Univeau1B == true)
 	{
+		gameClock.restart();
+		setGameDuration(120);
 		toKill = 10;
 		eManager.creerEnemy(ENNEMI1, 1000, 500);
 		eManager.creerEnemy(ENNEMI1, 2500, 300);
@@ -59,6 +71,10 @@ void Game::level1B(EnemyManager& eManager, ObstacleManager& oManager, Projectile
 
 		loadLevel = false;
 	}
+	if (gameClock.getElapsedTime().asSeconds() > gameDuration.asSeconds())
+	{
+		player.HP = 0;
+	}
 	if (state == niveau1B && toKill == 0 && isFightingBoss == false)
 	{
 		isFightingBoss = true;
@@ -72,12 +88,15 @@ void Game::level1B(EnemyManager& eManager, ObstacleManager& oManager, Projectile
 		Univeau1C = true;
 		state = niveau1C;
 		pManager.~ProjectileManager();
+		oManager.~ObstacleManager();
 	}
 }
-void Game::level1C(EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager)
+void Game::level1C(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager)
 {
 	if (state == niveau1C && loadLevel == true && isFightingBoss == false && Univeau1C == true)
 	{
+		gameClock.restart();
+		setGameDuration(120);
 		toKill = 10;
 		eManager.creerEnemy(ENNEMI1, 1000, 500);
 		eManager.creerEnemy(ENNEMI1, 2500, 300);
@@ -92,6 +111,10 @@ void Game::level1C(EnemyManager& eManager, ObstacleManager& oManager, Projectile
 
 		loadLevel = false;
 	}
+	if (gameClock.getElapsedTime().asSeconds() > gameDuration.asSeconds())
+	{
+		player.HP = 0;
+	}
 	if (state == niveau1C && toKill == 0 && isFightingBoss == false)
 	{
 		isFightingBoss = true;
@@ -105,14 +128,17 @@ void Game::level1C(EnemyManager& eManager, ObstacleManager& oManager, Projectile
 		Univeau2A = true;
 		state = niveau2A;
 		pManager.~ProjectileManager();
+		oManager.~ObstacleManager();
 	}
 }
 
-void Game::level2A(EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager)
+void Game::level2A(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager)
 {
 	
 	if (state == niveau2A && loadLevel == true && isFightingBoss == false && Univeau2A == true)
 	{
+		gameClock.restart();
+		setGameDuration(120);
 		toKill = 10;
 		eManager.creerEnemy(ENNEMI2, 1000, 500);
 		eManager.creerEnemy(ENNEMI2, 2500, 300);
@@ -126,6 +152,10 @@ void Game::level2A(EnemyManager& eManager, ObstacleManager& oManager, Projectile
 		eManager.creerEnemy(ENNEMI3, 14500, 800);
 
 		loadLevel = false;
+	}
+	if (gameClock.getElapsedTime().asSeconds() > gameDuration.asSeconds())
+	{
+		player.HP = 0;
 	}
 	if (state == niveau2A && toKill == 0 && isFightingBoss == false)
 	{
