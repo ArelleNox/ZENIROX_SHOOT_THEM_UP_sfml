@@ -8,6 +8,7 @@
 #include "score.hpp"
 #include "healthbar.hpp"
 #include "game.hpp"
+#include "obstacle.hpp"
 
 using namespace std;
 using namespace sf;
@@ -46,12 +47,14 @@ int main() {
 
 	ProjectileManager manager;
 	openScore(player);
+	
+	ObstacleManager oManager;
 	while (window.isOpen())
 	{
-		game.level1A(enemyManager, manager);
-		game.level1B(enemyManager, manager);
-		game.level1C(enemyManager, manager);
-		game.level2A(enemyManager, manager);
+		game.level1A(enemyManager, oManager, manager);
+		game.level1B(enemyManager, oManager, manager);
+		game.level1C(enemyManager, oManager, manager);
+		game.level2A(enemyManager, oManager, manager);
 		//game.level2B(enemyManager, manager);
 		//game.level2C(enemyManager, manager);
 		//game.level3A(enemyManager, manager);
@@ -109,6 +112,12 @@ int main() {
 		{
 			window.draw(enemyManager.getEnemies()[i]->sprite);
 			enemyManager.checkEnemy(enemyManager.getEnemies()[i], game.toKill);
+		}
+		for (int i = 0; i < oManager.getObstacles().size(); i++)
+		{
+			window.draw(oManager.getObstacles()[i]->sprite);
+			oManager.getObstacles()[i]->moveObstacle();
+			oManager.getObstacles()[i]->checkObstacle(player);
 		}
 		
 		for (auto i = 0; i < enemyManager.getEnemies().size(); i++)

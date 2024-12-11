@@ -2,7 +2,7 @@
 #include "projectile.hpp"
 
 
-void Game::level1A(EnemyManager &eManager, ProjectileManager& pManager)
+void Game::level1A(EnemyManager &eManager, ObstacleManager& oManager, ProjectileManager& pManager)
 {
 	if (state == niveau1A && loadLevel == true && isFightingBoss == false && Univeau1A == true)
 	{
@@ -11,10 +11,13 @@ void Game::level1A(EnemyManager &eManager, ProjectileManager& pManager)
 		eManager.creerEnemy(ENNEMI1, 1000, 500);
 		eManager.creerEnemy(ENNEMI1, 2500, 300);
 		eManager.creerEnemy(ENNEMI1, 4000, 700);
+		oManager.creerObstacle(4700, 500);
 		eManager.creerEnemy(ENNEMI1, 5500, 100);
 		eManager.creerEnemy(ENNEMI2, 7000, 800);
+		oManager.creerObstacle(8000, 300);
 		eManager.creerEnemy(ENNEMI1, 8500, 400);
 		eManager.creerEnemy(ENNEMI1, 10000, 600);
+		oManager.creerObstacle(12000, 700);
 		eManager.creerEnemy(ENNEMI1, 11500, 300);
 		eManager.creerEnemy(ENNEMI1, 13000, 500);
 		eManager.creerEnemy(ENNEMI3, 14500, 800);
@@ -37,7 +40,7 @@ void Game::level1A(EnemyManager &eManager, ProjectileManager& pManager)
 		pManager.~ProjectileManager();
 	}
 }
-void Game::level1B(EnemyManager& eManager, ProjectileManager& pManager)
+void Game::level1B(EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager)
 {
 	
 	if (state == niveau1B && loadLevel == true && isFightingBoss == false && Univeau1B == true)
@@ -71,7 +74,7 @@ void Game::level1B(EnemyManager& eManager, ProjectileManager& pManager)
 		pManager.~ProjectileManager();
 	}
 }
-void Game::level1C(EnemyManager& eManager, ProjectileManager& pManager)
+void Game::level1C(EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager)
 {
 	if (state == niveau1C && loadLevel == true && isFightingBoss == false && Univeau1C == true)
 	{
@@ -105,7 +108,7 @@ void Game::level1C(EnemyManager& eManager, ProjectileManager& pManager)
 	}
 }
 
-void Game::level2A(EnemyManager& eManager, ProjectileManager& pManager)
+void Game::level2A(EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager)
 {
 	
 	if (state == niveau2A && loadLevel == true && isFightingBoss == false && Univeau2A == true)
