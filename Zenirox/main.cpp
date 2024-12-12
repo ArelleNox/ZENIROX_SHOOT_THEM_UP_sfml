@@ -27,8 +27,13 @@ int main() {
 	Player player;
 	player.setSprite();
 	EnemyManager enemyManager;
-	
-	
+	Sprite coin;
+	Texture coinTexture;
+	if (!coinTexture.loadFromFile("coin.png")) { cout << "Erreur de chargement de la texture de piece" << endl; return -1; }
+	coin.setTexture(coinTexture);
+	coin.setScale(0.2, 0.2);
+	coin.setPosition(0, 45);
+
 	game.Univeau1A = true;
 	Text scoreText;
 	Font scoreFont;
@@ -49,12 +54,11 @@ int main() {
 	openScore(player);
 	
 	ObstacleManager oManager;
-	enemyManager.creerEnemy(BOSS4, 1500, 500);
 	while (window.isOpen())
 	{
 		//Chargement des niveaux
 
-		//game.level1A(player, enemyManager, oManager, manager);
+		game.level1A(player, enemyManager, oManager, manager);
 		//game.level1B(player, enemyManager, oManager, manager);
 		//game.level1C(player, enemyManager, oManager, manager);
 		//game.level2A(player, enemyManager, oManager, manager);
@@ -171,10 +175,11 @@ int main() {
 		if(player.HP > 0)
 			window.draw(player.sprite);
 		window.draw(scoreText);
+		window.draw(coin);
 		window.draw(healthbar.psprite);
 		for (int i = 0; i < enemyManager.getEnemies().size(); i++)
 		{
-			if (enemyManager.getEnemies()[i]->id == BOSS1 || enemyManager.getEnemies()[i]->id == BOSS2 || enemyManager.getEnemies()[i]->id == BOSS3)
+			if (enemyManager.getEnemies()[i]->id == BOSS1 || enemyManager.getEnemies()[i]->id == BOSS2 || enemyManager.getEnemies()[i]->id == BOSS3 || enemyManager.getEnemies()[i]->id == BOSS4)
 			{
 				healthbar.setHealthbar(enemyManager.getEnemies()[i]);
 				window.draw(healthbar.esprite);

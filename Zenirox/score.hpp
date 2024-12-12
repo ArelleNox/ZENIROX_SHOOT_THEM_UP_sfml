@@ -4,6 +4,7 @@
 #include "player.hpp"
 using namespace sf;
 
+
 int setScoreText(Player player, Font &textFont, Text &scoreText);
 void updateScoreText(Player player, Text& scoreText);
 void openScore(Player &player);

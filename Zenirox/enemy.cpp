@@ -76,10 +76,10 @@ void Enemy::setAttackAndHP() {
 		break;
 	case BOSS4:
 		AttackDamages = 15;
-		HP = 1000;
-		maxHP = 1000;
-		shield = 500;
-		maxShield = 500;
+		HP = 800;
+		maxHP = 800;
+		shield = 400;
+		maxShield = 400;
 		break;
 	default:
 		break;
@@ -202,9 +202,9 @@ void Enemy::enemyMove() {
 			e->rechargeCooldown = seconds(2);
 			break;
 		case BOSS4:
-			e->attackCooldown = seconds(0.02);
-			e->rechargeCooldown = seconds(0.5);
-			e->velocity = 7;
+			e->attackCooldown = seconds(0.06);
+			e->rechargeCooldown = seconds(2);
+			e->velocity = 6;
 			break;
 		}
 		enemies.push_back(e);

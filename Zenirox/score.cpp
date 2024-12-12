@@ -20,7 +20,7 @@ int setScoreText(Player player, Font &scoreFont, Text &scoreText)
 }
 void updateScoreText(Player player, Text& scoreText)
 {
-	scoreText.setString("Score: " + to_string(player.score));
+	scoreText.setString("       " + to_string(player.score));
 }
 void openScore(Player &player) {
 	ifstream scoreFile("score.txt");
