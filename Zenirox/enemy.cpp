@@ -74,6 +74,13 @@ void Enemy::setAttackAndHP() {
 		shield = 200;
 		maxShield = 200;
 		break;
+	case BOSS4:
+		AttackDamages = 15;
+		HP = 1000;
+		maxHP = 1000;
+		shield = 500;
+		maxShield = 500;
+		break;
 	default:
 		break;
 	}
@@ -139,6 +146,8 @@ void Enemy::enemyMove() {
 			e->sprite.setScale(1.5, 1.5);
 		else if (defLevel == BOSS3)
 			e->sprite.setScale(1, 1);
+		else if (defLevel == BOSS4)
+			e->sprite.setScale(1, 1);
 		switch (defLevel)
 		{
 		case ENNEMI1:
@@ -194,7 +203,8 @@ void Enemy::enemyMove() {
 			break;
 		case BOSS4:
 			e->attackCooldown = seconds(0.02);
-			e->rechargeCooldown = seconds(2);
+			e->rechargeCooldown = seconds(0.5);
+			e->velocity = 7;
 			break;
 		}
 		enemies.push_back(e);

@@ -66,6 +66,9 @@ ProjectileManager::~ProjectileManager() {
 		case BOSS3:
 			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height -68);
 			break;
+		case BOSS4:
+			p->sprite.setPosition(enemy->sprite.getPosition().x, enemy->sprite.getPosition().y + enemy->sprite.getGlobalBounds().height - 110);
+			break;
 		default:
 			break;
 		}

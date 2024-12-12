@@ -49,15 +49,15 @@ int main() {
 	openScore(player);
 	
 	ObstacleManager oManager;
-	
+	enemyManager.creerEnemy(BOSS4, 1500, 500);
 	while (window.isOpen())
 	{
 		//Chargement des niveaux
 
-		game.level1A(player, enemyManager, oManager, manager);
-		game.level1B(player, enemyManager, oManager, manager);
-		game.level1C(player, enemyManager, oManager, manager);
-		game.level2A(player, enemyManager, oManager, manager);
+		//game.level1A(player, enemyManager, oManager, manager);
+		//game.level1B(player, enemyManager, oManager, manager);
+		//game.level1C(player, enemyManager, oManager, manager);
+		//game.level2A(player, enemyManager, oManager, manager);
 		//game.level2B(enemyManager, manager);
 		//game.level2C(enemyManager, manager);
 		//game.level3A(enemyManager, manager);
@@ -157,9 +157,9 @@ int main() {
 					}
 					enemyManager.getEnemies()[i]->attackClock.restart();
 					manager.creerProjectile(enemyManager.getEnemies()[i], projVelocity);
-					
-
 				}
+				
+
 				if(enemyManager.getEnemies()[i]->rechargeClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->rechargeCooldown.asSeconds() *2)
 					enemyManager.getEnemies()[i]->rechargeClock.restart();
 			}

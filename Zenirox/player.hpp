@@ -9,8 +9,8 @@ using namespace sf;
 class Player
 {
 public:
-	int HP = 100;
-	int maxHP = 100;
+	int HP = 1000;
+	int maxHP = 1000;
 	int shield = 0;
 	int maxShield = 50;
 	int score = 0;
