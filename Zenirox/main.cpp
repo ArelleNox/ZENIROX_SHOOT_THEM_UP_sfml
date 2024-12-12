@@ -56,6 +56,8 @@ int main() {
 	openScore(player);
 	
 	ObstacleManager oManager;
+
+	
 	while (window.isOpen())
 	{
 		//Chargement des niveaux
@@ -182,6 +184,7 @@ int main() {
 		window.draw(scoreText);
 		window.draw(coin);
 		window.draw(healthbar.psprite);
+		
 		for (int i = 0; i < enemyManager.getEnemies().size(); i++)
 		{
 			if (enemyManager.getEnemies()[i]->id == BOSS1 || enemyManager.getEnemies()[i]->id == BOSS2 || enemyManager.getEnemies()[i]->id == BOSS3 || enemyManager.getEnemies()[i]->id == BOSS4)
