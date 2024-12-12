@@ -19,5 +19,6 @@ enum ID {
 
 const float HEIGHT = 1080;
 const float WIDTH = 1920;
+const float MAXHEIGHT = 95;
 
 #endif 

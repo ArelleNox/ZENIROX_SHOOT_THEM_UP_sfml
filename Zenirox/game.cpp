@@ -19,10 +19,8 @@ void Game::level1A(Player& player, EnemyManager &eManager, ObstacleManager& oMan
 		oManager.creerObstacle(4700, 500);
 		eManager.creerEnemy(ENNEMI1, 5500, 100);
 		eManager.creerEnemy(ENNEMI2, 7000, 800);
-		oManager.creerObstacle(8000, 300);
 		eManager.creerEnemy(ENNEMI1, 8500, 400);
 		eManager.creerEnemy(ENNEMI1, 10000, 600);
-		oManager.creerObstacle(12000, 700);
 		eManager.creerEnemy(ENNEMI1, 11500, 300);
 		eManager.creerEnemy(ENNEMI1, 13000, 500);
 		eManager.creerEnemy(ENNEMI3, 14500, 800);

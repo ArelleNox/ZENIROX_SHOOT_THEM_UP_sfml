@@ -8,12 +8,25 @@ void Obstacle::setTexture() {
 	if (!texture.loadFromFile("meteor.png")) { throw runtime_error("Impossible de charger la texture de l'obstacle"); }
 	sprite.setTexture(texture);
 }
-void Obstacle::moveObstacle()
+void Obstacle::moveObstacle(int randValue)
 {
 	sprite.move(-velocity, 0);
 	if (sprite.getPosition().x < -500)
 	{
-		sprite.setPosition(WIDTH + 3000, sprite.getPosition().y);
+		switch (randValue)
+		{
+		case 0: sprite.setPosition(WIDTH + 3000, 500);
+			break;
+		case 1: sprite.setPosition(WIDTH + 3000, 750);
+			break;
+		case 2: sprite.setPosition(WIDTH + 3000, 250);
+			break;
+		default: sprite.setPosition(WIDTH + 3000, 500);
+			break;
+		}
+
+		
+		
 	}
 }
 
@@ -40,7 +53,7 @@ Obstacle* ObstacleManager::creerObstacle(float width, float height) {
 	Obstacle* o = new Obstacle();
 	o->setTexture();
 	o->sprite.setPosition(width, height);
-	o->sprite.setScale(0.5, 0.5);
+	o->sprite.setScale(0.25, 0.25);
 	obstacles.push_back(o);
 	return o;
 	

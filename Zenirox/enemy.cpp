@@ -91,7 +91,7 @@ Enemy::~Enemy() {
 	{ cout << "Un ennemi a ete detruit" << endl; };
 }
 void Enemy::enemyMove() {
-	if (sprite.getPosition().y < 0)
+	if (sprite.getPosition().y < MAXHEIGHT)
 		direction = down;
 	else if (sprite.getPosition().y > HEIGHT - sprite.getGlobalBounds().height)
 		direction = up;

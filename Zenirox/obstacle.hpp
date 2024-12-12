@@ -17,7 +17,7 @@ public:
 	Obstacle();
 	~Obstacle();
 	void setTexture();
-	void moveObstacle();
+	void moveObstacle(int randValue);
 	void checkObstacle(Player& player);
 };
 

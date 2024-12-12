@@ -21,12 +21,14 @@ using namespace sf;
 int main() {
 	srand(time(NULL));
 	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Fullscreen);
-	window.setFramerateLimit(60);
-	window.setVerticalSyncEnabled(true);
+	window.setFramerateLimit(500);
+	window.setVerticalSyncEnabled(false);
 	Game game;
 	Player player;
 	player.setSprite();
 	EnemyManager enemyManager;
+	RectangleShape interface(Vector2f(1920, 95));
+	interface.setFillColor(Color::White);
 	Sprite coin;
 	Texture coinTexture;
 	if (!coinTexture.loadFromFile("coin.png")) { cout << "Erreur de chargement de la texture de piece" << endl; return -1; }
@@ -130,7 +132,8 @@ int main() {
 		for (int i = 0; i < oManager.getObstacles().size(); i++)
 		{
 			window.draw(oManager.getObstacles()[i]->sprite);
-			oManager.getObstacles()[i]->moveObstacle();
+			int randValue = rand() % 3;
+			oManager.getObstacles()[i]->moveObstacle(randValue);
 			oManager.getObstacles()[i]->checkObstacle(player);
 		}
 		//Gestion de l'attaque des ennemis
@@ -172,6 +175,7 @@ int main() {
 		updateScoreText(player, scoreText);
 		healthbar.setHealthbar(player);
 		player.checkOutOfScreen();
+		window.draw(interface);
 		if(player.HP > 0)
 			window.draw(player.sprite);
 		window.draw(scoreText);
