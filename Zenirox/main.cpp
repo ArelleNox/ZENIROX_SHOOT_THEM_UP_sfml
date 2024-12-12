@@ -21,8 +21,8 @@ using namespace sf;
 int main() {
 	srand(time(NULL));
 	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Fullscreen);
-	window.setFramerateLimit(500);
-	window.setVerticalSyncEnabled(false);
+	window.setFramerateLimit(60);
+	window.setVerticalSyncEnabled(true);
 	Game game;
 	Player player;
 	player.setSprite();
