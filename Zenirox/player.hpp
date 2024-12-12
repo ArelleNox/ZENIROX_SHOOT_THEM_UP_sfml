@@ -9,7 +9,7 @@ using namespace sf;
 class Player
 {
 public:
-	int HP = 1000;
+	int HP = 10;
 	int maxHP = 1000;
 	int shield = 0;
 	int maxShield = 50;

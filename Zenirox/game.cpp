@@ -1,11 +1,12 @@
 #include "game.hpp"
 #include "projectile.hpp"
+#include "powerups.hpp"
 
 void Game::setGameDuration(float duration) {
 	gameDuration = seconds(duration);
 }
 
-void Game::level1A(Player& player, EnemyManager &eManager, ObstacleManager& oManager, ProjectileManager& pManager)
+void Game::level1A(Player& player, EnemyManager &eManager, ObstacleManager& oManager, ProjectileManager& pManager, UtilitaryManager& uManager)
 {
 	if (state == niveau1A && loadLevel == true && isFightingBoss == false && Univeau1A == true)
 	{
@@ -15,6 +16,7 @@ void Game::level1A(Player& player, EnemyManager &eManager, ObstacleManager& oMan
 
 		eManager.creerEnemy(ENNEMI1, 1000, 500);
 		eManager.creerEnemy(ENNEMI1, 2500, 300);
+		uManager.creerUtilitary(heart, 2500, 800);
 		eManager.creerEnemy(ENNEMI1, 4000, 700);
 		oManager.creerObstacle(4700, 500);
 		eManager.creerEnemy(ENNEMI1, 5500, 100);
@@ -48,7 +50,8 @@ void Game::level1A(Player& player, EnemyManager &eManager, ObstacleManager& oMan
 		oManager.~ObstacleManager();
 	}
 }
-void Game::level1B(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager)
+
+void Game::level1B(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager, UtilitaryManager& uManager)
 {
 	
 	if (state == niveau1B && loadLevel == true && isFightingBoss == false && Univeau1B == true)
@@ -90,7 +93,8 @@ void Game::level1B(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 		oManager.~ObstacleManager();
 	}
 }
-void Game::level1C(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager)
+
+void Game::level1C(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager, UtilitaryManager& uManager)
 {
 	if (state == niveau1C && loadLevel == true && isFightingBoss == false && Univeau1C == true)
 	{
@@ -132,7 +136,7 @@ void Game::level1C(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	}
 }
 
-void Game::level2A(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager)
+void Game::level2A(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager, UtilitaryManager& uManager)
 {
 	
 	if (state == niveau2A && loadLevel == true && isFightingBoss == false && Univeau2A == true)
@@ -175,7 +179,7 @@ void Game::level2A(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	}
 }
 
-void Game::level2B(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager)
+void Game::level2B(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager, UtilitaryManager& uManager)
 {
 
 	if (state == niveau2B && loadLevel == true && isFightingBoss == false && Univeau2B == true)
@@ -218,7 +222,7 @@ void Game::level2B(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	}
 }
 
-void Game::level2C(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager)
+void Game::level2C(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager, UtilitaryManager& uManager)
 {
 
 	if (state == niveau2C && loadLevel == true && isFightingBoss == false && Univeau2C == true)
@@ -261,7 +265,7 @@ void Game::level2C(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	}
 }
 
-void Game::level3A(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager)
+void Game::level3A(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager, UtilitaryManager& uManager)
 {
 
 	if (state == niveau3A && loadLevel == true && isFightingBoss == false && Univeau3A == true)
@@ -305,7 +309,7 @@ void Game::level3A(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	}
 }
 
-void Game::level3B(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager)
+void Game::level3B(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager, UtilitaryManager& uManager)
 {
 
 	if (state == niveau3B && loadLevel == true && isFightingBoss == false && Univeau3B == true)
@@ -354,7 +358,7 @@ void Game::level3B(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	}
 }
 
-void Game::level3C(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager)
+void Game::level3C(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager, UtilitaryManager& uManager)
 {
 
 	if (state == niveau3C && loadLevel == true && isFightingBoss == false && Univeau3C == true)
@@ -408,7 +412,7 @@ void Game::level3C(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	}
 }
 
-void Game::level4(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager)
+void Game::level4(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager, UtilitaryManager& uManager)
 {
 	if (state == finalBoss && loadLevel == true && isFightingBoss == false && UfinalBoss == true)
 	{

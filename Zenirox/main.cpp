@@ -9,6 +9,7 @@
 #include "healthbar.hpp"
 #include "game.hpp"
 #include "obstacle.hpp"
+#include "powerups.hpp"
 
 using namespace std;
 using namespace sf;
@@ -26,7 +27,7 @@ int main() {
 	Game game;
 	Player player;
 	player.setSprite();
-	EnemyManager enemyManager;
+	EnemyManager eManager;
 	RectangleShape interface(Vector2f(1920, 95));
 	interface.setFillColor(Color::White);
 	Sprite coin;
@@ -52,26 +53,28 @@ int main() {
 	// Initialiser l'horloge pour gérer le deltaTime
 	sf::Clock clock;
 
-	ProjectileManager manager;
+	ProjectileManager pManager;
 	openScore(player);
 	
 	ObstacleManager oManager;
+
+	UtilitaryManager uManager;
 
 	
 	while (window.isOpen())
 	{
 		//Chargement des niveaux
 
-		game.level1A(player, enemyManager, oManager, manager);
-		game.level1B(player, enemyManager, oManager, manager);
-		game.level1C(player, enemyManager, oManager, manager);
-		game.level2A(player, enemyManager, oManager, manager);
-		game.level2B(player, enemyManager, oManager, manager);
-		game.level2C(player, enemyManager, oManager, manager);
-		game.level3A(player, enemyManager, oManager, manager);
-		game.level3B(player, enemyManager, oManager, manager);
-		game.level3C(player, enemyManager, oManager, manager);
-		game.level4(player, enemyManager, oManager, manager);
+		game.level1A(player, eManager, oManager, pManager, uManager);
+		game.level1B(player, eManager, oManager, pManager, uManager);
+		game.level1C(player, eManager, oManager, pManager, uManager);
+		game.level2A(player, eManager, oManager, pManager, uManager);
+		game.level2B(player, eManager, oManager, pManager, uManager);
+		game.level2C(player, eManager, oManager, pManager, uManager);
+		game.level3A(player, eManager, oManager, pManager, uManager);
+		game.level3B(player, eManager, oManager, pManager, uManager);
+		game.level3C(player, eManager, oManager, pManager, uManager);
+		game.level4(player, eManager, oManager, pManager, uManager);
 		
 
 		player.checkOutOfScreen(); //Empêche de sortir de l'écran
@@ -86,8 +89,8 @@ int main() {
 		if (Mouse::isButtonPressed(Mouse::Left) && player.attackClock.getElapsedTime().asSeconds() > player.attackCooldown.asSeconds())
 		{
 			player.attackClock.restart();
-			manager.creerProjectile(player);
-			manager.getProjectiles()[manager.getProjectiles().size() - 1]->sprite.setPosition(player.sprite.getPosition().x, player.sprite.getGlobalBounds().top+50);
+			pManager.creerProjectile(player);
+			pManager.getProjectiles()[pManager.getProjectiles().size() - 1]->sprite.setPosition(player.sprite.getPosition().x, player.sprite.getGlobalBounds().top+50);
 		}
 		
 		while (window.pollEvent(event)){
@@ -115,21 +118,26 @@ int main() {
 		star.draw(window);
 
 		//Gestion de l'affichage, de la durée de vie des projectiles et des dégâts infligés
-		for (auto i = 0; i < manager.getProjectiles().size(); i++)
+		for (auto i = 0; i < pManager.getProjectiles().size(); i++)
 		{
-			window.draw(manager.getProjectiles()[i]->sprite);
-			if(manager.getProjectiles()[i]->id == PLAYER)
-				manager.getProjectiles()[i]->sprite.move(14, 0);
-			if (manager.getProjectiles()[i]->id != PLAYER)
-				manager.getProjectiles()[i]->sprite.move(manager.getProjectiles()[i]->velocity, 0);
-			manager.checkProjectileOutOfScreen(manager.getProjectiles()[i], enemyManager, player, scoreText);
+			window.draw(pManager.getProjectiles()[i]->sprite);
+			if(pManager.getProjectiles()[i]->id == PLAYER)
+				pManager.getProjectiles()[i]->sprite.move(14, 0);
+			if (pManager.getProjectiles()[i]->id != PLAYER)
+				pManager.getProjectiles()[i]->sprite.move(pManager.getProjectiles()[i]->velocity, 0);
+			pManager.checkProjectileOutOfScreen(pManager.getProjectiles()[i], eManager, player, scoreText);
 		}
-		
-		//Regarde si un ennemi sort de l'écran ou si il est mort
-		for (auto i = 0; i < enemyManager.getEnemies().size(); i++)
+		for (int i = 0; i < uManager.getUtilitaryList().size(); i++)
 		{
-			window.draw(enemyManager.getEnemies()[i]->sprite);
-			enemyManager.checkEnemy(enemyManager.getEnemies()[i], game.toKill);
+			window.draw(uManager.getUtilitaryList()[i]->sprite);
+			uManager.getUtilitaryList()[i]->moveUtilitary();
+			uManager.checkUtilitary(uManager.getUtilitaryList()[i], player);
+		}
+		//Regarde si un ennemi sort de l'écran ou si il est mort
+		for (auto i = 0; i < eManager.getEnemies().size(); i++)
+		{
+			window.draw(eManager.getEnemies()[i]->sprite);
+			eManager.checkEnemy(eManager.getEnemies()[i], game.toKill);
 		}
 		//Gestion des obstacles
 		for (int i = 0; i < oManager.getObstacles().size(); i++)
@@ -140,13 +148,13 @@ int main() {
 			oManager.getObstacles()[i]->checkObstacle(player);
 		}
 		//Gestion de l'attaque des ennemis
-		for (auto i = 0; i < enemyManager.getEnemies().size(); i++)
+		for (auto i = 0; i < eManager.getEnemies().size(); i++)
 		{
-			enemyManager.getEnemies()[i]->enemyMove();
-			if(enemyManager.getEnemies()[i]->rechargeClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->rechargeCooldown.asSeconds())
+			eManager.getEnemies()[i]->enemyMove();
+			if(eManager.getEnemies()[i]->rechargeClock.getElapsedTime().asSeconds() > eManager.getEnemies()[i]->rechargeCooldown.asSeconds())
 			{
 				
-				if (enemyManager.getEnemies()[i]->attackClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->attackCooldown.asSeconds())
+				if (eManager.getEnemies()[i]->attackClock.getElapsedTime().asSeconds() > eManager.getEnemies()[i]->attackCooldown.asSeconds())
 				{
 					int projVelocityChance = rand() % 3;
 					int projVelocity;
@@ -165,16 +173,17 @@ int main() {
 						projVelocity = -4;
 						break;
 					}
-					enemyManager.getEnemies()[i]->attackClock.restart();
-					manager.creerProjectile(enemyManager.getEnemies()[i], projVelocity);
+					eManager.getEnemies()[i]->attackClock.restart();
+					pManager.creerProjectile(eManager.getEnemies()[i], projVelocity);
 				}
 				
 
-				if(enemyManager.getEnemies()[i]->rechargeClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->rechargeCooldown.asSeconds() *2)
-					enemyManager.getEnemies()[i]->rechargeClock.restart();
+				if(eManager.getEnemies()[i]->rechargeClock.getElapsedTime().asSeconds() > eManager.getEnemies()[i]->rechargeCooldown.asSeconds() *2)
+					eManager.getEnemies()[i]->rechargeClock.restart();
 			}
 
 		}
+
 		updateScoreText(player, scoreText);
 		healthbar.setHealthbar(player);
 		player.checkOutOfScreen();
@@ -185,11 +194,11 @@ int main() {
 		window.draw(coin);
 		window.draw(healthbar.psprite);
 		
-		for (int i = 0; i < enemyManager.getEnemies().size(); i++)
+		for (int i = 0; i < eManager.getEnemies().size(); i++)
 		{
-			if (enemyManager.getEnemies()[i]->id == BOSS1 || enemyManager.getEnemies()[i]->id == BOSS2 || enemyManager.getEnemies()[i]->id == BOSS3 || enemyManager.getEnemies()[i]->id == BOSS4)
+			if (eManager.getEnemies()[i]->id == BOSS1 || eManager.getEnemies()[i]->id == BOSS2 || eManager.getEnemies()[i]->id == BOSS3 || eManager.getEnemies()[i]->id == BOSS4)
 			{
-				healthbar.setHealthbar(enemyManager.getEnemies()[i]);
+				healthbar.setHealthbar(eManager.getEnemies()[i]);
 				window.draw(healthbar.esprite);
 			}
 		}
