@@ -61,14 +61,15 @@ int main() {
 		//Chargement des niveaux
 
 		game.level1A(player, enemyManager, oManager, manager);
-		//game.level1B(player, enemyManager, oManager, manager);
-		//game.level1C(player, enemyManager, oManager, manager);
-		//game.level2A(player, enemyManager, oManager, manager);
-		//game.level2B(enemyManager, manager);
-		//game.level2C(enemyManager, manager);
-		//game.level3A(enemyManager, manager);
-		//game.level3B(enemyManager, manager);
-		//game.level3C(enemyManager, manager);
+		game.level1B(player, enemyManager, oManager, manager);
+		game.level1C(player, enemyManager, oManager, manager);
+		game.level2A(player, enemyManager, oManager, manager);
+		game.level2B(player, enemyManager, oManager, manager);
+		game.level2C(player, enemyManager, oManager, manager);
+		game.level3A(player, enemyManager, oManager, manager);
+		game.level3B(player, enemyManager, oManager, manager);
+		game.level3C(player, enemyManager, oManager, manager);
+		game.level4(player, enemyManager, oManager, manager);
 		
 
 		player.checkOutOfScreen(); //Empêche de sortir de l'écran

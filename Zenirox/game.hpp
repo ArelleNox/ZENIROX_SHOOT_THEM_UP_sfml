@@ -28,6 +28,7 @@ public:
 	void level3A(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager);
 	void level3B(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager);
 	void level3C(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager);
+	void level4(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager);
 };
 
 #endif
