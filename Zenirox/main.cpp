@@ -1,18 +1,4 @@
-#include <iostream>
-#include <ctime>
-#include "projectile.hpp"
-#include "player.hpp"
-#include "enemy.hpp"
-#include "Background.hpp"
-#include "parallaxe.hpp"
-#include "parallaxe2.hpp"
-#include "score.hpp"
-#include "healthbar.hpp"
 #include "game.hpp"
-#include "obstacle.hpp"
-#include "HUD.hpp"
-#include "powerups.hpp"
-
 using namespace std;
 using namespace sf;
 
@@ -22,7 +8,7 @@ using namespace sf;
 
 int main() {
 	srand(time(NULL));
-	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Default);
+	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Fullscreen);
 	window.setFramerateLimit(240);
 	window.setVerticalSyncEnabled(false);
 
@@ -49,7 +35,7 @@ int main() {
 
 	setScoreText(player, scoreFont, scoreText);
 
-	Background background("mainmenu.png", -10.0f); // Default texture and speed
+	Background background("palier11.png", -300.0f); // Default texture and speed
 
 	background.pal = palier1; // Example: setting the current palier
 
@@ -69,7 +55,7 @@ int main() {
 		break;
 	}
 
-	Starparallaxe star("star.png",-300.f);
+	Starparallaxe star("star.png", -300.f);
 	fastStarparallaxe faststar("star.png", -1500.f);
 
 	Healthbar healthbar;
@@ -85,9 +71,7 @@ int main() {
 
 	UtilitaryManager uManager;
 
-	
-	while (window.isOpen())
-	{
+	while (window.isOpen()){
 		//Chargement des niveaux
 		game.run(window, player, coin, background, star, faststar, healthbar, eManager, pManager, oManager, uManager, clock, scoreText, scoreFont, interface);
 		window.display();
