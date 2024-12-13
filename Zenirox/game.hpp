@@ -1,10 +1,18 @@
 #ifndef GAME_HPP
 #define GAME_HPP
+#include <iostream>
+#include <ctime>
+#include "projectile.hpp"
 #include "player.hpp"
 #include "enemy.hpp"
-#include "projectile.hpp"
+#include "Background.hpp"
+#include "parallaxe.hpp"
+#include "parallaxe2.hpp"
+#include "score.hpp"
+#include "healthbar.hpp"
+#include "game.hpp"
 #include "obstacle.hpp"
-#include "player.hpp"
+#include "HUD.hpp"
 #include "powerups.hpp"
 
 enum gameState {
@@ -30,6 +38,7 @@ public:
 	void level3B(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager, UtilitaryManager& uManager);
 	void level3C(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager, UtilitaryManager& uManager);
 	void level4(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager, UtilitaryManager& uManager);
+	void run(RenderWindow& window, Player& player, Sprite& coin, Background& background, Starparallaxe& star, fastStarparallaxe& faststar, Healthbar& healthbar, EnemyManager& eManager, ProjectileManager& pManager, ObstacleManager& oManager, UtilitaryManager& uManager, Clock& clock, Text& scoreText, Font& scoreFont, RectangleShape& interface);
 };
 
 #endif
