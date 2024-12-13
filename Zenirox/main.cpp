@@ -49,7 +49,25 @@ int main() {
 
 	setScoreText(player, scoreFont, scoreText);
 
-	Background background("palier22.png",-10.f);
+	Background background("mainmenu.png", -10.0f); // Default texture and speed
+
+	background.pal = palier1; // Example: setting the current palier
+
+	// Configure based on palier
+	switch (background.pal) {
+	case palier1:
+		background.setupPalier1();
+		break;
+	case palier2:
+		background.setupPalier2();
+		break;
+	case palier3:
+		background.setupPalier3();
+		break;
+	case palier4:
+		background.setupPalier4();
+		break;
+	}
 
 	Starparallaxe star("star.png",-300.f);
 	fastStarparallaxe faststar("star.png", -1500.f);
