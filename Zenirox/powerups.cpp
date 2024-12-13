@@ -24,7 +24,7 @@ UtilitaryManager::~UtilitaryManager()
 
 Utilitary* UtilitaryManager::creerUtilitary(Powerup defType, float width, float height) {
 	Utilitary* h = new Utilitary();
-	h->type == defType;
+	h->type = defType;
 	h->setTexture();
 	h->sprite.setPosition(width, height);
 	h->sprite.setScale(0.5,0.5);
@@ -45,15 +45,23 @@ void UtilitaryManager::detruireUtilitary(Utilitary* h)
 		utilitaryList.erase(it);
 	}
 }
-void UtilitaryManager::checkUtilitary(Utilitary* h, Player& player)
+void UtilitaryManager::checkUtilitary(Utilitary* h, Player& player, EnemyManager& eManager)
 {
+	cout << h->sprite.getPosition().x << endl;
 	if (h->sprite.getGlobalBounds().intersects(player.sprite.getGlobalBounds()))
 	{
 		if(h->type == heart)
-			player.HP += player.maxHP * 0.5;
+		{
+			player.HP += (player.maxHP*0.5);
+			if (player.HP >= player.maxHP)
+				player.HP = player.maxHP;
+			cout << player.HP;
+		}
 		detruireUtilitary(h);
 	}
 	if (h->sprite.getPosition().x < -500)
+	{
 		detruireUtilitary(h);
+	}
 
 }

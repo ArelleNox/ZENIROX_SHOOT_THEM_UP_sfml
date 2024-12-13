@@ -133,11 +133,11 @@ int main() {
 				pManager.getProjectiles()[i]->sprite.move(pManager.getProjectiles()[i]->velocity, 0);
 			pManager.checkProjectileOutOfScreen(pManager.getProjectiles()[i], eManager, player, scoreText);
 		}
-		for (int i = 0; i < uManager.getUtilitaryList().size(); i++)
+		for (auto i = 0; i < uManager.getUtilitaryList().size(); i++)
 		{
 			window.draw(uManager.getUtilitaryList()[i]->sprite);
 			uManager.getUtilitaryList()[i]->moveUtilitary();
-			uManager.checkUtilitary(uManager.getUtilitaryList()[i], player);
+			uManager.checkUtilitary(uManager.getUtilitaryList()[i], player, eManager);
 		}
 		//Regarde si un ennemi sort de l'écran ou si il est mort
 		for (auto i = 0; i < eManager.getEnemies().size(); i++)

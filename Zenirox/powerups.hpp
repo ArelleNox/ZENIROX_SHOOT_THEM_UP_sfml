@@ -4,6 +4,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "player.hpp"
+#include "enemy.hpp"
 
 using namespace std;
 using namespace sf;
@@ -35,7 +36,7 @@ public:
 	Utilitary* creerUtilitary(Powerup type, float width, float height);
 	void detruireUtilitary(Utilitary* utilitary);
 	vector<Utilitary* > getUtilitaryList();
-	void checkUtilitary(Utilitary* h, Player& player);
+	void checkUtilitary(Utilitary* h, Player& player, EnemyManager& eManager);
 };
 
 
