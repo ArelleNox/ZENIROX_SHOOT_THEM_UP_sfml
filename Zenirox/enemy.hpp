@@ -28,9 +28,12 @@ public:
 	int AttackDamages;
 	ID id;
 	Clock attackClock;
+	Clock boostClock;
 	Time attackCooldown;
+	Time boostDuration;
 	Clock rechargeClock;
 	Time rechargeCooldown;
+	bool canBeBoosted = false;
 	int setTexture();
 	void setAttackAndHP();
 	Enemy();
@@ -50,4 +53,5 @@ public:
 	void checkEnemy(Enemy* enemy,int &toKill);
 	vector<Enemy* > getEnemies();
 };
+
 #endif

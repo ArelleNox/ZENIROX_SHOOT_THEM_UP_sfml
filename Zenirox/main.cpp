@@ -20,17 +20,17 @@ using namespace sf;
 
 
 
-
 int main() {
 	srand(time(NULL));
-	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Fullscreen);
-	window.setFramerateLimit(60);
-	window.setVerticalSyncEnabled(true);
+	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Default);
+	window.setFramerateLimit(240);
+	window.setVerticalSyncEnabled(false);
 
 	Game game;
 
 	Player player;
 	player.setSprite();
+	player.attackCooldown = seconds(0.01);
 	EnemyManager eManager;
 
 	RectangleShape interface(Vector2f(1920, 95));
@@ -82,7 +82,12 @@ int main() {
 		game.level3B(player, eManager, oManager, pManager, uManager);
 		game.level3C(player, eManager, oManager, pManager, uManager);
 		game.level4(player, eManager, oManager, pManager, uManager);
-		
+		if (player.boostClock.getElapsedTime().asSeconds() < player.boostDuration.asSeconds() && player.canBeBoosted == true)
+		{
+			player.attackCooldown = seconds(0.01);
+		}
+		else
+			player.attackCooldown = seconds(0.01);
 
 		player.checkOutOfScreen(); //Empêche de sortir de l'écran
 		Event event;
@@ -144,6 +149,40 @@ int main() {
 		{
 			window.draw(eManager.getEnemies()[i]->sprite);
 			eManager.checkEnemy(eManager.getEnemies()[i], game.toKill);
+		}
+		for (auto i = 0; i < eManager.getEnemies().size(); i++)
+		{
+			if (eManager.getEnemies()[i]->boostClock.getElapsedTime().asSeconds() < eManager.getEnemies()[i]->boostDuration.asSeconds() && eManager.getEnemies()[i]->canBeBoosted == true)
+			{
+				eManager.getEnemies()[i]->attackCooldown = seconds(0.01);
+			}
+			else
+			{
+				switch (eManager.getEnemies()[i]->id)
+				{
+				case ENNEMI1:
+					eManager.getEnemies()[i]->attackCooldown = seconds(3);
+					break;
+				case ENNEMI2:
+					eManager.getEnemies()[i]->attackCooldown = seconds(1.5);
+					break;
+				case ENNEMI3:
+					eManager.getEnemies()[i]->attackCooldown = seconds(1);
+					break;
+				case BOSS1:
+					eManager.getEnemies()[i]->attackCooldown = seconds(0.08);
+					break;
+				case BOSS2:
+					eManager.getEnemies()[i]->attackCooldown = seconds(0.2);
+					break;
+				case BOSS3:
+					eManager.getEnemies()[i]->attackCooldown = seconds(0.2);
+					break;
+				case BOSS4:
+					eManager.getEnemies()[i]->attackCooldown = seconds(0.06);
+					break;
+				}
+			}
 		}
 		//Gestion des obstacles
 		for (int i = 0; i < oManager.getObstacles().size(); i++){

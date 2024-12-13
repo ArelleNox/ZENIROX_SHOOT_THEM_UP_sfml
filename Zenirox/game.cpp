@@ -16,7 +16,6 @@ void Game::level1A(Player& player, EnemyManager &eManager, ObstacleManager& oMan
 
 		eManager.creerEnemy(ENNEMI1, 1000, 500);
 		eManager.creerEnemy(ENNEMI1, 2500, 300);
-		uManager.creerUtilitary(heart, 1000, 800);
 		eManager.creerEnemy(ENNEMI1, 4000, 700);
 		oManager.creerObstacle(4700, 500);
 		eManager.creerEnemy(ENNEMI1, 5500, 100);
@@ -26,7 +25,7 @@ void Game::level1A(Player& player, EnemyManager &eManager, ObstacleManager& oMan
 		eManager.creerEnemy(ENNEMI1, 11500, 300);
 		eManager.creerEnemy(ENNEMI1, 13000, 500);
 		eManager.creerEnemy(ENNEMI3, 14500, 800);
-
+		
 		loadLevel = false;
 	}
 	if (gameClock.getElapsedTime().asSeconds() > gameDuration.asSeconds())
@@ -38,6 +37,12 @@ void Game::level1A(Player& player, EnemyManager &eManager, ObstacleManager& oMan
 		isFightingBoss = true;
 		toKill = 1;
 		eManager.creerEnemy(BOSS1, 1400, 700);
+		uManager.creerUtilitary(heart, 1000, 800);
+		uManager.creerUtilitary(evilHeart, 1000, 700);
+		uManager.creerUtilitary(battery, 1000, 600);
+		uManager.creerUtilitary(evilBattery, 1000, 500);
+		uManager.creerUtilitary(shield, 1000, 400);
+		uManager.creerUtilitary(evilShield, 1000, 300);
 		//Ecran de victoire...
 	}
 	if (isFightingBoss == true && toKill == 0 && Univeau1A == true && state == niveau1A)

@@ -38,6 +38,7 @@ ProjectileManager::~ProjectileManager() {
 			projectiles.push_back(p);
 			return p;
 	}
+
 	Projectile* ProjectileManager::creerProjectile(Enemy* enemy, int defVelocity) {
 		Projectile* p = new Projectile();
 		p->sprite.setOrigin(p->sprite.getGlobalBounds().width, p->sprite.getGlobalBounds().height / 2);

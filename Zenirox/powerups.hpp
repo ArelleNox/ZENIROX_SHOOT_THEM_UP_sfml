@@ -10,7 +10,7 @@ using namespace std;
 using namespace sf;
 
 enum Powerup {
-	heart, evilHeart, battery, evilBattery
+	heart, evilHeart, battery, evilBattery, shield, evilShield
 };
 
 class Utilitary

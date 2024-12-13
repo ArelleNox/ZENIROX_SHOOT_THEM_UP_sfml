@@ -12,7 +12,7 @@ int Player::setSprite() {
 	sprite.setPosition(200, HEIGHT / 2);
 }
 
-Player::Player() : attackCooldown(seconds(0.2)) {}
+Player::Player() : attackCooldown(seconds(0.2)), boostDuration(seconds(2.5)) {}
 
 void Player::checkOutOfScreen() {
 	if (sprite.getPosition().y < MAXHEIGHT)

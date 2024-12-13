@@ -9,10 +9,10 @@ using namespace sf;
 class Player
 {
 public:
-	int HP = 10;
+	int HP = 500;
 	int maxHP = 1000;
 	int shield = 0;
-	int maxShield = 50;
+	int maxShield = 500;
 	int score = 0;
 	int attack = 10;
 	float up = -5;
@@ -20,8 +20,11 @@ public:
 	Sprite sprite;
 	Texture texture;
 	Clock attackClock;
+	Clock boostClock;
+	Time boostDuration;
 	Time attackCooldown;
 	ID id = PLAYER;
+	bool canBeBoosted = false;
 	int setSprite();
 	Player();
 	void checkOutOfScreen();

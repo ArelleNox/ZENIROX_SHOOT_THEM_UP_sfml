@@ -142,6 +142,7 @@ void Enemy::enemyMove() {
 		e->setAttackAndHP();
 		e->sprite.setPosition(width, height);
 		e->sprite.setScale(2, 2);
+		e->boostDuration = seconds(2.5);
 		if (defLevel == BOSS2)
 			e->sprite.setScale(1.5, 1.5);
 		else if (defLevel == BOSS3)
