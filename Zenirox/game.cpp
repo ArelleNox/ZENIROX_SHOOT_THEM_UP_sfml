@@ -14,7 +14,7 @@ void Game::level1A(Player& player, EnemyManager &eManager, ObstacleManager& oMan
 		setGameDuration(120);
 		toKill = 10;
 
-		eManager.creerEnemy(ENNEMI1, 1000, 500);
+		eManager.creerEnemy(ENNEMI1, 1000, 600);
 		eManager.creerEnemy(ENNEMI1, 2500, 300);
 		eManager.creerEnemy(ENNEMI1, 4000, 700);
 		oManager.creerObstacle(4700, 500);
@@ -25,6 +25,7 @@ void Game::level1A(Player& player, EnemyManager &eManager, ObstacleManager& oMan
 		eManager.creerEnemy(ENNEMI1, 11500, 300);
 		eManager.creerEnemy(ENNEMI1, 13000, 500);
 		eManager.creerEnemy(ENNEMI3, 14500, 800);
+		
 		
 		loadLevel = false;
 	}
@@ -437,6 +438,8 @@ void Game::level4(Player& player, EnemyManager& eManager, ObstacleManager& oMana
 	{
 		isFightingBoss = true;
 		toKill = 1;
+		oManager.creerObstacle(1000, 100);
+		oManager.creerObstacle(1000, 900);
 		eManager.creerEnemy(BOSS4, 1400, 700);
 	}
 	
@@ -560,7 +563,10 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 	for (int i = 0; i < oManager.getObstacles().size(); i++) {
 		window.draw(oManager.getObstacles()[i]->sprite);
 		int randValue = rand() % 3;
-		oManager.getObstacles()[i]->moveObstacle(randValue);
+		if(state != finalBoss)
+			oManager.getObstacles()[i]->moveObstacle(randValue);
+		else if (state == finalBoss)
+			oManager.getObstacles()[i]->moveObstacleF();
 		oManager.getObstacles()[i]->checkObstacle(player);
 	}
 	//Gestion de l'attaque des ennemis

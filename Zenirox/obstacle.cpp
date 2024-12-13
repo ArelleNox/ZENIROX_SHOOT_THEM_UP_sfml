@@ -29,6 +29,14 @@ void Obstacle::moveObstacle(int randValue)
 		
 	}
 }
+void Obstacle::moveObstacleF()
+{
+	sprite.move(-velocity, 0);
+	if (sprite.getPosition().x < -500)
+	{
+		sprite.setPosition(3000, sprite.getPosition().y);
+	}
+}
 
 void Obstacle::checkObstacle(Player& player)
 {

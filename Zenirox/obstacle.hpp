@@ -13,11 +13,12 @@ public:
 	Clock damageClock;
 	Time damageCooldown = seconds(2);
 	float velocity = 5;
-	int damages = 10;
+	int damages = 75;
 	Obstacle();
 	~Obstacle();
 	void setTexture();
 	void moveObstacle(int randValue);
+	void moveObstacleF();
 	void checkObstacle(Player& player);
 };
 
