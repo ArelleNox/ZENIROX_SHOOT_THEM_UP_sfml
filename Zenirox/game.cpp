@@ -1,6 +1,37 @@
 #include "game.hpp"
-#include "projectile.hpp"
-#include "powerups.hpp"
+
+Game::Game() : hoveredOption(-1) {
+	// background texture
+	if (!backgroundTexture.loadFromFile("mainmenu.png")) {
+		throw std::runtime_error("Failed to load texture");
+	}
+	backgroundSprite.setTexture(backgroundTexture);
+
+	// font
+	if (!font.loadFromFile("UIfont.ttf")) {
+		throw std::runtime_error("Failed to load texture");
+	}
+
+	// title
+	title.setFont(font);
+	title.setString("ZENIROX");
+	title.setCharacterSize(50);
+	title.setFillColor(sf::Color::White);
+	title.setPosition(200, 100);
+
+	// Menu options
+	std::vector<std::string> options = { "New Game", "Settings", "Exit" };
+	for (size_t i = 0; i < options.size(); ++i) {
+		sf::Text option;
+		option.setFont(font);
+		option.setString(options[i]);
+		option.setCharacterSize(30);
+		option.setFillColor(sf::Color::White);
+		option.setPosition(300, 200 + static_cast<float>(i) * 50);
+		menuOptions.push_back(option);
+	}
+}
+
 
 void Game::setGameDuration(float duration) {
 	gameDuration = seconds(duration);

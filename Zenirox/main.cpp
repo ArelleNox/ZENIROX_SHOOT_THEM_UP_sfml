@@ -1,18 +1,4 @@
-#include <iostream>
-#include <ctime>
-#include "projectile.hpp"
-#include "player.hpp"
-#include "enemy.hpp"
-#include "Background.hpp"
-#include "parallaxe.hpp"
-#include "parallaxe2.hpp"
-#include "score.hpp"
-#include "healthbar.hpp"
 #include "game.hpp"
-#include "obstacle.hpp"
-#include "HUD.hpp"
-#include "powerups.hpp"
-
 using namespace std;
 using namespace sf;
 
@@ -49,9 +35,27 @@ int main() {
 
 	setScoreText(player, scoreFont, scoreText);
 
-	Background background("palier22.png",-10.f);
+	Background background("palier11.png", -300.0f); // Default texture and speed
 
-	Starparallaxe star("star.png",-300.f);
+	background.pal = palier1; // Example: setting the current palier
+
+	// Configure based on palier
+	switch (background.pal) {
+	case palier1:
+		background.setupPalier1();
+		break;
+	case palier2:
+		background.setupPalier2();
+		break;
+	case palier3:
+		background.setupPalier3();
+		break;
+	case palier4:
+		background.setupPalier4();
+		break;
+	}
+
+	Starparallaxe star("star.png", -300.f);
 	fastStarparallaxe faststar("star.png", -1500.f);
 
 	Healthbar healthbar;
@@ -67,9 +71,7 @@ int main() {
 
 	UtilitaryManager uManager;
 
-	
-	while (window.isOpen())
-	{
+	while (window.isOpen()){
 		//Chargement des niveaux
 		game.run(window, player, coin, background, star, faststar, healthbar, eManager, pManager, oManager, uManager, clock, scoreText, scoreFont, interface);
 		window.display();
