@@ -12,7 +12,9 @@ class Healthbar
 {
 public:
 	Sprite psprite;
+	Sprite pShield;
 	Sprite esprite;
+	Sprite eShield;
 	vector <Texture> PtextureList{ 20 };
 	vector <Texture> EtextureList{ 20 };
 	void setHealthbar(Player player);

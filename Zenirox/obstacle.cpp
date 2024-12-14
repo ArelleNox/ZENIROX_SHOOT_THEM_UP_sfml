@@ -1,6 +1,6 @@
 #include "obstacle.hpp"
 #include "globalvar.hpp"
-
+#include "player.hpp"
 
 Obstacle::Obstacle(){}
 Obstacle::~Obstacle() { cout << "Un obstacle a ete detruit" << endl; }
@@ -44,6 +44,7 @@ void Obstacle::checkObstacle(Player& player)
 	{
 		player.HP -= 10;
 		damageClock.restart();
+		player.impact.play();
 	}
 }
 

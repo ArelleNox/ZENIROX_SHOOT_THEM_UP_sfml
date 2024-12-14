@@ -1,9 +1,9 @@
 #ifndef ENEMY_HPP
 #define ENEMY_HPP
-
-#include <SFML/Graphics.hpp>
-#include <iostream>
+#include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
 #include "globalvar.hpp"
+#include "explosion.hpp"
 
 using namespace std;
 using namespace sf;
@@ -12,8 +12,6 @@ enum Direction {
 	up = 1,
 	down = 2
 };
-
-
 
 class Enemy {
 public:
@@ -25,6 +23,10 @@ public:
 	Direction direction = up;
 	Sprite sprite;
 	Texture texture;
+	Sound impact;
+	SoundBuffer impactB;
+	Sound lasershot;
+	SoundBuffer shot;
 	int AttackDamages;
 	ID id;
 	Clock attackClock;
@@ -50,7 +52,7 @@ public:
 	~EnemyManager();
 	Enemy* creerEnemy(ID defLevel, float width, float height);
 	void detruireEnemy(Enemy* enemy);
-	void checkEnemy(Enemy* enemy,int &toKill);
+	void checkEnemy(Enemy* enemy,int &toKill, ExplosionManager& exManager);
 	vector<Enemy* > getEnemies();
 };
 

@@ -2,7 +2,7 @@
 
 Utilitary::Utilitary() {}
 Utilitary::~Utilitary() { cout << "Un powerup de heal a ete detruit" << endl; }
-void Utilitary::setTexture() {
+void Utilitary::setUtilitary() {
 	if(type == heart)
 		if (!texture.loadFromFile("heartboost.png")) { throw runtime_error("Impossible de charger la texture de heal"); }
 	if(type == evilHeart)
@@ -35,7 +35,7 @@ UtilitaryManager::~UtilitaryManager()
 Utilitary* UtilitaryManager::creerUtilitary(Powerup defType, float width, float height) {
 	Utilitary* h = new Utilitary();
 	h->type = defType;
-	h->setTexture();
+	h->setUtilitary();
 	h->sprite.setPosition(width, height);
 	h->sprite.setScale(0.5,0.5);
 	if (defType == shield || defType == evilShield)
@@ -67,7 +67,7 @@ void UtilitaryManager::checkUtilitary(Utilitary* h, Player& player, EnemyManager
 			player.HP += (player.maxHP*0.5);
 			if (player.HP >= player.maxHP)
 				player.HP = player.maxHP;
-			cout << player.HP;
+			player.bonus.play();
 		}
 		if (h->type == evilHeart)
 		{
@@ -77,11 +77,13 @@ void UtilitaryManager::checkUtilitary(Utilitary* h, Player& player, EnemyManager
 				if (eManager.getEnemies()[i]->HP > eManager.getEnemies()[i]->maxHP)
 					eManager.getEnemies()[i]->HP = eManager.getEnemies()[i]->maxHP;
 			}
+			player.malus.play();
 		}
 		if (h->type == battery)
 		{
 			player.canBeBoosted = true;
 			player.boostClock.restart();
+			player.bonus.play();
 		}
 		if (h->type == evilBattery)
 		{
@@ -90,10 +92,12 @@ void UtilitaryManager::checkUtilitary(Utilitary* h, Player& player, EnemyManager
 				eManager.getEnemies()[i]->canBeBoosted = true;
 				eManager.getEnemies()[i]->boostClock.restart();
 			}
+			player.malus.play();
 		}
 		if (h->type == shield)
 		{
 			player.shield = player.maxShield;
+			player.bonus.play();
 		}
 		if (h->type == evilShield)
 		{
@@ -105,6 +109,7 @@ void UtilitaryManager::checkUtilitary(Utilitary* h, Player& player, EnemyManager
 				}
 				eManager.getEnemies()[i]->shield = eManager.getEnemies()[i]->maxShield;
 			}
+			player.malus.play();
 		}
 		detruireUtilitary(h);
 	}

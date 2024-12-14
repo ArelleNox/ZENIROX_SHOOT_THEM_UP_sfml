@@ -10,9 +10,9 @@ void Healthbar::setHealthbar(Player player)
 {
 	psprite.setScale(0.4, 0.4);
 	psprite.setPosition(0, 0);
+	pShield.setScale(0.4, 0.4);
+	pShield.setPosition(0, 0);
 	
-	if(player.shield == 0)
-	{
 		if (player.HP <= player.maxHP * 0.1)
 			psprite.setTexture(PtextureList[0]);
 
@@ -42,49 +42,46 @@ void Healthbar::setHealthbar(Player player)
 
 		else if (player.HP <= player.maxHP)
 			psprite.setTexture(PtextureList[9]);
-	}
-	else
-	{
+
 		if (player.shield <= player.maxShield * 0.1)
-			psprite.setTexture(PtextureList[10]);
+			pShield.setTexture(PtextureList[10]);
 
 		else if (player.shield <= player.maxShield * 0.2)
-			psprite.setTexture(PtextureList[11]);
+			pShield.setTexture(PtextureList[11]);
 
 		else if (player.shield <= player.maxShield * 0.3)
-			psprite.setTexture(PtextureList[12]);
+			pShield.setTexture(PtextureList[12]);
 
 		else if (player.shield <= player.maxShield * 0.4)
-			psprite.setTexture(PtextureList[13]);
+			pShield.setTexture(PtextureList[13]);
 
 		else if (player.shield <= player.maxShield * 0.5)
-			psprite.setTexture(PtextureList[14]);
+			pShield.setTexture(PtextureList[14]);
 
 		else if (player.shield <= player.maxShield * 0.6)
-			psprite.setTexture(PtextureList[15]);
+			pShield.setTexture(PtextureList[15]);
 
 		else if (player.shield <= player.maxShield * 0.7)
-			psprite.setTexture(PtextureList[16]);
+			pShield.setTexture(PtextureList[16]);
 
 		else if (player.shield <= player.maxShield * 0.8)
-			psprite.setTexture(PtextureList[17]);
+			pShield.setTexture(PtextureList[17]);
 
 		else if (player.shield <= player.maxShield * 0.9)
-			psprite.setTexture(PtextureList[18]);
+			pShield.setTexture(PtextureList[18]);
 
 		else if (player.shield <= player.maxShield)
-			psprite.setTexture(PtextureList[19]);
+			pShield.setTexture(PtextureList[19]);
 	}
 
-}
 
 void Healthbar::setHealthbar(Enemy* enemy)
 {
 	esprite.setScale(0.4, 0.4);
 	esprite.setPosition(1600, 0);
+	eShield.setScale(0.4, 0.4);
+	eShield.setPosition(1600, 0);
 
-	if (enemy->shield == 0)
-	{
 		if (enemy->HP <= enemy->maxHP * 0.1)
 			esprite.setTexture(EtextureList[0]);
 
@@ -114,41 +111,37 @@ void Healthbar::setHealthbar(Enemy* enemy)
 
 		else if (enemy->HP <= enemy->maxHP)
 			esprite.setTexture(EtextureList[9]);
-	}
-	else
-	{
 		if (enemy->shield <= enemy->maxShield * 0.1)
-			esprite.setTexture(EtextureList[10]);
+			eShield.setTexture(EtextureList[10]);
 
 		else if (enemy->shield <= enemy->maxShield * 0.2)
-			esprite.setTexture(EtextureList[11]);
+			eShield.setTexture(EtextureList[11]);
 
 		else if (enemy->shield <= enemy->maxShield * 0.3)
-			esprite.setTexture(EtextureList[12]);
+			eShield.setTexture(EtextureList[12]);
 
 		else if (enemy->shield <= enemy->maxShield * 0.4)
-			esprite.setTexture(EtextureList[13]);
+			eShield.setTexture(EtextureList[13]);
 
 		else if (enemy->shield <= enemy->maxShield * 0.5)
-			esprite.setTexture(EtextureList[14]);
+			eShield.setTexture(EtextureList[14]);
 
 		else if (enemy->shield <= enemy->maxShield * 0.6)
-			esprite.setTexture(EtextureList[15]);
+			eShield.setTexture(EtextureList[15]);
 
 		else if (enemy->shield <= enemy->maxShield * 0.7)
-			esprite.setTexture(EtextureList[16]);
+			eShield.setTexture(EtextureList[16]);
 
 		else if (enemy->shield <= enemy->maxShield * 0.8)
-			esprite.setTexture(EtextureList[17]);
+			eShield.setTexture(EtextureList[17]);
 
 		else if (enemy->shield <= enemy->maxShield * 0.9)
-			esprite.setTexture(EtextureList[18]);
+			eShield.setTexture(EtextureList[18]);
 
 		else if (enemy->shield <= enemy->maxShield)
-			esprite.setTexture(EtextureList[19]);
+			eShield.setTexture(EtextureList[19]);
 	}
 
-}
 
 int Healthbar::setTextureList()
 {

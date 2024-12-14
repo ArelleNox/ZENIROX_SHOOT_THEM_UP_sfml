@@ -1,8 +1,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "projectile.hpp"
-#include "enemy.hpp"
-#include "player.hpp"
 #include "score.hpp"
 using namespace sf;
 
@@ -94,6 +92,7 @@ ProjectileManager::~ProjectileManager() {
 				if (projectile->sprite.getGlobalBounds().intersects(manager.getEnemies()[i]->sprite.getGlobalBounds()) && projectile->id == PLAYER)
 				{
 					detruireProjectile(projectile);
+					manager.getEnemies()[i]->impact.play();
 					if (manager.getEnemies()[i]->shield == 0)
 						manager.getEnemies()[i]->HP -= player.attack;
 					else
@@ -109,6 +108,7 @@ ProjectileManager::~ProjectileManager() {
 				{
 					
 					detruireProjectile(projectile);
+					player.impact.play();
 					if (player.shield == 0)
 						player.HP -= manager.getEnemies()[i]->AttackDamages;
 					else

@@ -9,18 +9,19 @@ using namespace sf;
 int main() {
 	srand(time(NULL));
 	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Fullscreen);
-	window.setFramerateLimit(240);
-	window.setVerticalSyncEnabled(false);
+	window.setFramerateLimit(60);
+	window.setVerticalSyncEnabled(true);
 
 	Game game;
 
 	Player player;
 	player.setSprite();
-	player.attackCooldown = seconds(0.01);
 	EnemyManager eManager;
 
 	RectangleShape interface(Vector2f(1920, 95));
-	interface.setFillColor(Color::White);
+	Texture interfaceT;
+	if (!interfaceT.loadFromFile("cockpit.png")) { throw runtime_error("Erreur de chargement cockpit"); }
+	interface.setTexture(&interfaceT);
 
 	Sprite coin;
 	Texture coinTexture;
@@ -71,9 +72,38 @@ int main() {
 
 	UtilitaryManager uManager;
 
+	ExplosionManager exManager;
+
+	Music playing;
+	Music boss;
+	Music finalBossM;
+	
+	if (!playing.openFromFile("sounds/playing.ogg")) throw runtime_error("Musique de combat classique non chargee");
+	playing.setLoop(true);
+
+	if(!boss.openFromFile("sounds/boss.ogg")) throw runtime_error("Musique de combat de boss non chargee");
+	boss.setLoop(true);
+	if(!finalBossM.openFromFile("sounds/finalboss.ogg")) throw runtime_error("Musique de combat final non chargee");
+	finalBossM.setLoop(true);
+
+	playing.setVolume(50);
+	boss.setVolume(50);
+	finalBossM.setVolume(50);
+
+	SoundBuffer shot;
+	if (!shot.loadFromFile("sounds/shot.ogg")) throw runtime_error("Son de tir non charge");
+	vector<Sound> playerShot{ 10 };
+	for (int i = 0; i < playerShot.size(); i++)
+	{
+		playerShot[i].setBuffer(shot);
+	}
+	
+
 	while (window.isOpen()){
 		//Chargement des niveaux
-		game.run(window, player, coin, background, star, faststar, healthbar, eManager, pManager, oManager, uManager, clock, scoreText, scoreFont, interface);
+		game.run(window, player, coin, background, star, faststar, healthbar, eManager, pManager, oManager, uManager, exManager, clock, scoreText, scoreFont, interface, playing, boss, finalBossM, playerShot, shot);
+		
+
 		window.display();
 
 	}

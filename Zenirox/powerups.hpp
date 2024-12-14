@@ -22,7 +22,7 @@ public:
 	Powerup type;
 	Utilitary();
 	~Utilitary();
-	void setTexture();
+	void setUtilitary();
 	void moveUtilitary();
 
 	

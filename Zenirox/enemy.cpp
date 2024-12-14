@@ -1,7 +1,4 @@
 #include "enemy.hpp"
-#include <SFML/Graphics.hpp>
-#include <iostream>
-
 
 
 int Enemy::setTexture() {
@@ -86,7 +83,12 @@ void Enemy::setAttackAndHP() {
 	}
 }
 
-Enemy::Enemy() {}
+Enemy::Enemy() {
+	if (!impactB.loadFromFile("sounds/hit.ogg")) throw runtime_error("Erreur de chargement du son d'impact");
+	impact.setBuffer(impactB);
+	if (!shot.loadFromFile("sounds/shot.ogg")) throw runtime_error("Erreur de chargement du son de tir");
+	lasershot.setBuffer(shot);
+}
 Enemy::~Enemy() {
 	{ cout << "Un ennemi a ete detruit" << endl; };
 }
@@ -220,10 +222,11 @@ void Enemy::enemyMove() {
 	}
 
 
-	void EnemyManager::checkEnemy(Enemy* enemy, int &toKill)
+	void EnemyManager::checkEnemy(Enemy* enemy, int &toKill, ExplosionManager& exManager)
 	{
 		if (enemy->HP < 1)
 		{
+			exManager.creerExplosion(enemy);
 			detruireEnemy(enemy);
 			--toKill;
 		}

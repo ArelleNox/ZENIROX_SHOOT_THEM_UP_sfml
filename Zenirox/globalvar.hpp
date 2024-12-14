@@ -1,8 +1,6 @@
 #ifndef GLOBALVAR_HPP
 #define GLOBALVAR_HPP
 
-
-
 enum ID {
 	PLAYER,
 	ENNEMI1,
@@ -13,6 +11,7 @@ enum ID {
 	BOSS3,
 	BOSS4
 };
+
 
 
 
