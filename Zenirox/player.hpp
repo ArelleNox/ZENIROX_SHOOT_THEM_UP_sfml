@@ -12,7 +12,7 @@ class Player
 public:
 	int HP = 1000;
 	int maxHP = 1000;
-	int shield = 500;
+	int shield = 0;
 	int maxShield = 500;
 	int score = 0;
 	int attack = 10;

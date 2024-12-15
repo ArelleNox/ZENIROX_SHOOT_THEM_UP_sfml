@@ -8,7 +8,7 @@ using namespace sf;
 
 int main() {
 	srand(time(NULL));
-	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Fullscreen);
+	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Default);
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
 
@@ -102,7 +102,14 @@ int main() {
 	while (window.isOpen()){
 		//Chargement des niveaux
 		game.run(window, player, coin, background, star, faststar, healthbar, eManager, pManager, oManager, uManager, exManager, clock, scoreText, scoreFont, interface, playing, boss, finalBossM, playerShot, shot);
-		
+		if(game.state == niveauEDIT && game.isFightingBoss == false)
+		{
+			for (int i = 0; i < eManager.getEnemies().size(); i++)
+			{
+				if (eManager.getEnemies()[i]->id == BOSS1 || eManager.getEnemies()[i]->id == BOSS2 || eManager.getEnemies()[i]->id == BOSS3 || eManager.getEnemies()[i]->id == BOSS4)
+					eManager.getEnemies()[i]->sprite.move(-4, 0);
+			}
+		}
 
 		window.display();
 
