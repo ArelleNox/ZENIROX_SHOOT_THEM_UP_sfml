@@ -95,6 +95,24 @@ int main() {
 	{
 		playerShot[i].setBuffer(shot);
 	}
+
+	Clock warningClock;
+	Time warningCooldown = seconds(1);
+	Text warningText;
+	warningText.setFont(scoreFont);
+	warningText.setString("HURRY UP!");
+	warningText.setFillColor(Color::Red);
+	warningText.setOutlineColor(Color::Black);
+	warningText.setOutlineThickness(4);
+	warningText.setScale(1.5, 1.5);
+	warningText.setPosition(450, 20);
+	Sprite skull;
+	Texture skullT;
+	if (!skullT.loadFromFile("skull.png")) throw runtime_error("Erreur chargement crane");
+	skull.setTexture(skullT);
+	skull.setColor(Color::Red);
+	skull.setScale(0.1, 0.1);
+	skull.setPosition(350, 0);
 	
 
 	while (window.isOpen()){
@@ -109,24 +127,39 @@ int main() {
 			}
 		}
 
-		if (game.loadLevel == true && game.state == niveau1A || game.state == niveau1B || game.state == niveau1C|| game.state == niveauEDIT) {
+		/*if (game.loadLevel == true && game.state == niveau1A || game.state == niveau1B || game.state == niveau1C|| game.state == niveauEDIT && game.doLoadBackground == true) {
 			background.setupPalier1();
+			game.doLoadBackground = false;
+
 		}
 		
-		if (game.loadLevel == true && game.state == niveau2A || game.state == niveau2B || game.state == niveau2C) {
+		else if (game.loadLevel == true && game.state == niveau2A || game.state == niveau2B || game.state == niveau2C && game.doLoadBackground == true) {
 			background.setupPalier2();
+			game.doLoadBackground = false;
 		}
 		
-		if (game.loadLevel == true && game.state == niveau3A || game.state == niveau3B || game.state == niveau3C) {
+		else if (game.loadLevel == true && game.state == niveau3A || game.state == niveau3B || game.state == niveau3C && game.doLoadBackground == true) {
 			background.setupPalier3();
+			game.doLoadBackground = false;
 		}
 		
-		if (game.loadLevel == true && game.state == finalBoss) {
+		else if (game.loadLevel == true && game.state == finalBoss && game.doLoadBackground == true) {
 			background.setupPalier4();
-		}
+			game.doLoadBackground = false;
+		}*/
 		
 
 
+		if(game.finalhours.getStatus() == Sound::Playing)
+		{
+			if(warningClock.getElapsedTime().asSeconds() > warningCooldown.asSeconds())
+			{
+				window.draw(skull);
+				window.draw(warningText);
+			}
+			if (warningClock.getElapsedTime().asSeconds() > warningCooldown.asSeconds() + 1)
+				warningClock.restart();
+		}
 		window.display();
 
 	}

@@ -32,7 +32,11 @@ Game::Game() : hoveredOption(-1) {
 	}
 
 	//Musique de défaite
-	if (!lose.openFromFile("sounds/lose.ogg")) throw runtime_error("Echec lors de l'ouverture de la musique de défaite");
+	if (!lose.openFromFile("sounds/lose.ogg")) throw runtime_error("Echec lors de l'ouverture de la musique de defaite");
+
+	//Musique finalhours
+	if (!finalhours.openFromFile("sounds/finalhours.ogg")) throw runtime_error("Echec lors de l'ouverture de la musique de defaite");
+	finalhours.setLoop(true);
 }
 
 
@@ -45,11 +49,13 @@ void Game::level1A(Player& player, EnemyManager &eManager, ObstacleManager& oMan
 {
 	if (state == niveau1A && loadLevel == true && isFightingBoss == false && Univeau1A == true)
 	{
+		doLoadBackground = false;
+		finalhours.stop();
 		boss.stop();
 		finalBossM.stop();
 		playing.play();
 		gameClock.restart();
-		setGameDuration(120);
+		setGameDuration(240);
 		toKill = 10;
 
 		eManager.creerEnemy(ENNEMI1, 1000, 600);
@@ -71,14 +77,26 @@ void Game::level1A(Player& player, EnemyManager &eManager, ObstacleManager& oMan
 	{
 		player.HP = 0;
 	}
+	if (gameClock.getElapsedTime().asSeconds() > gameDuration.asSeconds() - gameDuration.asSeconds() / 4 && finalhours.getStatus() != Sound::Playing && player.HP >= 0 && lose.getStatus() != Sound::Playing)
+	{
+		playing.stop();
+		finalBossM.stop();
+		boss.stop();
+		finalhours.play();
+	}
 	else if (state == niveau1A && toKill == 0 && isFightingBoss == false)
 	{
 		playing.stop(); 
 		finalBossM.stop();
-		boss.play();
+		if(finalhours.getStatus() != Sound::Playing)
+			boss.play();
 		isFightingBoss = true;
 		toKill = 1;
 		eManager.creerEnemy(BOSS1, 1400, 700);
+		uManager.creerUtilitary(shield, 2000, 700);
+		uManager.creerUtilitary(battery, 6000, 900);
+		uManager.creerUtilitary(heart, 10000, 300);
+		
 		
 		//Ecran de victoire...
 	}
@@ -86,6 +104,7 @@ void Game::level1A(Player& player, EnemyManager &eManager, ObstacleManager& oMan
 	{
 		isFightingBoss = false;
 		loadLevel = true;
+		doLoadBackground = true;
 		Univeau1B = true;
 		state = niveau1B;
 		pManager.~ProjectileManager();
@@ -98,11 +117,13 @@ void Game::level1B(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	
 	if (state == niveau1B && loadLevel == true && isFightingBoss == false && Univeau1B == true)
 	{
+		doLoadBackground = false;
+		finalhours.stop();
 		boss.stop();
 		finalBossM.stop();
 		playing.play();
 		gameClock.restart();
-		setGameDuration(120);
+		setGameDuration(240);
 		toKill = 10;
 		eManager.creerEnemy(ENNEMI1, 1000, 500);
 		eManager.creerEnemy(ENNEMI1, 2500, 300);
@@ -122,11 +143,19 @@ void Game::level1B(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	{
 		player.HP = 0;
 	}
+	if (gameClock.getElapsedTime().asSeconds() > gameDuration.asSeconds() - gameDuration.asSeconds() / 4 && finalhours.getStatus() != Sound::Playing && player.HP >= 0 && lose.getStatus() != Sound::Playing)
+	{
+		playing.stop();
+		finalBossM.stop();
+		boss.stop();
+		finalhours.play();
+	}
 	if (state == niveau1B && toKill == 0 && isFightingBoss == false)
 	{
 		playing.stop();
 		finalBossM.stop();
-		boss.play();
+		if (finalhours.getStatus() != Sound::Playing)
+			boss.play();
 		isFightingBoss = true;
 		toKill = 1;
 		eManager.creerEnemy(BOSS1, 1400, 700);
@@ -135,6 +164,7 @@ void Game::level1B(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	{
 		isFightingBoss = false;
 		loadLevel = true;
+		doLoadBackground = true;
 		Univeau1C = true;
 		state = niveau1C;
 		pManager.~ProjectileManager();
@@ -146,12 +176,12 @@ void Game::level1C(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 {
 	if (state == niveau1C && loadLevel == true && isFightingBoss == false && Univeau1C == true)
 	{
-		
+		finalhours.stop();
 		boss.stop();
 		finalBossM.stop();
 		playing.play();
 		gameClock.restart();
-		setGameDuration(120);
+		setGameDuration(240);
 		toKill = 10;
 		eManager.creerEnemy(ENNEMI1, 1000, 500);
 		eManager.creerEnemy(ENNEMI1, 2500, 300);
@@ -171,11 +201,19 @@ void Game::level1C(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	{
 		player.HP = 0;
 	}
+	if (gameClock.getElapsedTime().asSeconds() > gameDuration.asSeconds() - gameDuration.asSeconds() / 4 && finalhours.getStatus() != Sound::Playing && player.HP >= 0 && lose.getStatus() != Sound::Playing)
+	{
+		playing.stop();
+		finalBossM.stop();
+		boss.stop();
+		finalhours.play();
+	}
 	if (state == niveau1C && toKill == 0 && isFightingBoss == false)
 	{
 		playing.stop();
 		finalBossM.stop();
-		boss.play();
+		if (finalhours.getStatus() != Sound::Playing)
+			boss.play();
 		isFightingBoss = true;
 		toKill = 1;
 		eManager.creerEnemy(BOSS1, 1400, 700);
@@ -196,11 +234,12 @@ void Game::level2A(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	
 	if (state == niveau2A && loadLevel == true && isFightingBoss == false && Univeau2A == true)
 	{
+		finalhours.stop();
 		boss.stop();
 		finalBossM.stop();
 		playing.play();
 		gameClock.restart();
-		setGameDuration(120);
+		setGameDuration(240);
 		toKill = 10;
 		eManager.creerEnemy(ENNEMI2, 1000, 500);
 		eManager.creerEnemy(ENNEMI2, 2500, 300);
@@ -220,11 +259,19 @@ void Game::level2A(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	{
 		player.HP = 0;
 	}
+	if (gameClock.getElapsedTime().asSeconds() > gameDuration.asSeconds() - gameDuration.asSeconds() / 4 && finalhours.getStatus() != Sound::Playing && player.HP >= 0 && lose.getStatus() != Sound::Playing)
+	{
+		playing.stop();
+		finalBossM.stop();
+		boss.stop();
+		finalhours.play();
+	}
 	if (state == niveau2A && toKill == 0 && isFightingBoss == false)
 	{
 		playing.stop();
 		finalBossM.stop();
-		boss.play();
+		if (finalhours.getStatus() != Sound::Playing)
+			boss.play();
 		isFightingBoss = true;
 		toKill = 1;
 		eManager.creerEnemy(BOSS2, 1400, 700);
@@ -245,11 +292,12 @@ void Game::level2B(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 
 	if (state == niveau2B && loadLevel == true && isFightingBoss == false && Univeau2B == true)
 	{
+		finalhours.stop();
 		boss.stop();
 		finalBossM.stop();
 		playing.play();
 		gameClock.restart();
-		setGameDuration(120);
+		setGameDuration(240);
 		toKill = 10;
 		eManager.creerEnemy(ENNEMI2, 1000, 500);
 		eManager.creerEnemy(ENNEMI2, 2500, 300);
@@ -269,11 +317,19 @@ void Game::level2B(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	{
 		player.HP = 0;
 	}
+	if (gameClock.getElapsedTime().asSeconds() > gameDuration.asSeconds() - gameDuration.asSeconds() / 4 && finalhours.getStatus() != Sound::Playing && player.HP >= 0 && lose.getStatus() != Sound::Playing)
+	{
+		playing.stop();
+		finalBossM.stop();
+		boss.stop();
+		finalhours.play();
+	}
 	if (state == niveau2B && toKill == 0 && isFightingBoss == false)
 	{
 		playing.stop();
 		finalBossM.stop();
-		boss.play();
+		if (finalhours.getStatus() != Sound::Playing)
+			boss.play();
 		isFightingBoss = true;
 		toKill = 1;
 		eManager.creerEnemy(BOSS2, 1400, 700);
@@ -294,11 +350,12 @@ void Game::level2C(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 
 	if (state == niveau2C && loadLevel == true && isFightingBoss == false && Univeau2C == true)
 	{
+		finalhours.stop();
 		boss.stop();
 		finalBossM.stop();
 		playing.play();
 		gameClock.restart();
-		setGameDuration(120);
+		setGameDuration(240);
 		toKill = 10;
 		eManager.creerEnemy(ENNEMI3, 1000, 500);
 		eManager.creerEnemy(ENNEMI2, 2500, 300);
@@ -318,11 +375,19 @@ void Game::level2C(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	{
 		player.HP = 0;
 	}
+	if (gameClock.getElapsedTime().asSeconds() > gameDuration.asSeconds() - gameDuration.asSeconds() / 4 && finalhours.getStatus() != Sound::Playing && player.HP >= 0 && lose.getStatus() != Sound::Playing)
+	{
+		playing.stop();
+		finalBossM.stop();
+		boss.stop();
+		finalhours.play();
+	}
 	if (state == niveau2C && toKill == 0 && isFightingBoss == false)
 	{
 		playing.stop();
 		finalBossM.stop();
-		boss.play();
+		if (finalhours.getStatus() != Sound::Playing)
+			boss.play();
 		isFightingBoss = true;
 		toKill = 1;
 		eManager.creerEnemy(BOSS2, 1400, 700);
@@ -343,11 +408,12 @@ void Game::level3A(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 
 	if (state == niveau3A && loadLevel == true && isFightingBoss == false && Univeau3A == true)
 	{
+		finalhours.stop();
 		boss.stop();
 		finalBossM.stop();
 		playing.play();
 		gameClock.restart();
-		setGameDuration(120);
+		setGameDuration(240);
 		toKill = 10;
 		eManager.creerEnemy(ENNEMI3, 1000, 500);
 		eManager.creerEnemy(ENNEMI3, 2500, 300);
@@ -368,11 +434,19 @@ void Game::level3A(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	{
 		player.HP = 0;
 	}
+	if (gameClock.getElapsedTime().asSeconds() > gameDuration.asSeconds() - gameDuration.asSeconds() / 4 && finalhours.getStatus() != Sound::Playing && player.HP >= 0 && lose.getStatus() != Sound::Playing)
+	{
+		playing.stop();
+		finalBossM.stop();
+		boss.stop();
+		finalhours.play();
+	}
 	if (state == niveau3A && toKill == 0 && isFightingBoss == false)
 	{
 		playing.stop();
 		finalBossM.stop();
-		boss.play();
+		if (finalhours.getStatus() != Sound::Playing)
+			boss.play();
 		isFightingBoss = true;
 		toKill = 1;
 		eManager.creerEnemy(BOSS3, 1400, 700);
@@ -393,11 +467,12 @@ void Game::level3B(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 
 	if (state == niveau3B && loadLevel == true && isFightingBoss == false && Univeau3B == true)
 	{
+		finalhours.stop();
 		boss.stop();
 		finalBossM.stop();
 		playing.play();
 		gameClock.restart();
-		setGameDuration(150);
+		setGameDuration(300);
 		toKill = 15;
 		eManager.creerEnemy(ENNEMI3, 1000, 500);
 		eManager.creerEnemy(ENNEMI3, 900, 700);
@@ -423,11 +498,19 @@ void Game::level3B(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	{
 		player.HP = 0;
 	}
+	if (gameClock.getElapsedTime().asSeconds() > gameDuration.asSeconds() - gameDuration.asSeconds() / 4 && finalhours.getStatus() != Sound::Playing && player.HP >= 0 && lose.getStatus() != Sound::Playing)
+	{
+		playing.stop();
+		finalBossM.stop();
+		boss.stop();
+		finalhours.play();
+	}
 	if (state == niveau3B && toKill == 0 && isFightingBoss == false)
 	{
 		playing.stop();
 		finalBossM.stop();
-		boss.play();
+		if (finalhours.getStatus() != Sound::Playing)
+			boss.play();
 		isFightingBoss = true;
 		toKill = 1;
 		eManager.creerEnemy(BOSS3, 1400, 700);
@@ -448,11 +531,12 @@ void Game::level3C(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 
 	if (state == niveau3C && loadLevel == true && isFightingBoss == false && Univeau3C == true)
 	{
+		finalhours.stop();
 		boss.stop();
 		finalBossM.stop();
 		playing.play();
 		gameClock.restart();
-		setGameDuration(180);
+		setGameDuration(360);
 		toKill = 20;
 		eManager.creerEnemy(ENNEMI3, 1000, 500);
 		eManager.creerEnemy(ENNEMI3, 900, 700);
@@ -483,11 +567,19 @@ void Game::level3C(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	{
 		player.HP = 0;
 	}
+	if (gameClock.getElapsedTime().asSeconds() > gameDuration.asSeconds() - gameDuration.asSeconds() / 4 && finalhours.getStatus() != Sound::Playing && player.HP >= 0 && lose.getStatus() != Sound::Playing)
+	{
+		playing.stop();
+		finalBossM.stop();
+		boss.stop();
+		finalhours.play();
+	}
 	if (state == niveau3C && toKill == 0 && isFightingBoss == false)
 	{
 		playing.stop();
 		finalBossM.stop();
-		boss.play();
+		if (finalhours.getStatus() != Sound::Playing)
+			boss.play();
 		isFightingBoss = true;
 		toKill = 1;
 		eManager.creerEnemy(BOSS3, 1400, 700);
@@ -507,8 +599,9 @@ void Game::level4(Player& player, EnemyManager& eManager, ObstacleManager& oMana
 {
 	if (state == finalBoss && loadLevel == true && isFightingBoss == false && UfinalBoss == true)
 	{
+		finalhours.stop();
 		gameClock.restart();
-		setGameDuration(180);
+		setGameDuration(360);
 		toKill = 0;
 		
 		
@@ -518,6 +611,13 @@ void Game::level4(Player& player, EnemyManager& eManager, ObstacleManager& oMana
 	if (gameClock.getElapsedTime().asSeconds() > gameDuration.asSeconds())
 	{
 		player.HP = 0;
+	}
+	if (gameClock.getElapsedTime().asSeconds() > gameDuration.asSeconds() - gameDuration.asSeconds() / 4 && finalhours.getStatus() != Sound::Playing && player.HP >= 0 && lose.getStatus() != Sound::Playing)
+	{
+		playing.stop();
+		finalBossM.stop();
+		boss.stop();
+		finalhours.play();
 	}
 	if (state == finalBoss && toKill == 0 && isFightingBoss == false)
 	{
@@ -542,7 +642,7 @@ void Game::levelP(Player& player, EnemyManager& eManager, ObstacleManager& oMana
 		finalBossM.stop();
 		playing.play();
 		gameClock.restart();
-		setGameDuration(120);
+		setGameDuration(240);
 		toKill = 10;
 
 
@@ -564,11 +664,19 @@ void Game::levelP(Player& player, EnemyManager& eManager, ObstacleManager& oMana
 	{
 		player.HP = 0;
 	}
+	if (gameClock.getElapsedTime().asSeconds() > gameDuration.asSeconds() - gameDuration.asSeconds() / 4 && finalhours.getStatus() != Sound::Playing && player.HP >= 0 && lose.getStatus() != Sound::Playing)
+	{
+		playing.stop();
+		finalBossM.stop();
+		boss.stop();
+		finalhours.play();
+	}
 	else if (state == niveauEDIT && toKill == 0 && isFightingBoss == false)
 	{
 		playing.stop();
 		finalBossM.stop();
-		boss.play();
+		if (finalhours.getStatus() != Sound::Playing)
+			boss.play();
 		isFightingBoss = true;
 		toKill = 1;
 		eManager.creerEnemy(bossID, 1400, 700);
@@ -725,23 +833,33 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 	{
 		if (state != niveauEDIT)
 		{
-			level1A(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM);
-			level1B(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM);
-			level1C(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM);
-			level2A(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM);
-			level2B(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM);
-			level2C(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM);
-			level3A(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM);
-			level3B(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM);
-			level3C(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM);
-			level4(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM);
+			if(state == niveau1A)
+				level1A(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM);
+			else if(state == niveau1B)
+				level1B(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM);
+			else if (state == niveau1C)
+				level1C(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM);
+			else if (state == niveau2A)
+				level2A(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM);
+			else if (state == niveau2B)
+				level2B(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM);
+			else if (state == niveau2C)
+				level2C(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM);
+			else if (state == niveau3A)
+				level3A(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM);
+			else if (state == niveau3B)
+				level3B(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM);
+			else if (state == niveau3C)
+				level3C(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM);
+			else if (state == finalBoss)
+				level4(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM);
 		}
 		else if (state == niveauEDIT)
 			levelP(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM);
 
 		if (player.boostClock.getElapsedTime().asSeconds() < player.boostDuration.asSeconds() && player.canBeBoosted == true)
 		{
-			player.attackCooldown = seconds(0.01);
+			player.attackCooldown = seconds(0.1);
 		}
 		else
 			player.attackCooldown = seconds(0.2);
@@ -825,7 +943,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		{
 			if (eManager.getEnemies()[i]->boostClock.getElapsedTime().asSeconds() < eManager.getEnemies()[i]->boostDuration.asSeconds() && eManager.getEnemies()[i]->canBeBoosted == true)
 			{
-				eManager.getEnemies()[i]->attackCooldown = seconds(0.01);
+				eManager.getEnemies()[i]->attackCooldown = seconds(0.05);
 			}
 			else
 			{
@@ -931,6 +1049,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 				boss.stop();
 				finalBossM.stop();
 				playing.stop();
+				finalhours.stop();
 				lose.play();
 			}
 		}
