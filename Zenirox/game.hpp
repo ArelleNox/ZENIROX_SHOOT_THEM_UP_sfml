@@ -32,7 +32,6 @@ private:
 
 public:
 	Game();
-	Background background;
 	sf::Font font;
 	gameState state = niveauEDIT;
 	screen screen = Editor;

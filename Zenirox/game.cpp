@@ -45,7 +45,6 @@ void Game::level1A(Player& player, EnemyManager &eManager, ObstacleManager& oMan
 {
 	if (state == niveau1A && loadLevel == true && isFightingBoss == false && Univeau1A == true)
 	{
-		background.setupPalier1();
 		boss.stop();
 		finalBossM.stop();
 		playing.play();
@@ -74,7 +73,7 @@ void Game::level1A(Player& player, EnemyManager &eManager, ObstacleManager& oMan
 	}
 	else if (state == niveau1A && toKill == 0 && isFightingBoss == false)
 	{
-		playing.stop();
+		playing.stop(); 
 		finalBossM.stop();
 		boss.play();
 		isFightingBoss = true;

@@ -23,6 +23,7 @@ public:
     sf::Sprite sprite2;
     sf::Sprite sprite3;
 
+    palier pal;
 
     Background(const std::string& texturePath, float speed);
     void update(float deltaTime);

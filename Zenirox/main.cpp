@@ -35,8 +35,23 @@ int main() {
 	Font scoreFont;
 
 	setScoreText(player, scoreFont, scoreText);
+	Background background("palier1.png", -310.0f); // Default texture and speed
 
-	Background background("palier11.png", -10.0f); // Default texture and speed
+	/*switch (background.pal) {
+	case palier1:
+		background.setupPalier1();
+		break;
+	case palier2:
+		background.setupPalier2();
+		break;
+	case palier3:
+		background.setupPalier3();
+		break;
+	case palier4:
+		background.setupPalier4();
+		break;
+	}*/
+
 
 	Starparallaxe star("star.png", -300.f);
 	fastStarparallaxe faststar("star.png", -1500.f);
@@ -58,6 +73,7 @@ int main() {
 
 	Music playing;
 	Music boss;
+
 	Music finalBossM;
 	
 	if (!playing.openFromFile("sounds/playing.ogg")) throw runtime_error("Musique de combat classique non chargee");
@@ -93,9 +109,30 @@ int main() {
 			}
 		}
 
+		if (game.loadLevel == true && game.state == niveau1A || game.state == niveau1B || game.state == niveau1C|| game.state == niveauEDIT) {
+			background.setupPalier1();
+		}
+		
+		if (game.loadLevel == true && game.state == niveau2A || game.state == niveau2B || game.state == niveau2C) {
+			background.setupPalier2();
+		}
+		
+		if (game.loadLevel == true && game.state == niveau3A || game.state == niveau3B || game.state == niveau3C) {
+			background.setupPalier3();
+		}
+		
+		if (game.loadLevel == true && game.state == finalBoss) {
+			background.setupPalier4();
+		}
+		
+
+
 		window.display();
 
 	}
+
+
+
 	saveScore(player);
 	return 0;
 }
