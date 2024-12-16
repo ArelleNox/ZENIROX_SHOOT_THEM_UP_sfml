@@ -12,7 +12,7 @@ public:
 	Texture texture;
 	Clock damageClock;
 	Time damageCooldown = seconds(2);
-	float velocity = 5;
+	float velocity = 7;
 	int damages = 75;
 	Obstacle();
 	~Obstacle();

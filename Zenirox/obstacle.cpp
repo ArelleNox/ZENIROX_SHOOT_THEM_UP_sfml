@@ -42,7 +42,10 @@ void Obstacle::checkObstacle(Player& player)
 {
 	if (sprite.getGlobalBounds().intersects(player.sprite.getGlobalBounds()) && damageClock.getElapsedTime().asSeconds() > damageCooldown.asSeconds())
 	{
-		player.HP -= 10;
+		if (player.shield != 0)
+			player.shield -= damages;
+		else
+			player.HP -= damages;
 		damageClock.restart();
 		player.impact.play();
 	}
