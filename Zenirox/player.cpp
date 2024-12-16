@@ -5,7 +5,35 @@ using namespace std;
 
 
 int Player::setSprite() {
-	if (!texture.loadFromFile("ship.png")) { cout << "Texture du vaisseau de joueur de base non trouvee" << endl; return -1; }
+	switch (color)
+	{
+	case Default:
+		if (!texture.loadFromFile("ship.png")) { cout << "Texture du vaisseau de joueur de base non trouvee" << endl; return -1; }
+		break;
+	case Red:
+		if (!texture.loadFromFile("ship-rouge.png")) { cout << "Texture du vaisseau de joueur de base non trouvee" << endl; return -1; }
+		break;
+	case Green:
+		if (!texture.loadFromFile("ship-vert.png")) { cout << "Texture du vaisseau de joueur de base non trouvee" << endl; return -1; }
+		break;
+	case Turquoise:
+		if (!texture.loadFromFile("ship-turquoise.png")) { cout << "Texture du vaisseau de joueur de base non trouvee" << endl; return -1; }
+		break;
+	case Rose:
+		if (!texture.loadFromFile("ship-rose.png")) { cout << "Texture du vaisseau de joueur de base non trouvee" << endl; return -1; }
+		break;
+	case Orange:
+		if (!texture.loadFromFile("ship-orange.png")) { cout << "Texture du vaisseau de joueur de base non trouvee" << endl; return -1; }
+		break;
+	case Jaune:
+		if (!texture.loadFromFile("ship-jaune.png")) { cout << "Texture du vaisseau de joueur de base non trouvee" << endl; return -1; }
+		break;
+	default:
+		break;
+	}
+	
+
+
 	sprite.setTexture(texture);
 	sprite.rotate(90);
 	sprite.setPosition(200, HEIGHT / 2);
@@ -41,11 +69,11 @@ void Player::checkOutOfScreen() {
 }
 void Player::increaseScore(int toIncrease)
 {
-	score += toIncrease;
+	currentScore += toIncrease;
 }
 void Player::decreaseScore(Text& scoreText, int toDecrease)
 {
-	score -= toDecrease;
-	if (score < 0)
-		score = 0;
+	currentScore -= toDecrease;
+	if (currentScore < 0)
+		currentScore = 0;
 }

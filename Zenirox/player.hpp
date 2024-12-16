@@ -6,6 +6,7 @@
 using namespace sf;
 
 enum Difficulty { Easy, Normal, Hardcore };
+enum Ship {Default, Red, Green, Turquoise, Rose, Orange, Jaune};
 
 class Player
 {
@@ -14,10 +15,12 @@ public:
 	int maxHP = 1000;
 	int shield = 0;
 	int maxShield = 500;
-	int score = 0;
+	int currentScore = 0;
+	int totalScore = 0;
 	int attack = 10;
 	float up = -5;
 	float down = 5;
+	Ship color = Default;
 	Difficulty difficulty = Normal;
 	Sprite sprite;
 	Texture texture;

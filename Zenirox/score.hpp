@@ -5,8 +5,10 @@
 using namespace sf;
 
 
-int setScoreText(Player player, Font &textFont, Text &scoreText);
+int setCurrentScoreText(Player player, Font &textFont, Text &scoreText);
+int setTotalScoreText(Player player, Font& textFont, Text& scoreText);
 void updateScoreText(Player player, Text& scoreText);
 void openScore(Player &player);
 void saveScore(Player player);
+void saveCurrentScore(Player &player);
 #endif

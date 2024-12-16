@@ -33,8 +33,9 @@ int main() {
 	game.Univeau1A = true;
 	Text scoreText;
 	Font scoreFont;
+	Text totalScoreText;
 
-	setScoreText(player, scoreFont, scoreText);
+	setCurrentScoreText(player, scoreFont, scoreText);
 	Background background("palier1.png", -310.0f); // Default texture and speed
 
 	/*switch (background.pal) {
@@ -117,7 +118,7 @@ int main() {
 
 	while (window.isOpen()){
 		//Chargement des niveaux
-		game.run(window, player, coin, background, star, faststar, healthbar, eManager, pManager, oManager, uManager, exManager, clock, scoreText, scoreFont, interface, playing, boss, finalBossM, playerShot, shot);
+		game.run(window, player, coin, background, star, faststar, healthbar, eManager, pManager, oManager, uManager, exManager, clock, scoreText, scoreFont, interface, playing, boss, finalBossM, playerShot, shot, totalScoreText);
 		if(game.state == niveauEDIT && game.isFightingBoss == false)
 		{
 			for (int i = 0; i < eManager.getEnemies().size(); i++)

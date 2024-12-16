@@ -112,14 +112,7 @@ void Game::level1A(Player& player, EnemyManager &eManager, ObstacleManager& oMan
 	}
 	if (isFightingBoss == true && toKill == 0 && Univeau1A == true && state == niveau1A)
 	{
-		isFightingBoss = false;
-		loadLevel = true;
-		doLoadBackground = true;
-		Univeau1B = true;
-		state = niveau1B;
-		pManager.~ProjectileManager();
-		oManager.~ObstacleManager();
-		uManager.~UtilitaryManager();
+		screen = NextLevel;
 	}
 }
 
@@ -186,14 +179,7 @@ void Game::level1B(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	}
 	if (isFightingBoss == true && toKill == 0 && Univeau1B == true && state == niveau1B)
 	{
-		isFightingBoss = false;
-		loadLevel = true;
-		doLoadBackground = true;
-		Univeau1C = true;
-		state = niveau1C;
-		pManager.~ProjectileManager();
-		oManager.~ObstacleManager();
-		uManager.~UtilitaryManager();
+		screen = NextLevel;
 	}
 }
 
@@ -258,13 +244,7 @@ void Game::level1C(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	}
 	if (isFightingBoss == true && toKill == 0 && Univeau1C == true && state == niveau1C)
 	{
-		isFightingBoss = false;
-		loadLevel = true;
-		Univeau2A = true;
-		state = niveau2A;
-		pManager.~ProjectileManager();
-		oManager.~ObstacleManager();
-		uManager.~UtilitaryManager();
+		screen = NextLevel;
 	}
 }
 
@@ -330,13 +310,7 @@ void Game::level2A(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	}
 	if (isFightingBoss == true && toKill == 0 && Univeau2A == true && state == niveau2A)
 	{
-		isFightingBoss = false;
-		loadLevel = true;
-		Univeau2B = true;
-		state = niveau2B;
-		pManager.~ProjectileManager();
-		oManager.~ObstacleManager();
-		uManager.~UtilitaryManager();
+		screen = NextLevel;
 	}
 }
 
@@ -402,13 +376,7 @@ void Game::level2B(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	}
 	if (isFightingBoss == true && toKill == 0 && Univeau2B == true && state == niveau2B)
 	{
-		isFightingBoss = false;
-		loadLevel = true;
-		Univeau2C = true;
-		state = niveau2C;
-		pManager.~ProjectileManager();
-		oManager.~ObstacleManager();
-		uManager.~UtilitaryManager();
+		screen = NextLevel;
 	}
 }
 
@@ -474,13 +442,7 @@ void Game::level2C(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	}
 	if (isFightingBoss == true && toKill == 0 && Univeau2C == true && state == niveau2C)
 	{
-		isFightingBoss = false;
-		loadLevel = true;
-		Univeau3A = true;
-		state = niveau3A;
-		pManager.~ProjectileManager();
-		oManager.~ObstacleManager();
-		uManager.~UtilitaryManager();
+		screen = NextLevel;
 	}
 }
 
@@ -547,13 +509,7 @@ void Game::level3A(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	}
 	if (isFightingBoss == true && toKill == 0 && Univeau3A == true && state == niveau3A)
 	{
-		isFightingBoss = false;
-		loadLevel = true;
-		Univeau3B = true;
-		state = niveau3B;
-		pManager.~ProjectileManager();
-		oManager.~ObstacleManager();
-		uManager.~UtilitaryManager();
+		screen = NextLevel;
 	}
 }
 
@@ -625,13 +581,7 @@ void Game::level3B(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	}
 	if (isFightingBoss == true && toKill == 0 && Univeau3B == true && state == niveau3B)
 	{
-		isFightingBoss = false;
-		loadLevel = true;
-		Univeau3C = true;
-		state = niveau3C;
-		pManager.~ProjectileManager();
-		oManager.~ObstacleManager();
-		uManager.~UtilitaryManager();
+		screen = NextLevel;
 	}
 }
 
@@ -708,13 +658,7 @@ void Game::level3C(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	}
 	if (isFightingBoss == true && toKill == 0 && Univeau3C == true && state == niveau3C)
 	{
-		isFightingBoss = false;
-		loadLevel = true;
-		UfinalBoss = true;
-		state = finalBoss;
-		pManager.~ProjectileManager();
-		oManager.~ObstacleManager();
-		uManager.~UtilitaryManager();
+		screen = NextLevel;
 	}
 }
 
@@ -825,8 +769,118 @@ void Game::levelP(Player& player, EnemyManager& eManager, ObstacleManager& oMana
 
 }
 
-void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& background, Starparallaxe& star, fastStarparallaxe& faststar, Healthbar& healthbar, EnemyManager& eManager, ProjectileManager& pManager, ObstacleManager& oManager, UtilitaryManager& uManager, ExplosionManager& exManager, Clock& clock, Text& scoreText, Font& scoreFont, RectangleShape& interface, Music& playing, Music& boss, Music& finalBossM, vector<Sound>& playerShot, SoundBuffer& shot)
+void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& background, Starparallaxe& star, fastStarparallaxe& faststar, Healthbar& healthbar, EnemyManager& eManager, ProjectileManager& pManager, ObstacleManager& oManager, UtilitaryManager& uManager, ExplosionManager& exManager, Clock& clock, Text& scoreText, Font& scoreFont, RectangleShape& interface, Music& playing, Music& boss, Music& finalBossM, vector<Sound>& playerShot, SoundBuffer& shot, Text& totalScoreText)
 {
+	if (screen == NextLevel)
+	{
+		pManager.~ProjectileManager();
+		oManager.~ObstacleManager();
+		uManager.~UtilitaryManager();
+		exManager.~ExplosionManager();
+		coin.setScale(0.5, 0.5);
+		coin.setPosition(750, 470);
+		saveCurrentScore(player);
+		setTotalScoreText(player, scoreFont, totalScoreText);
+		player.currentScore = 0;
+		Sprite nextLevelBackground;
+		Texture nextLevelBackgroundT;
+		if (!nextLevelBackgroundT.loadFromFile("levelwin.png")) throw runtime_error("Erreur de chargement du fond de niveau suivant");
+		nextLevelBackground.setTexture(nextLevelBackgroundT);
+		Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == Event::Closed)
+			{
+				saveCurrentScore(player);
+				saveScore(player);
+				window.close();
+			}
+			if (event.type == Event::KeyPressed)
+			{
+				if (event.key.code == Keyboard::Enter)
+				{
+					switch (state)
+					{
+					case niveauEDIT:
+						saveCurrentScore(player);
+						saveScore(player);
+						window.close();
+						break;
+					case niveau1A:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						Univeau1B = true;
+						state = niveau1B;
+						break;
+					case niveau1B:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						Univeau1C = true;
+						state = niveau1C;
+						break;
+					case niveau1C:
+						isFightingBoss = false;
+						loadLevel = true;
+						Univeau2A = true;
+						state = niveau2A;
+						break;
+					case niveau2A:
+						isFightingBoss = false;
+						loadLevel = true;
+						Univeau2B = true;
+						state = niveau2B;
+						break;
+					case niveau2B:
+						isFightingBoss = false;
+						loadLevel = true;
+						Univeau2C = true;
+						state = niveau2C;
+						break;
+					case niveau2C:
+						isFightingBoss = false;
+						loadLevel = true;
+						Univeau3A = true;
+						state = niveau3A;
+						break;
+					case niveau3A:
+						isFightingBoss = false;
+						loadLevel = true;
+						Univeau3B = true;
+						state = niveau3B;
+						break;
+					case niveau3B:
+						isFightingBoss = false;
+						loadLevel = true;
+						Univeau3C = true;
+						state = niveau3C;
+						break;
+					case niveau3C:
+						isFightingBoss = false;
+						loadLevel = true;
+						UfinalBoss = true;
+						state = finalBoss;
+						break;
+					case finalBoss:
+						break;
+					default:
+						break;
+					}
+					saveCurrentScore(player);
+					player.currentScore = 0;
+					coin.setPosition(0, 50);
+					coin.setScale(0.2, 0.2);
+					if(state != niveauEDIT)
+						screen = Playing;
+
+				}
+			}
+		}
+		window.draw(nextLevelBackground);
+		window.draw(totalScoreText);
+		window.draw(coin);
+	}
 	if (screen == Editor)
 	{
 		
