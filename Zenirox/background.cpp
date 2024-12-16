@@ -1,65 +1,102 @@
 #include "background.hpp"
-#include "globalvar.hpp"
 #include <iostream>
-using namespace std;
+#include <stdexcept>
 
-int Background::setTexture() {
-	switch (pal)
-	{
-	case palier1:
-		if (!texture.loadFromFile("palier1.png")) { cout << "Erreur lors du chargement de texure du palier niveau 1" << endl; return -1; }
-		sprite.setTexture(texture);
-		break;
-	case palier2:
-		if (!texture.loadFromFile("palier2.jpg")) { cout << "Erreur lors du chargement de texture du palier niveau 2" << endl; return -1; }
-		sprite.setTexture(texture);
-		break;
-	case palier3:
-		if (!texture.loadFromFile("palier3.jpg")) { cout << "Erreur lors du chargemnet de texture du palier niveau 3" << endl; return -1; }
-		sprite.setTexture(texture);
-		break;
-	case palier4:
-		if (!texture.loadFromFile("palier4.jpg")) { cout << "Erreur lors du chargemnet de texture du palier niveau 3" << endl; return -1; }
-		sprite.setTexture(texture);
-		break;
-	default:
-		break;
-	}
-}
-
-
-Background::Background(const std::string&textu0rePath, float speed)
+Background::Background(const std::string& texturePath, float speed)
     : scrollSpeed(speed) {
     if (!texture.loadFromFile(texturePath)) {
         throw std::runtime_error("Failed to load texture");
     }
 
-	if (!texture2.loadFromFile("palier11.png")) {
+    if (!texture2.loadFromFile(texturePath)) {
         throw std::runtime_error("Failed to load texture");
     }
 
     sprite.setTexture(texture);
-    sprite.setPosition(0, 0); // Initial position
+    sprite.setPosition(0, 0);
 
-	sprite2.setTexture(texture2);
-	sprite2.setPosition(sprite.getGlobalBounds().width, 0); // Position it next to the first
+    sprite2.setTexture(texture2);
+    sprite2.setPosition(sprite.getGlobalBounds().width, 0);
 }
 
 void Background::update(float deltaTime) {
-    // Move the sprite slowly to the right
     sprite.move(scrollSpeed * deltaTime, 0);
-	sprite2.move(scrollSpeed * deltaTime, 0);
+    sprite2.move(scrollSpeed * deltaTime, 0);
 
-	if (sprite.getPosition().x + sprite.getGlobalBounds().width <= 0) {
-		sprite.setPosition(sprite2.getPosition().x + sprite2.getGlobalBounds().width, 0);
-	}
-	
-	if (sprite2.getPosition().x + sprite2.getGlobalBounds().width <= 0) {
-		sprite2.setPosition(sprite.getPosition().x + sprite.getGlobalBounds().width, 0);
-	}
+    if (sprite.getPosition().x + sprite.getGlobalBounds().width <= 0) {
+        sprite.setPosition(sprite2.getPosition().x + sprite2.getGlobalBounds().width, 0);
+    }
+    if (sprite2.getPosition().x + sprite2.getGlobalBounds().width <= 0) {
+        sprite2.setPosition(sprite.getPosition().x + sprite.getGlobalBounds().width, 0);
+    }
 }
 
 void Background::draw(sf::RenderWindow& window) {
     window.draw(sprite);
-	window.draw(sprite2);
+    window.draw(sprite2);
+}
+
+// Setup for Palier 1
+void Background::setupPalier1() {
+    if (!texture.loadFromFile("palier1.png")) {
+        throw std::runtime_error("Failed to load texture");
+    }
+    sprite.setTexture(texture);
+
+    if (!texture2.loadFromFile("palier11.png")) {
+        throw std::runtime_error("Failed to load texture");
+    }
+    sprite2.setTexture(texture2);
+}
+
+// Setup for Palier 1
+void Background::setupPalier11() {
+    if (!texture.loadFromFile("palier11.png")) {
+        throw std::runtime_error("Failed to load texture");
+    }
+    sprite.setTexture(texture);
+
+    if (!texture2.loadFromFile("palier11.png")) {
+        throw std::runtime_error("Failed to load texture");
+    }
+    sprite2.setTexture(texture2);
+}
+
+// Setup for Palier 2
+void Background::setupPalier2() {
+    if (!texture.loadFromFile("palier22.png")) {
+        throw std::runtime_error("Failed to load texture");
+    }
+    sprite.setTexture(texture);
+
+    if (!texture2.loadFromFile("palier22.png")) {
+        throw std::runtime_error("Failed to load texture");
+    }
+    sprite2.setTexture(texture2);
+}
+
+// Setup for Palier 3
+void Background::setupPalier3() {
+    if (!texture.loadFromFile("palier33.jpg")) {
+        throw std::runtime_error("Failed to load texture");
+    }
+    sprite.setTexture(texture);
+
+    if (!texture2.loadFromFile("palier3.jpg")) {
+        throw std::runtime_error("Failed to load texture");
+    }
+    sprite2.setTexture(texture2);
+}
+
+// Setup for Palier 4
+void Background::setupPalier4() {
+    if (!texture.loadFromFile("palier4.jpg")) {
+        throw std::runtime_error("Failed to load texture");
+    }
+    sprite.setTexture(texture);
+
+    if (!texture2.loadFromFile("palier4.png")) {
+        throw std::runtime_error("Failed to load texture");
+    }
+    sprite2.setTexture(texture2);
 }

@@ -1,22 +1,35 @@
 #include "enemy.hpp"
-#include <SFML/Graphics.hpp>
-#include <iostream>
-
 
 
 int Enemy::setTexture() {
-	switch (level)
+	switch (id)
 	{
-	case Niveau1:
+	case ENNEMI1:
 		if (!texture.loadFromFile("enemy1.png")) { cout << "Erreur lors du chargement de texure d'ennemi niveau 1" << endl; return -1; }
 		sprite.setTexture(texture);
 		break;
-	case Niveau2:
+	case ENNEMI2:
 		if (!texture.loadFromFile("enemy2.png")) { cout << "Erreur lors du chargement de texture d'ennemi niveau 2" << endl; return -1; }
 		sprite.setTexture(texture);
 		break;
-	case Niveau3:
-		if (!texture.loadFromFile("enemy3.png")) { cout << "Erreur lors du chargemnet de texture d'ennemi niveau 3" << endl; return -1; }
+	case ENNEMI3:
+		if (!texture.loadFromFile("enemy3.png")) { cout << "Erreur lors du chargement de texture d'ennemi niveau 3" << endl; return -1; }
+		sprite.setTexture(texture);
+		break;
+	case BOSS1:
+		if (!texture.loadFromFile("Boss1.png")) { cout << "Erreur lors du chargement de texture de boss niveau 1" << endl; return -1; }
+		sprite.setTexture(texture);
+		break;
+	case BOSS2:
+		if (!texture.loadFromFile("Boss2.png")) { cout << "Erreur lors du chargement de texture de boss niveau 2" << endl; return -1; }
+		sprite.setTexture(texture);
+		break;
+	case BOSS3:
+		if (!texture.loadFromFile("Boss3.png")) { cout << "Erreur lors du chargement de texture de boss niveau 3" << endl; return -1; }
+		sprite.setTexture(texture);
+		break;
+	case BOSS4:
+		if (!texture.loadFromFile("Boss4.png")) { cout << "Erreur lors du chargement de texture de boss niveau 4" << endl; return -1; }
 		sprite.setTexture(texture);
 		break;
 	default:
@@ -24,47 +37,91 @@ int Enemy::setTexture() {
 	}
 	}
 void Enemy::setAttackAndHP() {
-	switch (level)
+	switch (id)
 	{
-	case Niveau1:
+	case ENNEMI1:
 		AttackDamages = 5;
 		HP = 100;
+		maxHP = 100;
 		break;
-	case Niveau2:
+	case ENNEMI2:
 		AttackDamages = 10;
 		HP = 200;
+		maxHP = 200;
 		break;
-	case Niveau3:
+	case ENNEMI3:
 		AttackDamages = 15;
 		HP = 150;
+		maxHP = 150;
+		break;
+	case BOSS1:
+		AttackDamages = 10;
+		HP = 400;
+		maxHP = 400;
+		break;
+	case BOSS2:
+		AttackDamages = 10;
+		HP = 500;
+		maxHP = 500;
+		break;
+	case BOSS3:
+		AttackDamages = 10;
+		HP = 600;
+		maxHP = 600;
+		shield = 200;
+		maxShield = 200;
+		break;
+	case BOSS4:
+		AttackDamages = 15;
+		HP = 800;
+		maxHP = 800;
+		shield = 400;
+		maxShield = 400;
 		break;
 	default:
 		break;
 	}
 }
 
-Enemy::Enemy() {}
+Enemy::Enemy() {
+	if (!impactB.loadFromFile("sounds/hit.ogg")) throw runtime_error("Erreur de chargement du son d'impact");
+	impact.setBuffer(impactB);
+	if (!shot.loadFromFile("sounds/shot.ogg")) throw runtime_error("Erreur de chargement du son de tir");
+	lasershot.setBuffer(shot);
+}
 Enemy::~Enemy() {
 	{ cout << "Un ennemi a ete detruit" << endl; };
 }
 void Enemy::enemyMove() {
-	if (sprite.getPosition().y < 0)
+	if (sprite.getPosition().y < MAXHEIGHT)
 		direction = down;
 	else if (sprite.getPosition().y > HEIGHT - sprite.getGlobalBounds().height)
 		direction = up;
-	if (id == Niveau2)
+	if (id == ENNEMI2 || id == ENNEMI3)
+	{
+		if (direction == up)
+			sprite.move(-4, -velocity);
+		else
+			sprite.move(-4, velocity);
+	}
+	if (id == BOSS1 || id == BOSS2 || id == BOSS3 ||id == BOSS4)
 	{
 		if (direction == up)
 			sprite.move(0, -velocity);
 		else
 			sprite.move(0, velocity);
 	}
-	if (id == Niveau3)
+	if (id == ENNEMI1)
 	{
-		if (direction == up)
-			sprite.move(0, -velocity);
-		else
-			sprite.move(0, velocity);
+		sprite.move(-4, 0);
+	}
+	if (sprite.getPosition().x < -500 && id != ENNEMI3)
+	{
+		sprite.setPosition(sprite.getPosition().x + WIDTH + 1000, sprite.getPosition().y);
+	}
+	if (sprite.getPosition().x < -500 && id == ENNEMI3)
+	{
+		sprite.setPosition(sprite.getPosition().x + WIDTH + 2000, sprite.getPosition().y);
 	}
 }
 
@@ -79,25 +136,43 @@ void Enemy::enemyMove() {
 		enemies.clear();
 	}
 
-	Enemy* EnemyManager::creerEnemy(ennemi defLevel, float width, float height)
+	Enemy* EnemyManager::creerEnemy(ID defLevel, float width, float height)
 	{
 		Enemy* e = new Enemy();
-		e->level = defLevel;
+		e->id = defLevel;
 		e->setTexture();
 		e->setAttackAndHP();
 		e->sprite.setPosition(width, height);
 		e->sprite.setScale(2, 2);
+		e->boostDuration = seconds(2.5);
+		if (defLevel == BOSS2)
+			e->sprite.setScale(1.5, 1.5);
+		else if (defLevel == BOSS3)
+			e->sprite.setScale(1, 1);
+		else if (defLevel == BOSS4)
+			e->sprite.setScale(1, 1);
 		switch (defLevel)
 		{
-		case Niveau1:
+		case ENNEMI1:
 			e->id = ENNEMI1;
 			break;
-		case Niveau2:
+		case ENNEMI2:
 			e->id = ENNEMI2;
 			break;
-		case Niveau3:
+		case ENNEMI3:
 			e->id = ENNEMI3;
 			break;
+		case BOSS1:
+			e->id = BOSS1;
+			break;
+		case BOSS2:
+			e->id = BOSS2;
+			break;
+		case BOSS3:
+			e->id = BOSS3;
+			break;
+		case BOSS4:
+			e->id = BOSS4;
 		default:
 			break;
 		}
@@ -118,18 +193,22 @@ void Enemy::enemyMove() {
 		case BOSS1:
 			e->attackCooldown = seconds(0.08);
 			e->rechargeCooldown = seconds(2);
+			e->velocity = 3;
 			break;
 		case BOSS2:
 			e->attackCooldown = seconds(0.2);
-			e->rechargeCooldown = seconds(0);
+			e->rechargeCooldown = seconds(2);
+			e->velocity = 5;
 			break;
 		case BOSS3:
 			e->attackCooldown = seconds(0.2);
-			e->rechargeCooldown = seconds(0);
+			e->rechargeCooldown = seconds(2);
 			break;
 		case BOSS4:
-			e->attackCooldown = seconds(0.02);
+			e->attackCooldown = seconds(0.06);
 			e->rechargeCooldown = seconds(2);
+			e->velocity = 6;
+			break;
 		}
 		enemies.push_back(e);
 		return e;
@@ -143,11 +222,13 @@ void Enemy::enemyMove() {
 	}
 
 
-	void EnemyManager::checkEnemy(Enemy* enemy)
+	void EnemyManager::checkEnemy(Enemy* enemy, int &toKill, ExplosionManager& exManager)
 	{
 		if (enemy->HP < 1)
 		{
+			exManager.creerExplosion(enemy);
 			detruireEnemy(enemy);
+			--toKill;
 		}
 	}
 	vector<Enemy* > EnemyManager::getEnemies() {

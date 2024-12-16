@@ -1,39 +1,41 @@
 #ifndef ENEMY_HPP
 #define ENEMY_HPP
-
-#include <SFML/Graphics.hpp>
-#include <iostream>
+#include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
 #include "globalvar.hpp"
+#include "explosion.hpp"
 
 using namespace std;
 using namespace sf;
 
-enum ennemi {
-	Niveau1 = 1,
-	Niveau2 = 2,
-	Niveau3 = 3
-};
 enum Direction {
 	up = 1,
 	down = 2
 };
 
-
-
 class Enemy {
 public:
-	int HP;
+	int HP = 0;
+	int maxHP = 0;
+	int shield = 0;
+	int maxShield = 0;
 	float velocity = 2;
 	Direction direction = up;
 	Sprite sprite;
 	Texture texture;
+	Sound impact;
+	SoundBuffer impactB;
+	Sound lasershot;
+	SoundBuffer shot;
 	int AttackDamages;
-	ennemi level;
 	ID id;
 	Clock attackClock;
+	Clock boostClock;
 	Time attackCooldown;
+	Time boostDuration;
 	Clock rechargeClock;
 	Time rechargeCooldown;
+	bool canBeBoosted = false;
 	int setTexture();
 	void setAttackAndHP();
 	Enemy();
@@ -48,9 +50,10 @@ private:
 	vector<Enemy*> enemies;
 public:
 	~EnemyManager();
-	Enemy* creerEnemy(ennemi defLevel, float width, float height);
+	Enemy* creerEnemy(ID defLevel, float width, float height);
 	void detruireEnemy(Enemy* enemy);
-	void checkEnemy(Enemy* enemy);
+	void checkEnemy(Enemy* enemy,int &toKill, ExplosionManager& exManager);
 	vector<Enemy* > getEnemies();
 };
+
 #endif

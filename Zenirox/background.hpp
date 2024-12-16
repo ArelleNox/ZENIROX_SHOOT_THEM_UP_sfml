@@ -5,6 +5,7 @@
 
 enum palier {
     palier1 = 1,
+    palier11 = 11,
     palier2 = 2,
     palier3 = 3,
     palier4 = 4,
@@ -12,20 +13,27 @@ enum palier {
 
 class Background {
 private:
-
-    
     float scrollSpeed;
 
 public:
     sf::Texture texture;
     sf::Texture texture2;
+    sf::Texture texture3;
     sf::Sprite sprite;
     sf::Sprite sprite2;
-    int setTexture();
-    palier pal;
+    sf::Sprite sprite3;
+
+
     Background(const std::string& texturePath, float speed);
     void update(float deltaTime);
     void draw(sf::RenderWindow& window);
+
+    // Functions for each palier
+    void setupPalier1();
+    void setupPalier11();
+    void setupPalier2();
+    void setupPalier3();
+    void setupPalier4();
 };
 
 #endif

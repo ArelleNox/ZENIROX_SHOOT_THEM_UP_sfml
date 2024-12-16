@@ -75,8 +75,8 @@
     <LibraryPath>C:\SFML-2.6.1-windows-vc17-64-bit\SFML-2.6.1\lib</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\SFML-2.6.1-windows-vc17-64-bit\SFML-2.6.1\include</IncludePath>
-    <LibraryPath>C:\SFML-2.6.1-windows-vc17-64-bit\SFML-2.6.1\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\SFML-2.6.2-windows-vc17-64-bit\SFML-2.6.2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\SFML-2.6.2-windows-vc17-64-bit\SFML-2.6.2\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -129,7 +129,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\SFML-2.6.1-windows-vc17-64-bit\SFML-2.6.1\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\SFML-2.6.2-windows-vc17-64-bit\SFML-2.6.2\include;$(IncludePath)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,15 +141,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="background.cpp" />
     <ClCompile Include="enemy.cpp" />
-    <ClCompile Include="FileName.cpp" />
+    <ClCompile Include="game.cpp" />
+    <ClCompile Include="healthbar.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="obstacle.cpp" />
+    <ClCompile Include="powerups.cpp" />
+    <ClCompile Include="score.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="background.hpp" />
     <ClInclude Include="enemy.hpp" />
+    <ClCompile Include="parallaxe.cpp" />
+    <ClCompile Include="parallaxe2.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="projectile.cpp" />
+    <ClInclude Include="game.hpp" />
+    <ClInclude Include="globalvar.hpp" />
+    <ClInclude Include="healthbar.hpp" />
+    <ClInclude Include="parallaxe2.hpp" />
+    <ClInclude Include="powerups.hpp" />
+    <ClInclude Include="score.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="obstacle.hpp" />
+    <ClInclude Include="parallaxe.hpp" />
     <ClInclude Include="player.hpp" />
     <ClInclude Include="projectile.hpp" />
   </ItemGroup>

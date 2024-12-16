@@ -1,14 +1,4 @@
-#include <iostream>
-#include <ctime>
-#include "projectile.hpp"
-#include "player.hpp"
-#include "enemy.hpp"
-#include "Background.hpp"
-#include "parallaxe.hpp"
-#include "score.hpp"
-#include "healthbar.hpp"
-
-
+#include "game.hpp"
 using namespace std;
 using namespace sf;
 
@@ -16,141 +6,94 @@ using namespace sf;
 
 
 
-
 int main() {
 	srand(time(NULL));
-	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Fullscreen);
+	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Default);
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
 
+	Game game;
+
 	Player player;
 	player.setSprite();
+	EnemyManager eManager;
 
-	EnemyManager enemyManager;
-	enemyManager.creerEnemy(Niveau1, 1600, 500);
-	enemyManager.creerEnemy(Niveau2, 1000, 800);
-	enemyManager.creerEnemy(Niveau3, 500, 700);
-	enemyManager.creerEnemy(Niveau1, 1600, 100);
-	enemyManager.creerEnemy(Niveau1, 1600, 300);
+	RectangleShape interface(Vector2f(1920, 95));
+	Texture interfaceT;
+	if (!interfaceT.loadFromFile("cockpit.png")) { throw runtime_error("Erreur de chargement cockpit"); }
+	interface.setTexture(&interfaceT);
 
+	Sprite coin;
+	Texture coinTexture;
+	if (!coinTexture.loadFromFile("coin.png")) { cout << "Erreur de chargement de la texture de piece" << endl; return -1; }
+	coin.setTexture(coinTexture);
+	coin.setScale(0.2, 0.2);
+	coin.setPosition(0, 45);
+
+	game.Univeau1A = true;
 	Text scoreText;
 	Font scoreFont;
 
 	setScoreText(player, scoreFont, scoreText);
 
-	Background background("palier1.png",-15.f);
+	Background background("palier11.png", -10.0f); // Default texture and speed
 
-	Starparallaxe star("star.png",-300.f);
+	Starparallaxe star("star.png", -300.f);
+	fastStarparallaxe faststar("star.png", -1500.f);
 
-	Healthbar playerHealthbar;
-	playerHealthbar.setTextureList();
+	Healthbar healthbar;
+	healthbar.setTextureList();
 
 	// Initialiser l'horloge pour gérer le deltaTime
 	sf::Clock clock;
 
-	ProjectileManager manager;
+	ProjectileManager pManager;
 	openScore(player);
-	while (window.isOpen())
+	
+	ObstacleManager oManager;
+
+	UtilitaryManager uManager;
+
+	ExplosionManager exManager;
+
+	Music playing;
+	Music boss;
+	Music finalBossM;
+	
+	if (!playing.openFromFile("sounds/playing.ogg")) throw runtime_error("Musique de combat classique non chargee");
+	playing.setLoop(true);
+
+	if(!boss.openFromFile("sounds/boss.ogg")) throw runtime_error("Musique de combat de boss non chargee");
+	boss.setLoop(true);
+	if(!finalBossM.openFromFile("sounds/finalboss.ogg")) throw runtime_error("Musique de combat final non chargee");
+	finalBossM.setLoop(true);
+
+	playing.setVolume(50);
+	boss.setVolume(50);
+	finalBossM.setVolume(50);
+
+	SoundBuffer shot;
+	if (!shot.loadFromFile("sounds/shot.ogg")) throw runtime_error("Son de tir non charge");
+	vector<Sound> playerShot{ 10 };
+	for (int i = 0; i < playerShot.size(); i++)
 	{
-		player.checkOutOfScreen();
-		Event event;
-		if (Keyboard::isKeyPressed(Keyboard::Up))
-			player.sprite.move(0, -10);
-		if (Keyboard::isKeyPressed(Keyboard::Down))
-			player.sprite.move(0, 10);
-		if (Mouse::isButtonPressed(Mouse::Left) && player.attackClock.getElapsedTime().asSeconds() > player.attackCooldown.asSeconds())
+		playerShot[i].setBuffer(shot);
+	}
+	
+
+	while (window.isOpen()){
+		//Chargement des niveaux
+		game.run(window, player, coin, background, star, faststar, healthbar, eManager, pManager, oManager, uManager, exManager, clock, scoreText, scoreFont, interface, playing, boss, finalBossM, playerShot, shot);
+		if(game.state == niveauEDIT && game.isFightingBoss == false)
 		{
-			player.attackClock.restart();
-			manager.creerProjectile(player);
-			manager.getProjectiles()[manager.getProjectiles().size() - 1]->sprite.setPosition(player.sprite.getPosition().x, player.sprite.getGlobalBounds().top+40);
-		}
-		
-		while (window.pollEvent(event)){
-			if (event.type == Event::Closed)
-				window.close();
-			if (event.type == Event::KeyPressed)
-				if (event.key.code == Keyboard::Enter)
-					window.close();
-			
-		}
-
-		// Calcul du deltaTime
-		float deltaTime = clock.restart().asSeconds();
-		// Mettre à jour l'arrière-plan
-		background.update(deltaTime);
-		star.update(deltaTime);
-
-
-		window.clear();
-
-		// Dessiner l'arrière-plan
-		background.draw(window);
-
-		// Dessine les étoile et leur defilement
-		star.draw(window);
-
-		for (auto i = 0; i < manager.getProjectiles().size(); i++)
-		{
-			window.draw(manager.getProjectiles()[i]->sprite);
-			if(manager.getProjectiles()[i]->id == PLAYER)
-				manager.getProjectiles()[i]->sprite.move(14, 0);
-			if (manager.getProjectiles()[i]->id != PLAYER)
-				manager.getProjectiles()[i]->sprite.move(manager.getProjectiles()[i]->velocity, 0);
-			manager.checkProjectileOutOfScreen(manager.getProjectiles()[i], enemyManager, player, scoreText);
-		}
-		
-		for (auto i = 0; i < enemyManager.getEnemies().size(); i++)
-		{
-			window.draw(enemyManager.getEnemies()[i]->sprite);
-			enemyManager.checkEnemy(enemyManager.getEnemies()[i]);
-		}
-		
-		for (auto i = 0; i < enemyManager.getEnemies().size(); i++)
-		{
-			enemyManager.getEnemies()[i]->enemyMove();
-			if(enemyManager.getEnemies()[i]->rechargeClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->rechargeCooldown.asSeconds())
+			for (int i = 0; i < eManager.getEnemies().size(); i++)
 			{
-				
-				if (enemyManager.getEnemies()[i]->attackClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->attackCooldown.asSeconds())
-				{
-					int projVelocityChance = rand() % 3;
-					int projVelocity;
-					switch (projVelocityChance)
-					{
-					case 1:
-						projVelocity = -4;
-						break;
-					case 2:
-						projVelocity = -6;
-						break;
-					case 3:
-						projVelocity = -7;
-						break;
-					default:
-						projVelocity = -4;
-						break;
-					}
-					enemyManager.getEnemies()[i]->attackClock.restart();
-					manager.creerProjectile(enemyManager.getEnemies()[i], projVelocity);
-					
-
-				}
-				if(enemyManager.getEnemies()[i]->rechargeClock.getElapsedTime().asSeconds() > enemyManager.getEnemies()[i]->rechargeCooldown.asSeconds() *2 )
-					enemyManager.getEnemies()[i]->rechargeClock.restart();
+				if (eManager.getEnemies()[i]->id == BOSS1 || eManager.getEnemies()[i]->id == BOSS2 || eManager.getEnemies()[i]->id == BOSS3 || eManager.getEnemies()[i]->id == BOSS4)
+					eManager.getEnemies()[i]->sprite.move(-4, 0);
 			}
-
 		}
-		updateScoreText(player, scoreText);
-		playerHealthbar.setHealthbar(player);
-		player.checkOutOfScreen();
-		if(player.HP > 0)
-			window.draw(player.sprite);
-		window.draw(scoreText);
-		window.draw(playerHealthbar.sprite);
+
 		window.display();
-
-
-
 
 	}
 	saveScore(player);

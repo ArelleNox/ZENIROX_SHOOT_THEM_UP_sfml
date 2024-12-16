@@ -1,7 +1,5 @@
 #ifndef CLASS_HPP
 #define CLASS_HPP
-#include <SFML/Graphics.hpp>
-#include <vector>
 #include "enemy.hpp"
 #include "player.hpp"
 #include "globalvar.hpp"
