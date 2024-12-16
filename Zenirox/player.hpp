@@ -5,7 +5,7 @@
 #include "globalvar.hpp"
 using namespace sf;
 
-
+enum Difficulty { Easy, Normal, Hardcore };
 
 class Player
 {
@@ -18,6 +18,7 @@ public:
 	int attack = 10;
 	float up = -5;
 	float down = 5;
+	Difficulty difficulty = Normal;
 	Sprite sprite;
 	Texture texture;
 	Sound impact;

@@ -94,9 +94,18 @@ void Game::level1A(Player& player, EnemyManager &eManager, ObstacleManager& oMan
 		isFightingBoss = true;
 		toKill = 1;
 		eManager.creerEnemy(BOSS1, 1400, 700);
-		uManager.creerUtilitary(shield, 2000, 700);
-		uManager.creerUtilitary(battery, 6000, 900);
-		uManager.creerUtilitary(heart, 10000, 300);
+		if(player.difficulty != Hardcore)
+		{
+			uManager.creerUtilitary(shield, 2000, 700);
+			uManager.creerUtilitary(battery, 6000, 500);
+			uManager.creerUtilitary(heart, 10000, 300);
+		}
+		if (player.difficulty == Hardcore)
+		{
+			uManager.creerUtilitary(evilBattery, 2000, 200);
+			uManager.creerUtilitary(evilShield, 6000, 300);
+			uManager.creerUtilitary(evilHeart, 10000, 700);
+		}
 		
 		
 		//Ecran de victoire...
@@ -110,6 +119,7 @@ void Game::level1A(Player& player, EnemyManager &eManager, ObstacleManager& oMan
 		state = niveau1B;
 		pManager.~ProjectileManager();
 		oManager.~ObstacleManager();
+		uManager.~UtilitaryManager();
 	}
 }
 
@@ -161,6 +171,18 @@ void Game::level1B(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 		isFightingBoss = true;
 		toKill = 1;
 		eManager.creerEnemy(BOSS1, 1400, 700);
+		if (player.difficulty != Hardcore)
+		{
+			uManager.creerUtilitary(shield, 2000, 700);
+			uManager.creerUtilitary(battery, 6000, 500);
+			uManager.creerUtilitary(heart, 10000, 300);
+		}
+		if (player.difficulty == Hardcore)
+		{
+			uManager.creerUtilitary(evilBattery, 2000, 200);
+			uManager.creerUtilitary(evilShield, 6000, 300);
+			uManager.creerUtilitary(evilHeart, 10000, 700);
+		}
 	}
 	if (isFightingBoss == true && toKill == 0 && Univeau1B == true && state == niveau1B)
 	{
@@ -171,6 +193,7 @@ void Game::level1B(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 		state = niveau1C;
 		pManager.~ProjectileManager();
 		oManager.~ObstacleManager();
+		uManager.~UtilitaryManager();
 	}
 }
 
@@ -220,6 +243,18 @@ void Game::level1C(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 		isFightingBoss = true;
 		toKill = 1;
 		eManager.creerEnemy(BOSS1, 1400, 700);
+		if (player.difficulty != Hardcore)
+		{
+			uManager.creerUtilitary(shield, 2000, 700);
+			uManager.creerUtilitary(battery, 6000, 500);
+			uManager.creerUtilitary(heart, 10000, 300);
+		}
+		if (player.difficulty == Hardcore)
+		{
+			uManager.creerUtilitary(evilBattery, 2000, 200);
+			uManager.creerUtilitary(evilShield, 6000, 300);
+			uManager.creerUtilitary(evilHeart, 10000, 700);
+		}
 	}
 	if (isFightingBoss == true && toKill == 0 && Univeau1C == true && state == niveau1C)
 	{
@@ -229,6 +264,7 @@ void Game::level1C(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 		state = niveau2A;
 		pManager.~ProjectileManager();
 		oManager.~ObstacleManager();
+		uManager.~UtilitaryManager();
 	}
 }
 
@@ -279,6 +315,18 @@ void Game::level2A(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 		isFightingBoss = true;
 		toKill = 1;
 		eManager.creerEnemy(BOSS2, 1400, 700);
+		if (player.difficulty != Hardcore)
+		{
+			uManager.creerUtilitary(shield, 2000, 700);
+			uManager.creerUtilitary(battery, 6000, 500);
+			uManager.creerUtilitary(heart, 10000, 300);
+		}
+		if (player.difficulty == Hardcore)
+		{
+			uManager.creerUtilitary(evilBattery, 2000, 200);
+			uManager.creerUtilitary(evilShield, 6000, 300);
+			uManager.creerUtilitary(evilHeart, 10000, 700);
+		}
 	}
 	if (isFightingBoss == true && toKill == 0 && Univeau2A == true && state == niveau2A)
 	{
@@ -288,6 +336,7 @@ void Game::level2A(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 		state = niveau2B;
 		pManager.~ProjectileManager();
 		oManager.~ObstacleManager();
+		uManager.~UtilitaryManager();
 	}
 }
 
@@ -338,6 +387,18 @@ void Game::level2B(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 		isFightingBoss = true;
 		toKill = 1;
 		eManager.creerEnemy(BOSS2, 1400, 700);
+		if (player.difficulty != Hardcore)
+		{
+			uManager.creerUtilitary(shield, 2000, 700);
+			uManager.creerUtilitary(battery, 6000, 500);
+			uManager.creerUtilitary(heart, 10000, 300);
+		}
+		if (player.difficulty == Hardcore)
+		{
+			uManager.creerUtilitary(evilBattery, 2000, 200);
+			uManager.creerUtilitary(evilShield, 6000, 300);
+			uManager.creerUtilitary(evilHeart, 10000, 700);
+		}
 	}
 	if (isFightingBoss == true && toKill == 0 && Univeau2B == true && state == niveau2B)
 	{
@@ -347,6 +408,7 @@ void Game::level2B(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 		state = niveau2C;
 		pManager.~ProjectileManager();
 		oManager.~ObstacleManager();
+		uManager.~UtilitaryManager();
 	}
 }
 
@@ -397,6 +459,18 @@ void Game::level2C(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 		isFightingBoss = true;
 		toKill = 1;
 		eManager.creerEnemy(BOSS2, 1400, 700);
+		if (player.difficulty != Hardcore)
+		{
+			uManager.creerUtilitary(shield, 2000, 700);
+			uManager.creerUtilitary(battery, 6000, 500);
+			uManager.creerUtilitary(heart, 10000, 300);
+		}
+		if (player.difficulty == Hardcore)
+		{
+			uManager.creerUtilitary(evilBattery, 2000, 200);
+			uManager.creerUtilitary(evilShield, 6000, 300);
+			uManager.creerUtilitary(evilHeart, 10000, 700);
+		}
 	}
 	if (isFightingBoss == true && toKill == 0 && Univeau2C == true && state == niveau2C)
 	{
@@ -406,6 +480,7 @@ void Game::level2C(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 		state = niveau3A;
 		pManager.~ProjectileManager();
 		oManager.~ObstacleManager();
+		uManager.~UtilitaryManager();
 	}
 }
 
@@ -457,6 +532,18 @@ void Game::level3A(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 		isFightingBoss = true;
 		toKill = 1;
 		eManager.creerEnemy(BOSS3, 1400, 700);
+		if (player.difficulty != Hardcore)
+		{
+			uManager.creerUtilitary(shield, 2000, 700);
+			uManager.creerUtilitary(battery, 6000, 500);
+			uManager.creerUtilitary(heart, 10000, 300);
+		}
+		if (player.difficulty == Hardcore)
+		{
+			uManager.creerUtilitary(evilBattery, 2000, 200);
+			uManager.creerUtilitary(evilShield, 6000, 300);
+			uManager.creerUtilitary(evilHeart, 10000, 700);
+		}
 	}
 	if (isFightingBoss == true && toKill == 0 && Univeau3A == true && state == niveau3A)
 	{
@@ -466,6 +553,7 @@ void Game::level3A(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 		state = niveau3B;
 		pManager.~ProjectileManager();
 		oManager.~ObstacleManager();
+		uManager.~UtilitaryManager();
 	}
 }
 
@@ -522,6 +610,18 @@ void Game::level3B(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 		isFightingBoss = true;
 		toKill = 1;
 		eManager.creerEnemy(BOSS3, 1400, 700);
+		if (player.difficulty != Hardcore)
+		{
+			uManager.creerUtilitary(shield, 2000, 700);
+			uManager.creerUtilitary(battery, 6000, 500);
+			uManager.creerUtilitary(heart, 10000, 300);
+		}
+		if (player.difficulty == Hardcore)
+		{
+			uManager.creerUtilitary(evilBattery, 2000, 200);
+			uManager.creerUtilitary(evilShield, 6000, 300);
+			uManager.creerUtilitary(evilHeart, 10000, 700);
+		}
 	}
 	if (isFightingBoss == true && toKill == 0 && Univeau3B == true && state == niveau3B)
 	{
@@ -531,6 +631,7 @@ void Game::level3B(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 		state = niveau3C;
 		pManager.~ProjectileManager();
 		oManager.~ObstacleManager();
+		uManager.~UtilitaryManager();
 	}
 }
 
@@ -592,6 +693,18 @@ void Game::level3C(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 		isFightingBoss = true;
 		toKill = 1;
 		eManager.creerEnemy(BOSS3, 1400, 700);
+		if (player.difficulty != Hardcore)
+		{
+			uManager.creerUtilitary(shield, 2000, 700);
+			uManager.creerUtilitary(battery, 6000, 500);
+			uManager.creerUtilitary(heart, 10000, 300);
+		}
+		if (player.difficulty == Hardcore)
+		{
+			uManager.creerUtilitary(evilBattery, 2000, 200);
+			uManager.creerUtilitary(evilShield, 6000, 300);
+			uManager.creerUtilitary(evilHeart, 10000, 700);
+		}
 	}
 	if (isFightingBoss == true && toKill == 0 && Univeau3C == true && state == niveau3C)
 	{
@@ -601,6 +714,7 @@ void Game::level3C(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 		state = finalBoss;
 		pManager.~ProjectileManager();
 		oManager.~ObstacleManager();
+		uManager.~UtilitaryManager();
 	}
 }
 
@@ -640,6 +754,15 @@ void Game::level4(Player& player, EnemyManager& eManager, ObstacleManager& oMana
 		oManager.creerObstacle(1000, 100);
 		oManager.creerObstacle(1000, 900);
 		eManager.creerEnemy(BOSS4, 1400, 700);
+		if (player.difficulty != Hardcore)
+		{
+			uManager.creerUtilitary(shield, 2000, 700);
+			uManager.creerUtilitary(battery, 6000, 500);
+			uManager.creerUtilitary(heart, 10000, 300);
+		}
+		uManager.creerUtilitary(evilBattery, 2000, 200);
+		uManager.creerUtilitary(evilShield, 6000, 300);
+		uManager.creerUtilitary(evilHeart, 10000, 700);
 	}
 	
 }
@@ -691,6 +814,12 @@ void Game::levelP(Player& player, EnemyManager& eManager, ObstacleManager& oMana
 		isFightingBoss = true;
 		toKill = 1;
 		eManager.creerEnemy(bossID, 1400, 700);
+		if (player.difficulty != Hardcore)
+		{
+			uManager.creerUtilitary(shield, 2000, 700);
+			uManager.creerUtilitary(battery, 6000, 500);
+			uManager.creerUtilitary(heart, 10000, 300);
+		}
 	}
 	
 

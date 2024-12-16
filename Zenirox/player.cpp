@@ -4,7 +4,6 @@
 using namespace std;
 
 
-
 int Player::setSprite() {
 	if (!texture.loadFromFile("ship.png")) { cout << "Texture du vaisseau de joueur de base non trouvee" << endl; return -1; }
 	sprite.setTexture(texture);
@@ -19,6 +18,18 @@ Player::Player() : attackCooldown(seconds(0.2)), boostDuration(seconds(2.5)) {
 	if (!malusB.loadFromFile("sounds/malus.ogg")) throw runtime_error("Erreur de chargement du son de malus");
 	bonus.setBuffer(bonusB);
 	malus.setBuffer(malusB);
+	if (difficulty == Easy)
+	{
+		HP = 2000;
+		maxHP = 2000;
+		maxShield = 1000;
+	}
+	if (difficulty == Hardcore)
+	{
+		HP = 500;
+		maxHP = 500;
+		maxShield == 250;
+	}
 }
 
 void Player::checkOutOfScreen() {
