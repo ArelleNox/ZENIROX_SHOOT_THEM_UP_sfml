@@ -36,7 +36,7 @@ int main() {
 
 	setScoreText(player, scoreFont, scoreText);
 
-	Background background("palier11.png", -300.0f); // Default texture and speed
+	Background background("palier11.png", -10.0f); // Default texture and speed
 
 	background.pal = palier1; // Example: setting the current palier
 
@@ -97,6 +97,24 @@ int main() {
 	{
 		playerShot[i].setBuffer(shot);
 	}
+
+	Clock warningClock;
+	Time warningCooldown = seconds(1);
+	Text warningText;
+	warningText.setFont(scoreFont);
+	warningText.setString("HURRY UP!");
+	warningText.setFillColor(Color::Red);
+	warningText.setOutlineColor(Color::Black);
+	warningText.setOutlineThickness(4);
+	warningText.setScale(1.5, 1.5);
+	warningText.setPosition(450, 20);
+	Sprite skull;
+	Texture skullT;
+	if (!skullT.loadFromFile("skull.png")) throw runtime_error("Erreur chargement crane");
+	skull.setTexture(skullT);
+	skull.setColor(Color::Red);
+	skull.setScale(0.1, 0.1);
+	skull.setPosition(350, 0);
 	
 
 	while (window.isOpen()){
@@ -111,6 +129,16 @@ int main() {
 			}
 		}
 
+		if(game.finalhours.getStatus() == Sound::Playing)
+		{
+			if(warningClock.getElapsedTime().asSeconds() > warningCooldown.asSeconds())
+			{
+				window.draw(skull);
+				window.draw(warningText);
+			}
+			if (warningClock.getElapsedTime().asSeconds() > warningCooldown.asSeconds() + 1)
+				warningClock.restart();
+		}
 		window.display();
 
 	}
