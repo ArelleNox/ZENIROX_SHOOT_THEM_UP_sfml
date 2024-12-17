@@ -72,7 +72,7 @@ void Game::level1A(Player& player, EnemyManager &eManager, ObstacleManager& oMan
 {
 	if (state == niveau1A && loadLevel == true && isFightingBoss == false && Univeau1A == true)
 	{
-		background.setupPalier1();
+		background.setupPalier4();
 		doLoadBackground = false;
 		finalhours.stop();
 		boss.stop();
@@ -685,11 +685,13 @@ void Game::level3C(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	}
 }
 
-void Game::level4(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager, UtilitaryManager& uManager, ExplosionManager& exManager, Music& playing, Music& boss, Music& finalBossM, Background& background)
+void Game::level4(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager, UtilitaryManager& uManager, ExplosionManager& exManager, Music& playing, Music& boss, Music& finalBossM, Background& background, Starparallaxe& star, fastStarparallaxe& faststar)
 {
 	if (state == finalBoss && loadLevel == true && isFightingBoss == false && UfinalBoss == true)
 	{
 		background.setupPalier4();
+		star.cloudtexture();
+		faststar.cloudtexture();
 		finalhours.stop();
 		gameClock.restart();
 		setGameDuration(360);
@@ -1198,7 +1200,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 			else if (state == niveau3C)
 				level3C(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM, background);
 			else if (state == finalBoss)
-				level4(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM, background);
+				level4(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM, background, star, faststar);
 		}
 		else if (state == niveauEDIT)
 			levelP(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM, background);
@@ -1257,8 +1259,8 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		faststar.update(deltaTime);
 
 		window.clear();
+
 		background.draw(window);
-		// Dessine les étoile et leur defilement
 		star.draw(window);
 		faststar.draw(window);
 

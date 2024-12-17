@@ -38,22 +38,6 @@ int main() {
 	setCurrentScoreText(player, scoreFont, scoreText);
 	Background background("palier1Test.jpg", -31); // Default texture and speed
 
-	/*switch (background.pal) {
-	case palier1:
-		background.setupPalier1();
-		break;
-	case palier2:
-		background.setupPalier2();
-		break;
-	case palier3:
-		background.setupPalier3();
-		break;
-	case palier4:
-		background.setupPalier4();
-		break;
-	}*/
-
-
 	Starparallaxe star("star.png", -100.f);
 	fastStarparallaxe faststar("starR.png", -250.f);
 
@@ -143,8 +127,6 @@ int main() {
 		window.display();
 
 	}
-
-
 
 	saveScore(player);
 	return 0;
