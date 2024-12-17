@@ -884,6 +884,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 
 	if (screen == NextLevel)
 	{
+		finalhours.stop();
 		pManager.~ProjectileManager();
 		oManager.~ObstacleManager();
 		uManager.~UtilitaryManager();
