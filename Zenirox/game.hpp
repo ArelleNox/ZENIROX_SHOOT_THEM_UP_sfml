@@ -27,7 +27,16 @@ enum gameState {
 
 class Game {
 private:
-	sf::Texture backgroundTexture;    
+	
+
+	std::vector<sf::Text> menuOptions;    // Text objects for menu options
+	int hoveredOption;                    // Index of the hovered option
+	sf::Text title;                       
+
+public:
+	Game();
+
+	sf::Texture backgroundTexture;
 	sf::Texture closeT;
 	sf::Texture confirmT;
 	sf::Texture editorT;
@@ -39,17 +48,31 @@ private:
 	sf::Texture normalT;
 	sf::Texture questT;
 	sf::Texture resumeT;
-	sf::Texture settingT;
-	sf::Sprite backgroundSprite;          
-	std::vector<sf::Text> menuOptions;    // Text objects for menu options
-	int hoveredOption;                    // Index of the hovered option
-	sf::Text title;                       
+	sf::Texture settingsT;
+	sf::Texture buyT;
+	sf::Texture yesT;
+	sf::Texture noT;
 
-public:
-	Game();
+	sf::Sprite backgroundSprite;
+	sf::Sprite closeS;
+	sf::Sprite confirmS;
+	sf::Sprite editorS;
+	sf::Sprite cancelS;
+	sf::Sprite dataS;
+	sf::Sprite easyS;
+	sf::Sprite hardcoreS;
+	sf::Sprite menuS;
+	sf::Sprite normalS;
+	sf::Sprite questS;
+	sf::Sprite resumeS;
+	sf::Sprite settingsS;
+	sf::Sprite buyS;
+	sf::Sprite yesS;
+	sf::Sprite noS;
+
 	sf::Font font;
 	gameState state = niveau1A;
-	screen screen = Playing;
+	screen screen = Menu;
 	bool doLoadBackground = true;
 	bool Univeau1A, loadLevel = true;
 	bool Univeau2A, Univeau3A, Univeau1B, Univeau2B, Univeau3B, Univeau1C, Univeau2C, Univeau3C, UfinalBoss, isFightingBoss = false;
