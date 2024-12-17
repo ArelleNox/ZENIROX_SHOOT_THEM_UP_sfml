@@ -27,7 +27,19 @@ enum gameState {
 
 class Game {
 private:
-	sf::Texture backgroundTexture;        
+	sf::Texture backgroundTexture;    
+	sf::Texture closeT;
+	sf::Texture confirmT;
+	sf::Texture editorT;
+	sf::Texture cancelT;
+	sf::Texture dataT;
+	sf::Texture easyT;
+	sf::Texture hardcoreT;
+	sf::Texture menuT;
+	sf::Texture normalT;
+	sf::Texture questT;
+	sf::Texture resumeT;
+	sf::Texture settingT;
 	sf::Sprite backgroundSprite;          
 	std::vector<sf::Text> menuOptions;    // Text objects for menu options
 	int hoveredOption;                    // Index of the hovered option
@@ -37,7 +49,7 @@ public:
 	Game();
 	sf::Font font;
 	gameState state = finalBoss;
-	screen screen = Playing;
+	screen screen = Menu;
 	bool doLoadBackground = true;
 	bool Univeau1A, loadLevel = true;
 	bool UfinalBoss = true;
