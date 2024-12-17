@@ -708,6 +708,10 @@ void Game::level4(Player& player, EnemyManager& eManager, ObstacleManager& oMana
 		uManager.creerUtilitary(evilShield, 6000, 300);
 		uManager.creerUtilitary(evilHeart, 10000, 700);
 	}
+	if (isFightingBoss == true && toKill == 0 && state == finalBoss)
+	{
+		screen = NextLevel;
+	}
 	
 }
 
@@ -765,12 +769,109 @@ void Game::levelP(Player& player, EnemyManager& eManager, ObstacleManager& oMana
 			uManager.creerUtilitary(heart, 10000, 300);
 		}
 	}
-	
+	if (isFightingBoss == true && toKill == 0 && state == niveauEDIT)
+	{
+		screen = NextLevel;
+	}
 
 }
 
 void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& background, Starparallaxe& star, fastStarparallaxe& faststar, Healthbar& healthbar, EnemyManager& eManager, ProjectileManager& pManager, ObstacleManager& oManager, UtilitaryManager& uManager, ExplosionManager& exManager, Clock& clock, Text& scoreText, Font& scoreFont, RectangleShape& interface, Music& playing, Music& boss, Music& finalBossM, vector<Sound>& playerShot, SoundBuffer& shot, Text& totalScoreText)
 {
+	if (screen == Lost)
+	{
+		Sprite lostScreen;
+		Texture lostScreenT;
+		if (!lostScreenT.loadFromFile("lostscreen.png")) throw runtime_error("Erreur lors du chargement de l'ecran de defaite");
+		lostScreen.setTexture(lostScreenT);
+		Event event;
+		pManager.~ProjectileManager();
+		oManager.~ObstacleManager();
+		uManager.~UtilitaryManager();
+		exManager.~ExplosionManager();
+		eManager.~EnemyManager();
+		player.currentScore = 0;
+		player.isAlive = true;
+		while (window.pollEvent(event))
+		{
+			if (event.type == Event::Closed)
+				window.close();
+			if (event.type == Event::KeyPressed)
+			{
+				if (event.key.code == Keyboard::Enter)
+				{
+					switch (state)
+					{
+					case niveauEDIT:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						screen = Editor;
+						counter = 1;
+						break;
+					case niveau1A:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case niveau1B:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case niveau1C:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case niveau2A:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case niveau2B:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case niveau2C:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case niveau3A:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case niveau3B:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case niveau3C:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case finalBoss:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					default:
+						break;
+					}
+					lose.stop();
+					player.HP = player.maxHP;
+					if(state != niveauEDIT)
+						screen = Playing;
+				}
+			}
+		}
+		window.draw(lostScreen);
+	}
+
 	if (screen == NextLevel)
 	{
 		pManager.~ProjectileManager();
@@ -804,7 +905,12 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 					case niveauEDIT:
 						saveCurrentScore(player);
 						saveScore(player);
-						window.close();
+						loadLevel = true;
+						doLoadBackground = true;
+						isFightingBoss = false;
+						counter = 1;
+						state = niveauEDIT;
+						screen = Editor;
 						break;
 					case niveau1A:
 						isFightingBoss = false;
@@ -944,15 +1050,15 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		while (window.pollEvent(event)) {
 			if (event.type == Event::Closed)
 				window.close();
-			if (event.type == Event::MouseButtonPressed)
+			if (event.type == Event::MouseButtonPressed || event.type == Event::KeyPressed)
 			{
 				Vector2i mousePos = Mouse::getPosition(window);
-				if (event.mouseButton.button == Mouse::Left && up.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				if (event.mouseButton.button == Mouse::Left && up.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)) || event.key.code == Keyboard::Up)
 				{
 					if (currentID != IDlist.size() - 1)
 						currentID++;
 				}
-				if (event.mouseButton.button == Mouse::Left && down.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				if (event.mouseButton.button == Mouse::Left && down.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)) || event.key.code == Keyboard::Down)
 				{
 					if (currentID != 0)
 						currentID--;
@@ -1245,6 +1351,8 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 				playing.stop();
 				finalhours.stop();
 				lose.play();
+				screen = Lost;
+				player.shield = 0;
 			}
 		}
 

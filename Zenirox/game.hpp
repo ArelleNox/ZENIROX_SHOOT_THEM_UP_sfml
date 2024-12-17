@@ -16,10 +16,10 @@
 
 using namespace std;
 using namespace sf;
-enum screen{Menu, Start, Settings, Exit, Playing, Editor, NextLevel};
+enum screen{Menu, Start, Settings, Exit, Playing, Editor, NextLevel, Lost};
 
 enum gameState {
-	titleScreen, paused, gameOver, shop, deleteData, niveauEDIT, niveau1A, niveau1B, niveau1C, niveau2A, niveau2B, niveau2C, niveau3A, niveau3B, niveau3C, finalBoss
+	niveauEDIT, niveau1A, niveau1B, niveau1C, niveau2A, niveau2B, niveau2C, niveau3A, niveau3B, niveau3C, finalBoss
 };
 
 
@@ -34,8 +34,8 @@ private:
 public:
 	Game();
 	sf::Font font;
-	gameState state = niveau1A;
-	screen screen = Playing;
+	gameState state = niveauEDIT;
+	screen screen = Editor;
 	bool doLoadBackground = true;
 	bool Univeau1A, loadLevel = true;
 	bool Univeau2A, Univeau3A, Univeau1B, Univeau2B, Univeau3B, Univeau1C, Univeau2C, Univeau3C, UfinalBoss, isFightingBoss = false;

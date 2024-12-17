@@ -21,7 +21,7 @@ public:
 	float up = -5;
 	float down = 5;
 	Ship color = Default;
-	Difficulty difficulty = Normal;
+	Difficulty difficulty = Easy;
 	Sprite sprite;
 	Texture texture;
 	Sound impact;

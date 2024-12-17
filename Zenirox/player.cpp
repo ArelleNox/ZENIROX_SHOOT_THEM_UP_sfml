@@ -51,6 +51,7 @@ Player::Player() : attackCooldown(seconds(0.2)), boostDuration(seconds(2.5)) {
 		HP = 2000;
 		maxHP = 2000;
 		maxShield = 1000;
+		attack = attack * 2;
 	}
 	if (difficulty == Hardcore)
 	{
