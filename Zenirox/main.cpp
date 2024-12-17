@@ -129,26 +129,7 @@ int main() {
 		}
 		cout << player.HP << endl;
 
-		/*if (game.loadLevel == true && game.state == niveau1A || game.state == niveau1B || game.state == niveau1C|| game.state == niveauEDIT && game.doLoadBackground == true) {
-			background.setupPalier1();
-			game.doLoadBackground = false;
-
-		}
 		
-		else if (game.loadLevel == true && game.state == niveau2A || game.state == niveau2B || game.state == niveau2C && game.doLoadBackground == true) {
-			background.setupPalier2();
-			game.doLoadBackground = false;
-		}
-		
-		else if (game.loadLevel == true && game.state == niveau3A || game.state == niveau3B || game.state == niveau3C && game.doLoadBackground == true) {
-			background.setupPalier3();
-			game.doLoadBackground = false;
-		}
-		
-		else if (game.loadLevel == true && game.state == finalBoss && game.doLoadBackground == true) {
-			background.setupPalier4();
-			game.doLoadBackground = false;
-		}*/
 		
 
 
