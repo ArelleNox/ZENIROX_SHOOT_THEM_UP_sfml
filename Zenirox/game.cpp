@@ -7,6 +7,87 @@ Game::Game() : hoveredOption(-1) {
 		throw std::runtime_error("Failed to load texture");
 	}
 
+	// background texture
+	if (!backgroundTexture.loadFromFile("mainmenu.png")) {
+		throw std::runtime_error("Failed to load texture");
+	}
+
+	//Load the texture and set the sprite
+	if (!closeT.loadFromFile("button/close.png")) {
+		throw runtime_error("Erreur : texture de close introuvable.");
+	}
+
+	//Load the texture and set the sprite
+	if (!confirmT.loadFromFile("button/confirm.png")) {
+		throw runtime_error("Erreur : texture de close introuvable.");
+	}
+
+	//Load the texture and set the sprite
+	if (!editorT.loadFromFile("button/editor.png")) {
+		throw runtime_error("Erreur : texture de close introuvable.");
+	}
+
+	//Load the texture and set the sprite
+	if (!cancelT.loadFromFile("button/cancel.png")) {
+		throw runtime_error("Erreur : texture de close introuvable.");
+	}
+
+	//Load the texture and set the sprite
+	if (!dataT.loadFromFile("button/data.png")) {
+		throw runtime_error("Erreur : texture de close introuvable.");
+	}
+
+	//Load the texture and set the sprite
+	if (!easyT.loadFromFile("button/easy.png")) {
+		throw runtime_error("Erreur : texture de close introuvable.");
+	}
+
+	//Load the texture and set the sprite
+	if (!hardcoreT.loadFromFile("button/hardcore.png")) {
+		throw runtime_error("Erreur : texture de close introuvable.");
+	}
+
+	//Load the texture and set the sprite
+	if (!menuT.loadFromFile("button/menu.png")) {
+		throw runtime_error("Erreur : texture de close introuvable.");
+	}
+
+	//Load the texture and set the sprite
+	if (!normalT.loadFromFile("button/normal.png")) {
+		throw runtime_error("Erreur : texture de close introuvable.");
+	}
+
+	//Load the texture and set the sprite
+	if (!questT.loadFromFile("button/quest.png")) {
+		throw runtime_error("Erreur : texture de close introuvable.");
+	}
+
+	//Load the texture and set the sprite
+	if (!resumeT.loadFromFile("button/resume.png")) {
+		throw runtime_error("Erreur : texture de close introuvable.");
+	}
+
+	//Load the texture and set the sprite
+	if (!settingsT.loadFromFile("button/settings.png")) {
+		throw runtime_error("Erreur : texture de close introuvable.");
+	}
+
+
+	//Load the texture and set the sprite
+	if (!buyT.loadFromFile("button/buy.png")) {
+		throw runtime_error("Erreur : texture de close introuvable.");
+	}
+
+	//Load the texture and set the sprite
+	if (!yesT.loadFromFile("button/yes.png")) {
+		throw runtime_error("Erreur : texture de close introuvable.");
+	}
+
+	//Load the texture and set the sprite
+	if (!noT.loadFromFile("button/no.png")) {
+		throw runtime_error("Erreur : texture de close introuvable.");
+	}
+
 	//Musique de défaite
 	if (!lose.openFromFile("sounds/lose.ogg")) throw runtime_error("Echec lors de l'ouverture de la musique de defaite");
 
@@ -784,90 +865,18 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 
 	if (screen == Menu) {
 
-		// background texture
-		if (!backgroundTexture.loadFromFile("mainmenu.png")) {
-			throw std::runtime_error("Failed to load texture");
-		}
-
-		//Load the texture and set the sprite
-		if (!closeT.loadFromFile("button/close.png")) {
-			throw runtime_error("Erreur : texture de close introuvable.");
-		}
-
-		//Load the texture and set the sprite
-		if (!confirmT.loadFromFile("button/confirm.png")) {
-			throw runtime_error("Erreur : texture de close introuvable.");
-		}
-
-		//Load the texture and set the sprite
-		if (!editorT.loadFromFile("button/editor.png")) {
-			throw runtime_error("Erreur : texture de close introuvable.");
-		}
-
-		//Load the texture and set the sprite
-		if (!cancelT.loadFromFile("button/cancel.png")) {
-			throw runtime_error("Erreur : texture de close introuvable.");
-		}
-
-		//Load the texture and set the sprite
-		if (!dataT.loadFromFile("button/data.png")) {
-			throw runtime_error("Erreur : texture de close introuvable.");
-		}
-
-		//Load the texture and set the sprite
-		if (!easyT.loadFromFile("button/easy.png")) {
-			throw runtime_error("Erreur : texture de close introuvable.");
-		}
-
-		//Load the texture and set the sprite
-		if (!hardcoreT.loadFromFile("button/hardcore.png")) {
-			throw runtime_error("Erreur : texture de close introuvable.");
-		}
-
-		//Load the texture and set the sprite
-		if (!menuT.loadFromFile("button/menu.png")) {
-			throw runtime_error("Erreur : texture de close introuvable.");
-		}
-
-		//Load the texture and set the sprite
-		if (!normalT.loadFromFile("button/normal.png")) {
-			throw runtime_error("Erreur : texture de close introuvable.");
-		}
-
-		//Load the texture and set the sprite
-		if (!questT.loadFromFile("button/quest.png")) {
-			throw runtime_error("Erreur : texture de close introuvable.");
-		}
-
-		//Load the texture and set the sprite
-		if (!resumeT.loadFromFile("button/resume.png")) {
-			throw runtime_error("Erreur : texture de close introuvable.");
-		}
-
-		//Load the texture and set the sprite
-		if (!settingsT.loadFromFile("button/settings.png")) {
-			throw runtime_error("Erreur : texture de close introuvable.");
-		}
-		
-
-		//Load the texture and set the sprite
-		if (!buyT.loadFromFile("button/buy.png")) {
-			throw runtime_error("Erreur : texture de close introuvable.");
-		}
-
-		//Load the texture and set the sprite
-		if (!yesT.loadFromFile("button/yes.png")) {
-			throw runtime_error("Erreur : texture de close introuvable.");
-		}
-
-		//Load the texture and set the sprite
-		if (!noT.loadFromFile("button/no.png")) {
-			throw runtime_error("Erreur : texture de close introuvable.");
-		}
-
 
 		backgroundSprite.setTexture(backgroundTexture);
 		backgroundSprite.setPosition(0, 0);
+
+		// title
+		title.setFont(font);
+		title.setString("ZENIROX");
+		title.setCharacterSize(150);
+		title.setFillColor(sf::Color::White);
+		title.setOutlineColor(sf::Color::Black);
+		title.setOutlineThickness(6);
+		title.setPosition(665, 100);
 
 		closeS.setTexture(closeT);
 		closeS.setPosition(200, 400);  
@@ -880,7 +889,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		
 
 		editorS.setTexture(editorT);
-		editorS.setPosition(200, 400);  
+		editorS.setPosition(665, 400);  
 		editorS.setScale(2, 2);
 		
 
@@ -890,7 +899,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		
 
 		dataS.setTexture(dataT);
-		dataS.setPosition(200, 400); 
+		dataS.setPosition(665, 800); 
 		dataS.setScale(2, 2);
 		
 
@@ -939,15 +948,6 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		noS.setScale(2, 2);
 		
 
-		// title
-		title.setFont(font);
-		title.setString("ZENIROX");
-		title.setCharacterSize(150);
-		title.setFillColor(sf::Color::White);
-		title.setOutlineColor(sf::Color::Black);
-		title.setOutlineThickness(6);
-		title.setPosition(665, 100);
-
 
 		Event event;
 		while (window.pollEvent(event))
@@ -969,14 +969,14 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		window.draw(dataS);
 		//window.draw(easyS);
 		//window.draw(hardcoreS);
-		window.draw(menuS);
+		//window.draw(menuS);
 		//window.draw(normalS);
-		window.draw(questS);
+		//window.draw(questS);
 		//window.draw(resumeS);
-		window.draw(settingsS);
+		//window.draw(settingsS);
 		//window.draw(buyS);
-		window.draw(yesS);
-		window.draw(noS);
+		//window.draw(yesS);
+		//window.draw(noS);
 	}
 
 
@@ -1123,7 +1123,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		uManager.~UtilitaryManager();
 		exManager.~ExplosionManager();
 		coin.setScale(0.5, 0.5);
-		coin.setPosition(750, 470);
+		coin.setPosition(750, 670);
 		saveCurrentScore(player);
 		setTotalScoreText(player, scoreFont, totalScoreText);
 		player.currentScore = 0;

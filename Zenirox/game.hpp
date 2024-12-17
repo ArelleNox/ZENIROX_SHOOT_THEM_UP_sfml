@@ -71,28 +71,33 @@ public:
 	sf::Sprite noS;
 
 	sf::Font font;
+
+	Music nextLevelM;
+	Music victoryM;
+	Music editorM;
+	Music titleScreenM;
+	Music lose;
+	Music finalhours;
+
+	Sound confirmSound;
+	Sound clickSound;
+
+	SoundBuffer confirmSoundBuffer;
+	SoundBuffer clickSoundBuffer;
+
 	gameState state = niveau1A;
 	screen screen = Menu;
+	ID* alias = &nb1;
+	Clock gameClock;
+	Time gameDuration;
+	ID  nb1, nb2, nb3, nb4, nb5, nb6, nb7, nb8, nb9, nb10, bossID = ENNEMI1;
+
 	bool doLoadBackground = true;
 	bool Univeau1A, loadLevel = true;
 	bool Univeau2A, Univeau3A, Univeau1B, Univeau2B, Univeau3B, Univeau1C, Univeau2C, Univeau3C, UfinalBoss, isFightingBoss = false;
 	int toKill = 0;
 	int counter = 1;
 	int currentID = 0;
-	ID* alias = &nb1;
-	Clock gameClock;
-	Time gameDuration;
-	Music lose;
-	Music finalhours;
-	Sound confirmSound;
-	SoundBuffer confirmSoundBuffer;
-	Sound clickSound;
-	SoundBuffer clickSoundBuffer;
-	Music nextLevelM;
-	Music victoryM;
-	Music editorM;
-	Music titleScreenM;
-	ID  nb1, nb2, nb3, nb4, nb5, nb6, nb7, nb8, nb9, nb10, bossID = ENNEMI1;
 
 
 	void setGameDuration(float duration);

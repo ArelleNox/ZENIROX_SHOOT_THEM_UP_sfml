@@ -59,6 +59,7 @@ Player::Player() : attackCooldown(seconds(0.2)), boostDuration(seconds(2.5)) {
 		maxHP = 500;
 		maxShield = 250;
 	}
+	HP = maxHP;
 }
 
 void Player::checkOutOfScreen() {
