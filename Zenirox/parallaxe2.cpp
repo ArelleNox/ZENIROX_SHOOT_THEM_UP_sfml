@@ -16,6 +16,18 @@ fastStarparallaxe::fastStarparallaxe(const std::string& texturePath, float speed
     sprite2.setPosition(sprite.getGlobalBounds().width, 0); // Position it next to the first
 }
 
+void fastStarparallaxe::startexture() {
+	if (!texture.loadFromFile("star.png")) {
+		throw std::runtime_error("Failed to load texture");
+	}
+}
+
+void fastStarparallaxe::cloudtexture() {
+	if (!texture.loadFromFile("cloud.png")) {
+		throw std::runtime_error("Failed to load texture");
+	}
+}
+
 void fastStarparallaxe::update(float deltaTime) {
 	
 	sprite.move(starSpeed * deltaTime, 0);

@@ -13,6 +13,8 @@ public:
     sf::Sprite sprite;
     sf::Sprite sprite2;
     fastStarparallaxe(const std::string& texturePath, float speed);
+    void startexture();
+    void cloudtexture();
     void update(float deltaTime);
     void draw(sf::RenderWindow& window);
 };
