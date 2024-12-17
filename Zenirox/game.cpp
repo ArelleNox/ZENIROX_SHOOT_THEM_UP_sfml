@@ -41,6 +41,11 @@ Game::Game() : hoveredOption(-1) {
 	//Son de confirmation
 	if (!confirmSoundBuffer.loadFromFile("sounds/confirm.ogg")) throw runtime_error("Echec lors de l'ouverture du son de confirmation");
 	confirmSound.setBuffer(confirmSoundBuffer);
+
+	//Son de click sans confirmation
+	if (!clickSoundBuffer.loadFromFile("sounds/click.ogg")) throw runtime_error("Echec lors de l'ouverture du son de click");
+	clickSound.setBuffer(clickSoundBuffer);
+	clickSound.setVolume(50);
 }
 
 
@@ -1061,13 +1066,21 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 				Vector2i mousePos = Mouse::getPosition(window);
 				if (event.mouseButton.button == Mouse::Left && up.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)) || event.key.code == Keyboard::Up)
 				{
+					
 					if (currentID != IDlist.size() - 1)
+					{
 						currentID++;
+						clickSound.play();
+					}
 				}
 				if (event.mouseButton.button == Mouse::Left && down.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)) || event.key.code == Keyboard::Down)
 				{
+					
 					if (currentID != 0)
+					{
 						currentID--;
+						clickSound.play();
+					}
 				}
 			}
 			if (event.type == Event::KeyPressed)
