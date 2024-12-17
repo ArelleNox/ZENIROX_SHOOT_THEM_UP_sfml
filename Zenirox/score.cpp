@@ -25,7 +25,7 @@ int setTotalScoreText(Player player, Font& scoreFont, Text& scoreText)
 	scoreText.setOutlineColor(Color::Black);
 	scoreText.setOutlineThickness(4);
 	scoreText.setCharacterSize(60);
-	scoreText.setPosition(800, 500);
+	scoreText.setPosition(800, 700);
 
 	if (!scoreFont.loadFromFile("font.otf")) { cout << "Erreur lors du chargement de la police d'ecriture" << endl; return -1; }
 	scoreText.setFont(scoreFont);

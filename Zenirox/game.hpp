@@ -49,7 +49,7 @@ public:
 	Game();
 	sf::Font font;
 	gameState state = niveau1A;
-	screen screen = Playing;
+	screen screen = Menu;
 	bool doLoadBackground = true;
 	bool Univeau1A, loadLevel = true;
 	bool Univeau2A, Univeau3A, Univeau1B, Univeau2B, Univeau3B, Univeau1C, Univeau2C, Univeau3C, UfinalBoss, isFightingBoss = false;

@@ -969,7 +969,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		uManager.~UtilitaryManager();
 		exManager.~ExplosionManager();
 		coin.setScale(0.5, 0.5);
-		coin.setPosition(750, 470);
+		coin.setPosition(750, 670);
 		saveCurrentScore(player);
 		setTotalScoreText(player, scoreFont, totalScoreText);
 		player.currentScore = 0;
