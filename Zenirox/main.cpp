@@ -8,7 +8,7 @@ using namespace sf;
 
 int main() {
 	srand(time(NULL));
-	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Default);
+	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Fullscreen);
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
 
@@ -36,7 +36,7 @@ int main() {
 	Text totalScoreText;
 
 	setCurrentScoreText(player, scoreFont, scoreText);
-	Background background("palier1.png", -31.0f); // Default texture and speed
+	Background background("palier1Test.jpg", -31); // Default texture and speed
 
 	/*switch (background.pal) {
 	case palier1:
@@ -55,7 +55,7 @@ int main() {
 
 
 	Starparallaxe star("star.png", -100.f);
-	fastStarparallaxe faststar("star.png", -250.f);
+	fastStarparallaxe faststar("starR.png", -250.f);
 
 	Healthbar healthbar;
 	healthbar.setTextureList();
@@ -127,28 +127,6 @@ int main() {
 					eManager.getEnemies()[i]->sprite.move(-4, 0);
 			}
 		}
-		cout << player.HP << endl;
-
-		/*if (game.loadLevel == true && game.state == niveau1A || game.state == niveau1B || game.state == niveau1C|| game.state == niveauEDIT && game.doLoadBackground == true) {
-			background.setupPalier1();
-			game.doLoadBackground = false;
-
-		}
-		
-		else if (game.loadLevel == true && game.state == niveau2A || game.state == niveau2B || game.state == niveau2C && game.doLoadBackground == true) {
-			background.setupPalier2();
-			game.doLoadBackground = false;
-		}
-		
-		else if (game.loadLevel == true && game.state == niveau3A || game.state == niveau3B || game.state == niveau3C && game.doLoadBackground == true) {
-			background.setupPalier3();
-			game.doLoadBackground = false;
-		}
-		
-		else if (game.loadLevel == true && game.state == finalBoss && game.doLoadBackground == true) {
-			background.setupPalier4();
-			game.doLoadBackground = false;
-		}*/
 		
 
 

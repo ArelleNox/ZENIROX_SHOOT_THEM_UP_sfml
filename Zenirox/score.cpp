@@ -49,3 +49,10 @@ void saveCurrentScore(Player& player)
 {
 	player.totalScore += player.currentScore;
 }
+void removeData(Player& player)
+{
+	ofstream scoreFile("score.txt");
+	scoreFile << 0;
+	player.currentScore = 0;
+	player.totalScore = 0;
+}

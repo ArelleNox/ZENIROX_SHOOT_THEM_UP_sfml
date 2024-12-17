@@ -5,7 +5,7 @@ using namespace std;
 
 fastStarparallaxe::fastStarparallaxe(const std::string& texturePath, float speed)
 	: starSpeed(speed) {
-	if (!texture.loadFromFile("star.png")) {
+	if (!texture.loadFromFile(texturePath)) {
 		throw std::runtime_error("Failed to load texture");
 	}
 

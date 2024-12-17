@@ -11,4 +11,5 @@ void updateScoreText(Player player, Text& scoreText);
 void openScore(Player &player);
 void saveScore(Player player);
 void saveCurrentScore(Player &player);
+void removeData(Player& player);
 #endif
