@@ -1,34 +1,9 @@
 #include "game.hpp"
 
 Game::Game() : hoveredOption(-1) {
-	// background texture
-	if (!backgroundTexture.loadFromFile("mainmenu.png")) {
-		throw std::runtime_error("Failed to load texture");
-	}
-	backgroundSprite.setTexture(backgroundTexture);
-
 	// font
 	if (!font.loadFromFile("UIfont.ttf")) {
 		throw std::runtime_error("Failed to load texture");
-	}
-
-	// title
-	title.setFont(font);
-	title.setString("ZENIROX");
-	title.setCharacterSize(50);
-	title.setFillColor(sf::Color::White);
-	title.setPosition(200, 100);
-
-	// Menu options
-	std::vector<std::string> options = { "New Game", "Settings", "Exit" };
-	for (size_t i = 0; i < options.size(); ++i) {
-		sf::Text option;
-		option.setFont(font);
-		option.setString(options[i]);
-		option.setCharacterSize(30);
-		option.setFillColor(sf::Color::White);
-		option.setPosition(300, 200 + static_cast<float>(i) * 50);
-		menuOptions.push_back(option);
 	}
 
 	//Musique de défaite
@@ -805,6 +780,52 @@ void Game::levelP(Player& player, EnemyManager& eManager, ObstacleManager& oMana
 
 void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& background, Starparallaxe& star, fastStarparallaxe& faststar, Healthbar& healthbar, EnemyManager& eManager, ProjectileManager& pManager, ObstacleManager& oManager, UtilitaryManager& uManager, ExplosionManager& exManager, Clock& clock, Text& scoreText, Font& scoreFont, RectangleShape& interface, Music& playing, Music& boss, Music& finalBossM, vector<Sound>& playerShot, SoundBuffer& shot, Text& totalScoreText)
 {
+
+	if (screen == Menu) {
+
+		// background texture
+		if (!backgroundTexture.loadFromFile("mainmenu.png")) {
+			throw std::runtime_error("Failed to load texture");
+		}
+		backgroundSprite.setTexture(backgroundTexture);
+		backgroundSprite.setPosition(0, 0);
+
+		// title
+		title.setFont(font);
+		title.setString("ZENIROX");
+		title.setCharacterSize(150);
+		title.setFillColor(sf::Color::White);
+		title.setOutlineColor(sf::Color::Black);
+		title.setOutlineThickness(6);
+		title.setPosition(665, 100);
+
+
+		// Load the texture and set the sprite
+		if (!close.loadFromFile("close.png")) {
+			throw runtime_error("Erreur : texture de l'oiseau introuvable.");
+		}
+
+		close.setTexture(close);
+		bird.setPosition(200.f, 400.f); // Initial position of the bird
+
+
+
+		Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == Event::Closed)
+				window.close();
+			if (event.type == Event::KeyPressed)
+			{
+				if (event.key.code == Keyboard::Enter)
+					window.close();
+			}
+		}
+		window.draw(backgroundSprite);
+		window.draw(title);
+	}
+
+
 	if (screen == Win)
 	{
 		finalBossM.stop();

@@ -23,7 +23,7 @@ void fastStarparallaxe::startexture() {
 }
 
 void fastStarparallaxe::cloudtexture() {
-	if (!texture.loadFromFile("cloud.png")) {
+	if (!texture.loadFromFile("leaf.png")) {
 		throw std::runtime_error("Failed to load texture");
 	}
 }
