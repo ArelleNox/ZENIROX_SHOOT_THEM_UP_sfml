@@ -37,6 +37,10 @@ Game::Game() : hoveredOption(-1) {
 	//Musique finalhours
 	if (!finalhours.openFromFile("sounds/finalhours.ogg")) throw runtime_error("Echec lors de l'ouverture de la musique de defaite");
 	finalhours.setLoop(true);
+
+	//Son de confirmation
+	if (!confirmSoundBuffer.loadFromFile("sounds/confirm.ogg")) throw runtime_error("Echec lors de l'ouverture du son de confirmation");
+	confirmSound.setBuffer(confirmSoundBuffer);
 }
 
 
@@ -800,6 +804,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 			{
 				if (event.key.code == Keyboard::Enter)
 				{
+				confirmSound.play();
 					switch (state)
 					{
 					case niveauEDIT:
@@ -900,6 +905,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 			{
 				if (event.key.code == Keyboard::Enter)
 				{
+				confirmSound.play();
 					switch (state)
 					{
 					case niveauEDIT:
@@ -1068,6 +1074,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 			{
 				if (event.key.code == Keyboard::Space)
 				{
+				confirmSound.play();
 					switch (counter)
 					{
 					case 1:

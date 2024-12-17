@@ -47,6 +47,8 @@ public:
 	Time gameDuration;
 	Music lose;
 	Music finalhours;
+	Sound confirmSound;
+	SoundBuffer confirmSoundBuffer;
 	ID  nb1, nb2, nb3, nb4, nb5, nb6, nb7, nb8, nb9, nb10, bossID = ENNEMI1;
 
 
