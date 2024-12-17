@@ -36,26 +36,10 @@ int main() {
 	Text totalScoreText;
 
 	setCurrentScoreText(player, scoreFont, scoreText);
-	Background background("palier1.png", -31.0f); // Default texture and speed
-
-	/*switch (background.pal) {
-	case palier1:
-		background.setupPalier1();
-		break;
-	case palier2:
-		background.setupPalier2();
-		break;
-	case palier3:
-		background.setupPalier3();
-		break;
-	case palier4:
-		background.setupPalier4();
-		break;
-	}*/
-
+	Background background("palier1Test.jpg", -31); // Default texture and speed
 
 	Starparallaxe star("star.png", -100.f);
-	fastStarparallaxe faststar("star.png", -250.f);
+	fastStarparallaxe faststar("starR.png", -250.f);
 
 	Healthbar healthbar;
 	healthbar.setTextureList();
@@ -64,8 +48,31 @@ int main() {
 	sf::Clock clock;
 
 	ProjectileManager pManager;
-	openScore(player);
+	openData(player, game);
 	
+	if (game.UfinalBoss == true)
+		game.state = finalBoss;
+	else if (game.Univeau3C == true)
+		game.state = niveau3C;
+	else if (game.Univeau3B == true)
+		game.state = niveau3B;
+	else if (game.Univeau3A == true)
+		game.state = niveau3A;
+	else if (game.Univeau2C == true)
+		game.state = niveau2C;
+	else if (game.Univeau2B == true)
+		game.state = niveau2B;
+	else if (game.Univeau2A == true)
+		game.state = niveau2A;
+	else if (game.Univeau1C == true)
+		game.state = niveau1C;
+	else if (game.Univeau1B == true)
+		game.state = niveau1B;
+	else
+		game.state = niveau1A;
+
+
+
 	ObstacleManager oManager;
 
 	UtilitaryManager uManager;
@@ -127,9 +134,6 @@ int main() {
 					eManager.getEnemies()[i]->sprite.move(-4, 0);
 			}
 		}
-		cout << player.HP << endl;
-
-		
 		
 
 
@@ -147,8 +151,6 @@ int main() {
 
 	}
 
-
-
-	saveScore(player);
+	saveData(player, game);
 	return 0;
 }

@@ -5,7 +5,7 @@ using namespace std;
 
 fastStarparallaxe::fastStarparallaxe(const std::string& texturePath, float speed)
 	: starSpeed(speed) {
-	if (!texture.loadFromFile("star.png")) {
+	if (!texture.loadFromFile(texturePath)) {
 		throw std::runtime_error("Failed to load texture");
 	}
 
@@ -14,6 +14,18 @@ fastStarparallaxe::fastStarparallaxe(const std::string& texturePath, float speed
 
     sprite2.setTexture(texture);
     sprite2.setPosition(sprite.getGlobalBounds().width, 0); // Position it next to the first
+}
+
+void fastStarparallaxe::startexture() {
+	if (!texture.loadFromFile("star.png")) {
+		throw std::runtime_error("Failed to load texture");
+	}
+}
+
+void fastStarparallaxe::cloudtexture() {
+	if (!texture.loadFromFile("leaf.png")) {
+		throw std::runtime_error("Failed to load texture");
+	}
 }
 
 void fastStarparallaxe::update(float deltaTime) {

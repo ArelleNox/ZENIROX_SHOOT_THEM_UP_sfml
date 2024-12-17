@@ -1,34 +1,9 @@
 #include "game.hpp"
 
 Game::Game() : hoveredOption(-1) {
-	// background texture
-	if (!backgroundTexture.loadFromFile("mainmenu.png")) {
-		throw std::runtime_error("Failed to load texture");
-	}
-	backgroundSprite.setTexture(backgroundTexture);
-
 	// font
 	if (!font.loadFromFile("UIfont.ttf")) {
 		throw std::runtime_error("Failed to load texture");
-	}
-
-	// title
-	title.setFont(font);
-	title.setString("ZENIROX");
-	title.setCharacterSize(50);
-	title.setFillColor(sf::Color::White);
-	title.setPosition(200, 100);
-
-	// Menu options
-	std::vector<std::string> options = { "New Game", "Settings", "Exit" };
-	for (size_t i = 0; i < options.size(); ++i) {
-		sf::Text option;
-		option.setFont(font);
-		option.setString(options[i]);
-		option.setCharacterSize(30);
-		option.setFillColor(sf::Color::White);
-		option.setPosition(300, 200 + static_cast<float>(i) * 50);
-		menuOptions.push_back(option);
 	}
 
 	//Musique de défaite
@@ -685,11 +660,15 @@ void Game::level3C(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	}
 }
 
-void Game::level4(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager, UtilitaryManager& uManager, ExplosionManager& exManager, Music& playing, Music& boss, Music& finalBossM, Background& background)
+void Game::level4(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager, UtilitaryManager& uManager, ExplosionManager& exManager, Music& playing, Music& boss, Music& finalBossM, Background& background, Starparallaxe& star, fastStarparallaxe& faststar)
 {
 	if (state == finalBoss && loadLevel == true && isFightingBoss == false && UfinalBoss == true)
 	{
 		background.setupPalier4();
+		star.sprite.setColor(Color(245, 194, 254));
+		star.sprite2.setColor(Color(245, 194, 254));
+		faststar.sprite.setColor(Color(245, 194, 254));
+		faststar.sprite2.setColor(Color(245, 194, 254));
 		finalhours.stop();
 		gameClock.restart();
 		setGameDuration(360);
@@ -733,7 +712,7 @@ void Game::level4(Player& player, EnemyManager& eManager, ObstacleManager& oMana
 	}
 	if (isFightingBoss == true && toKill == 0 && state == finalBoss)
 	{
-		screen = NextLevel;
+		screen = Win;
 	}
 	
 }
@@ -801,6 +780,88 @@ void Game::levelP(Player& player, EnemyManager& eManager, ObstacleManager& oMana
 
 void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& background, Starparallaxe& star, fastStarparallaxe& faststar, Healthbar& healthbar, EnemyManager& eManager, ProjectileManager& pManager, ObstacleManager& oManager, UtilitaryManager& uManager, ExplosionManager& exManager, Clock& clock, Text& scoreText, Font& scoreFont, RectangleShape& interface, Music& playing, Music& boss, Music& finalBossM, vector<Sound>& playerShot, SoundBuffer& shot, Text& totalScoreText)
 {
+
+	if (screen == Menu) {
+
+		// background texture
+		if (!backgroundTexture.loadFromFile("mainmenu.png")) {
+			throw std::runtime_error("Failed to load texture");
+		}
+		backgroundSprite.setTexture(backgroundTexture);
+		backgroundSprite.setPosition(0, 0);
+
+		// title
+		title.setFont(font);
+		title.setString("ZENIROX");
+		title.setCharacterSize(150);
+		title.setFillColor(sf::Color::White);
+		title.setOutlineColor(sf::Color::Black);
+		title.setOutlineThickness(6);
+		title.setPosition(665, 100);
+
+
+		// Load the texture and set the sprite
+		//if (!close.loadFromFile("close.png")) {
+		//	throw runtime_error("Erreur : texture de l'oiseau introuvable.");
+		//}
+
+		//close.setTexture(close);
+		//bird.setPosition(200.f, 400.f); // Initial position of the bird
+
+
+
+		Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == Event::Closed)
+				window.close();
+			if (event.type == Event::KeyPressed)
+			{
+				if (event.key.code == Keyboard::Enter)
+					window.close();
+			}
+		}
+		window.draw(backgroundSprite);
+		window.draw(title);
+	}
+
+
+	if (screen == Win)
+	{
+		finalBossM.stop();
+		boss.stop();
+		playing.stop();
+		nextLevelM.stop();
+		editorM.stop();
+		editorM.stop();
+		if(victoryM.getStatus() != Sound::Playing)
+			victoryM.play();
+		Sprite winBackground;
+		Texture winBackgroundT;
+		if (!winBackgroundT.loadFromFile("winscreen.png")) throw runtime_error("Erreur lors du chargement de l'ecran de victoire");
+		winBackground.setTexture(winBackgroundT);
+
+		Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == Event::Closed)
+			{
+				window.close();
+				saveCurrentScore(player);
+				saveData(player, *this);
+			}
+			if (event.type == Event::KeyPressed)
+			{
+				if (event.key.code == Keyboard::Enter)
+				{
+					window.close();
+					saveCurrentScore(player);
+					saveData(player, *this);
+				}
+			}
+		}
+		window.draw(winBackground);
+	}
 	if (screen == Lost)
 	{
 		Sprite lostScreen;
@@ -922,7 +983,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 			if (event.type == Event::Closed)
 			{
 				saveCurrentScore(player);
-				saveScore(player);
+				saveData(player, *this);
 				window.close();
 			}
 			if (event.type == Event::KeyPressed)
@@ -934,7 +995,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 					{
 					case niveauEDIT:
 						saveCurrentScore(player);
-						saveScore(player);
+						saveData(player, *this);
 						loadLevel = true;
 						doLoadBackground = true;
 						isFightingBoss = false;
@@ -1179,26 +1240,26 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 	{
 		if (state != niveauEDIT)
 		{
-			if(state == niveau1A)
+			if(state == niveau1A && Univeau1A == true)
 				level1A(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM, background);
-			else if(state == niveau1B)
+			else if(state == niveau1B && Univeau1B == true)
 				level1B(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM, background);
-			else if (state == niveau1C)
+			else if (state == niveau1C && Univeau1C == true)
 				level1C(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM, background);
-			else if (state == niveau2A)
+			else if (state == niveau2A && Univeau2A == true)
 				level2A(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM, background);
-			else if (state == niveau2B)
+			else if (state == niveau2B && Univeau2B == true)
 				level2B(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM, background);
-			else if (state == niveau2C)
+			else if (state == niveau2C && Univeau2C == true)
 				level2C(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM, background);
-			else if (state == niveau3A)
+			else if (state == niveau3A && Univeau3A == true)
 				level3A(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM, background);
-			else if (state == niveau3B)
+			else if (state == niveau3B && Univeau3B == true)
 				level3B(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM, background);
-			else if (state == niveau3C)
+			else if (state == niveau3C && Univeau3C == true)
 				level3C(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM, background);
-			else if (state == finalBoss)
-				level4(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM, background);
+			else if (state == finalBoss && UfinalBoss == true)
+				level4(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM, background, star, faststar);
 		}
 		else if (state == niveauEDIT)
 			levelP(player, eManager, oManager, pManager, uManager, exManager, playing, boss, finalBossM, background);
@@ -1257,8 +1318,8 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		faststar.update(deltaTime);
 
 		window.clear();
+
 		background.draw(window);
-		// Dessine les étoile et leur defilement
 		star.draw(window);
 		faststar.draw(window);
 

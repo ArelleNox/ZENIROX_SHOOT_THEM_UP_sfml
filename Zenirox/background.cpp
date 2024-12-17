@@ -38,15 +38,11 @@ void Background::draw(sf::RenderWindow& window) {
 
 // Setup for Palier 1
 void Background::setupPalier1() {
-    if (!texture.loadFromFile("palier1.png")) {
+    if (!texture.loadFromFile("palier1Test.jpg")) {
         throw std::runtime_error("Failed to load texture");
     }
     sprite.setTexture(texture);
-
-    if (!texture2.loadFromFile("palier11.png")) {
-        throw std::runtime_error("Failed to load texture");
-    }
-    sprite2.setTexture(texture2);
+    sprite2.setTexture(texture);
 }
 
 // Setup for Palier 11

@@ -17,7 +17,7 @@ public:
 	int maxShield = 500;
 	int currentScore = 0;
 	int totalScore = 0;
-	int attack = 10;
+	int attack = 100;
 	float up = -5;
 	float down = 5;
 	Ship color = Default;

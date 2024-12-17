@@ -13,10 +13,12 @@
 #include "obstacle.hpp"
 #include "powerups.hpp"
 
+class Starparallaxe;
+class fastStarparallaxe;
 
 using namespace std;
 using namespace sf;
-enum screen{Menu, Start, Settings, Exit, Playing, Editor, NextLevel, Lost};
+enum screen{Menu, Start, Settings, Exit, Playing, Editor, NextLevel, Lost, Win};
 
 enum gameState {
 	niveauEDIT, niveau1A, niveau1B, niveau1C, niveau2A, niveau2B, niveau2C, niveau3A, niveau3B, niveau3C, finalBoss
@@ -25,7 +27,19 @@ enum gameState {
 
 class Game {
 private:
-	sf::Texture backgroundTexture;        
+	sf::Texture backgroundTexture;    
+	sf::Texture closeT;
+	sf::Texture confirmT;
+	sf::Texture editorT;
+	sf::Texture cancelT;
+	sf::Texture dataT;
+	sf::Texture easyT;
+	sf::Texture hardcoreT;
+	sf::Texture menuT;
+	sf::Texture normalT;
+	sf::Texture questT;
+	sf::Texture resumeT;
+	sf::Texture settingT;
 	sf::Sprite backgroundSprite;          
 	std::vector<sf::Text> menuOptions;    // Text objects for menu options
 	int hoveredOption;                    // Index of the hovered option
@@ -68,7 +82,7 @@ public:
 	void level3A(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager, UtilitaryManager& uManager, ExplosionManager& exManager, Music& playing, Music& boss, Music& finalBossM, Background& background);
 	void level3B(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager, UtilitaryManager& uManager, ExplosionManager& exManager, Music& playing, Music& boss, Music& finalBossM, Background& background);
 	void level3C(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager, UtilitaryManager& uManager, ExplosionManager& exManager, Music& playing, Music& boss, Music& finalBossM, Background& background);
-	void level4(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager, UtilitaryManager& uManager, ExplosionManager& exManager, Music& playing, Music& boss, Music& finalBossM, Background& background);
+	void level4(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager, UtilitaryManager& uManager, ExplosionManager& exManager, Music& playing, Music& boss, Music& finalBossM, Background& background, Starparallaxe& star, fastStarparallaxe& faststar);
 	void levelP(Player& player, EnemyManager& eManager, ObstacleManager& oManager, ProjectileManager& pManager, UtilitaryManager& uManager, ExplosionManager& exManager, Music& playing, Music& boss, Music& finalBossM, Background& background);
 	void run(RenderWindow& window, Player& player, Sprite& coin, Background& background, Starparallaxe& star, fastStarparallaxe& faststar, Healthbar& healthbar, EnemyManager& eManager, ProjectileManager& pManager, ObstacleManager& oManager, UtilitaryManager& uManager, ExplosionManager& exManager, Clock& clock, Text& scoreText, Font& scoreFont, RectangleShape& interface, Music& playing, Music& boss, Music& finalBossM, vector<Sound>& playerShot, SoundBuffer& shot, Text& totalScoreText);
 };
