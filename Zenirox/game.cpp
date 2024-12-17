@@ -38,6 +38,20 @@ Game::Game() : hoveredOption(-1) {
 	if (!finalhours.openFromFile("sounds/finalhours.ogg")) throw runtime_error("Echec lors de l'ouverture de la musique de defaite");
 	finalhours.setLoop(true);
 
+	//Musique écran titre
+	if (!titleScreenM.openFromFile("sounds/titlescreen.ogg")) throw runtime_error("Echec lors de l'ouverture de l'opening");
+	titleScreenM.setLoop(true);
+
+	//Musique niveau suivant
+	if (!nextLevelM.openFromFile("sounds/nextlevel.ogg")) throw runtime_error("Echec lors de l'ouverture de la musique de niveau suivant");
+
+	//Musique éditeur
+	if (!editorM.openFromFile("sounds/editor.ogg")) throw runtime_error("Echec lors de l'ouverture de la musique de l'editeur");
+	editorM.setLoop(true);
+
+	//Musique victoire
+	if (!victoryM.openFromFile("sounds/victory.ogg")) throw runtime_error("Echec lors de l'ouverture de la musique de fin");
+
 	//Son de confirmation
 	if (!confirmSoundBuffer.loadFromFile("sounds/confirm.ogg")) throw runtime_error("Echec lors de l'ouverture du son de confirmation");
 	confirmSound.setBuffer(confirmSoundBuffer);
@@ -884,6 +898,10 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 
 	if (screen == NextLevel)
 	{
+		boss.stop();
+		if (nextLevelM.getStatus() != Sound::Playing)
+			nextLevelM.play();
+		finalBossM.stop();
 		finalhours.stop();
 		pManager.~ProjectileManager();
 		oManager.~ObstacleManager();
@@ -923,6 +941,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 						counter = 1;
 						state = niveauEDIT;
 						screen = Editor;
+						nextLevelM.stop();
 						break;
 					case niveau1A:
 						isFightingBoss = false;
@@ -990,7 +1009,10 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 					coin.setPosition(0, 50);
 					coin.setScale(0.2, 0.2);
 					if(state != niveauEDIT)
+					{
 						screen = Playing;
+						nextLevelM.stop();
+					}
 
 				}
 			}
@@ -1001,7 +1023,8 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 	}
 	if (screen == Editor)
 	{
-		
+		if(editorM.getStatus() != Sound::Playing)
+			editorM.play();
 		vector <ID> IDlist{ ENNEMI1, ENNEMI2, ENNEMI3, BOSS1, BOSS2, BOSS3, BOSS4 };
 		Text numerotation;
 		numerotation.setString(to_string(counter));
@@ -1134,7 +1157,9 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 						break;
 					default:
 						bossID = *alias;
+						player.HP = player.maxHP;
 						screen = Playing;
+						editorM.stop();
 						break;
 					}
 					counter++;

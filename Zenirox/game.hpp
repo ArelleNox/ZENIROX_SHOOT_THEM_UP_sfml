@@ -34,8 +34,8 @@ private:
 public:
 	Game();
 	sf::Font font;
-	gameState state = niveauEDIT;
-	screen screen = Editor;
+	gameState state = niveau1A;
+	screen screen = Playing;
 	bool doLoadBackground = true;
 	bool Univeau1A, loadLevel = true;
 	bool Univeau2A, Univeau3A, Univeau1B, Univeau2B, Univeau3B, Univeau1C, Univeau2C, Univeau3C, UfinalBoss, isFightingBoss = false;
@@ -51,6 +51,10 @@ public:
 	SoundBuffer confirmSoundBuffer;
 	Sound clickSound;
 	SoundBuffer clickSoundBuffer;
+	Music nextLevelM;
+	Music victoryM;
+	Music editorM;
+	Music titleScreenM;
 	ID  nb1, nb2, nb3, nb4, nb5, nb6, nb7, nb8, nb9, nb10, bossID = ENNEMI1;
 
 

@@ -57,7 +57,7 @@ Player::Player() : attackCooldown(seconds(0.2)), boostDuration(seconds(2.5)) {
 	{
 		HP = 500;
 		maxHP = 500;
-		maxShield == 250;
+		maxShield = 250;
 	}
 }
 

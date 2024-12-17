@@ -127,6 +127,7 @@ int main() {
 					eManager.getEnemies()[i]->sprite.move(-4, 0);
 			}
 		}
+		cout << player.HP << endl;
 
 		/*if (game.loadLevel == true && game.state == niveau1A || game.state == niveau1B || game.state == niveau1C|| game.state == niveauEDIT && game.doLoadBackground == true) {
 			background.setupPalier1();
