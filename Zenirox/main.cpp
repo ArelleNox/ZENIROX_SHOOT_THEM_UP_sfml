@@ -8,7 +8,7 @@ using namespace sf;
 
 int main() {
 	srand(time(NULL));
-	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Fullscreen);
+	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ZENIROX", Style::Default);
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
 

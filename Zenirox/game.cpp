@@ -72,7 +72,7 @@ void Game::level1A(Player& player, EnemyManager &eManager, ObstacleManager& oMan
 {
 	if (state == niveau1A && loadLevel == true && isFightingBoss == false && Univeau1A == true)
 	{
-		background.setupPalier4();
+		background.setupPalier1();
 		doLoadBackground = false;
 		finalhours.stop();
 		boss.stop();
@@ -690,8 +690,10 @@ void Game::level4(Player& player, EnemyManager& eManager, ObstacleManager& oMana
 	if (state == finalBoss && loadLevel == true && isFightingBoss == false && UfinalBoss == true)
 	{
 		background.setupPalier4();
-		star.cloudtexture();
-		faststar.cloudtexture();
+		star.sprite.setColor(Color(245, 194, 254));
+		star.sprite2.setColor(Color(245, 194, 254));
+		faststar.sprite.setColor(Color(245, 194, 254));
+		faststar.sprite2.setColor(Color(245, 194, 254));
 		finalhours.stop();
 		gameClock.restart();
 		setGameDuration(360);
@@ -735,7 +737,7 @@ void Game::level4(Player& player, EnemyManager& eManager, ObstacleManager& oMana
 	}
 	if (isFightingBoss == true && toKill == 0 && state == finalBoss)
 	{
-		screen = NextLevel;
+		screen = Win;
 	}
 	
 }
@@ -803,6 +805,42 @@ void Game::levelP(Player& player, EnemyManager& eManager, ObstacleManager& oMana
 
 void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& background, Starparallaxe& star, fastStarparallaxe& faststar, Healthbar& healthbar, EnemyManager& eManager, ProjectileManager& pManager, ObstacleManager& oManager, UtilitaryManager& uManager, ExplosionManager& exManager, Clock& clock, Text& scoreText, Font& scoreFont, RectangleShape& interface, Music& playing, Music& boss, Music& finalBossM, vector<Sound>& playerShot, SoundBuffer& shot, Text& totalScoreText)
 {
+	if (screen == Win)
+	{
+		finalBossM.stop();
+		boss.stop();
+		playing.stop();
+		nextLevelM.stop();
+		editorM.stop();
+		editorM.stop();
+		if(victoryM.getStatus() != Sound::Playing)
+			victoryM.play();
+		Sprite winBackground;
+		Texture winBackgroundT;
+		if (!winBackgroundT.loadFromFile("winscreen.png")) throw runtime_error("Erreur lors du chargement de l'ecran de victoire");
+		winBackground.setTexture(winBackgroundT);
+
+		Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == Event::Closed)
+			{
+				window.close();
+				saveCurrentScore(player);
+				saveScore(player);
+			}
+			if (event.type == Event::KeyPressed)
+			{
+				if (event.key.code == Keyboard::Enter)
+				{
+					window.close();
+					saveCurrentScore(player);
+					saveScore(player);
+				}
+			}
+		}
+		window.draw(winBackground);
+	}
 	if (screen == Lost)
 	{
 		Sprite lostScreen;
