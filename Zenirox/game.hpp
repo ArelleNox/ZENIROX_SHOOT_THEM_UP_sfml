@@ -18,7 +18,7 @@ class fastStarparallaxe;
 
 using namespace std;
 using namespace sf;
-enum Screen{Menu, Start, Settings, Exit, Playing, Editor, NextLevel, Lost, Win, EreaseData};
+enum Screen{Menu, Settings, Playing, Editor, NextLevel, Lost, Win, EreaseData, SetDifficulty};
 
 enum gameState {
 	niveauEDIT, niveau1A, niveau1B, niveau1C, niveau2A, niveau2B, niveau2C, niveau3A, niveau3B, niveau3C, finalBoss
@@ -52,6 +52,7 @@ public:
 	sf::Texture buyT;
 	sf::Texture yesT;
 	sf::Texture noT;
+	sf::Texture backT;
 
 	sf::Sprite backgroundSprite;
 	sf::Sprite closeS;
@@ -69,6 +70,7 @@ public:
 	sf::Sprite buyS;
 	sf::Sprite yesS;
 	sf::Sprite noS;
+	sf::Sprite backS;
 
 	sf::Font font;
 
@@ -88,7 +90,7 @@ public:
 	SoundBuffer impossibleActionSoundBuffer;
 
 	gameState state = niveau1A;
-	Screen screen = Playing;
+	Screen screen = Menu;
 	Screen previousScreen;
 	ID* alias = &nb1;
 	Clock gameClock;
@@ -99,6 +101,7 @@ public:
 
 	bool doLoadBackground = true;
 	bool Univeau1A, loadLevel = true;
+	bool loadCampain, loadEdited = false;
 	bool Univeau2A, Univeau3A, Univeau1B, Univeau2B, Univeau3B, Univeau1C, Univeau2C, Univeau3C, UfinalBoss, isFightingBoss = false;
 	int toKill = 0;
 	int counter = 1;

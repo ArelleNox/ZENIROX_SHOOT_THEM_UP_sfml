@@ -16,77 +16,112 @@ Game::Game() : hoveredOption(-1) {
 	if (!closeT.loadFromFile("button/close.png")) {
 		throw runtime_error("Erreur : texture de close introuvable.");
 	}
+	closeS.setTexture(closeT);
+	closeS.setScale(2, 2);
 
 	//Load the texture and set the sprite
 	if (!confirmT.loadFromFile("button/confirm.png")) {
 		throw runtime_error("Erreur : texture de close introuvable.");
 	}
+	confirmS.setTexture(confirmT);
+	confirmS.setScale(2, 2);
 
 	//Load the texture and set the sprite
 	if (!editorT.loadFromFile("button/editor.png")) {
 		throw runtime_error("Erreur : texture de close introuvable.");
 	}
+	editorS.setTexture(editorT);
+	editorS.setScale(2, 2);
 
 	//Load the texture and set the sprite
 	if (!cancelT.loadFromFile("button/cancel.png")) {
 		throw runtime_error("Erreur : texture de close introuvable.");
 	}
+	cancelS.setTexture(cancelT);
+	cancelS.setScale(2, 2);
 
 	//Load the texture and set the sprite
 	if (!dataT.loadFromFile("button/data.png")) {
 		throw runtime_error("Erreur : texture de close introuvable.");
 	}
+	dataS.setTexture(dataT);
+	dataS.setScale(2, 2);
 
 	//Load the texture and set the sprite
 	if (!easyT.loadFromFile("button/easy.png")) {
 		throw runtime_error("Erreur : texture de close introuvable.");
 	}
+	easyS.setTexture(easyT);
+	easyS.setScale(2, 2);
 
 	//Load the texture and set the sprite
 	if (!hardcoreT.loadFromFile("button/hardcore.png")) {
 		throw runtime_error("Erreur : texture de close introuvable.");
 	}
+	hardcoreS.setTexture(hardcoreT);
+	hardcoreS.setScale(2, 2);
 
 	//Load the texture and set the sprite
 	if (!menuT.loadFromFile("button/menu.png")) {
 		throw runtime_error("Erreur : texture de close introuvable.");
 	}
+	menuS.setTexture(menuT);
+	menuS.setScale(2, 2);
 
 	//Load the texture and set the sprite
 	if (!normalT.loadFromFile("button/normal.png")) {
 		throw runtime_error("Erreur : texture de close introuvable.");
 	}
+	normalS.setTexture(normalT);
+	normalS.setScale(2, 2);
 
 	//Load the texture and set the sprite
 	if (!questT.loadFromFile("button/quest.png")) {
 		throw runtime_error("Erreur : texture de close introuvable.");
 	}
+	questS.setTexture(questT);
+	questS.setScale(2, 2);
 
 	//Load the texture and set the sprite
 	if (!resumeT.loadFromFile("button/resume.png")) {
 		throw runtime_error("Erreur : texture de close introuvable.");
 	}
+	resumeS.setTexture(resumeT);
+	resumeS.setScale(2, 2);
 
 	//Load the texture and set the sprite
 	if (!settingsT.loadFromFile("button/settings.png")) {
 		throw runtime_error("Erreur : texture de close introuvable.");
 	}
+	settingsS.setTexture(settingsT);
+	settingsS.setScale(2, 2);
 
 
 	//Load the texture and set the sprite
 	if (!buyT.loadFromFile("button/buy.png")) {
 		throw runtime_error("Erreur : texture de close introuvable.");
 	}
+	buyS.setTexture(buyT);
+	buyS.setScale(2, 2);
 
 	//Load the texture and set the sprite
 	if (!yesT.loadFromFile("button/yes.png")) {
 		throw runtime_error("Erreur : texture de close introuvable.");
 	}
+	yesS.setTexture(yesT);
+	yesS.setScale(2, 2);
 
 	//Load the texture and set the sprite
 	if (!noT.loadFromFile("button/no.png")) {
 		throw runtime_error("Erreur : texture de close introuvable.");
 	}
+	noS.setTexture(noT);
+	noS.setScale(2, 2);
+
+	//Load the texture and set the sprite
+	if (!backT.loadFromFile("button/back.png")) throw runtime_error("Erreur: texture de back introuvable");
+	backS.setTexture(backT);
+	backS.setScale(2, 2);
 
 	//Musique de défaite
 	if (!lose.openFromFile("sounds/lose.ogg")) throw runtime_error("Echec lors de l'ouverture de la musique de defaite");
@@ -896,6 +931,154 @@ void Game::levelP(Player& player, EnemyManager& eManager, ObstacleManager& oMana
 
 void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& background, Starparallaxe& star, fastStarparallaxe& faststar, Healthbar& healthbar, EnemyManager& eManager, ProjectileManager& pManager, ObstacleManager& oManager, UtilitaryManager& uManager, ExplosionManager& exManager, Clock& clock, Text& scoreText, Font& scoreFont, RectangleShape& interface, Music& playing, Music& boss, Music& finalBossM, vector<Sound>& playerShot, SoundBuffer& shot, Text& totalScoreText)
 {
+	if (screen == SetDifficulty)
+	{
+		Sprite SetDifficultyS;
+		Texture SetDifficultyT;
+		if (!SetDifficultyT.loadFromFile("difficulty.png")) throw runtime_error("Erreur : texture fond difficulté non trouvé");
+		SetDifficultyS.setTexture(SetDifficultyT);
+		easyS.setPosition(276, 496);
+		normalS.setPosition(760, 496);
+		hardcoreS.setPosition(1240, 496);
+		backS.setPosition(760, 777);
+		
+
+		Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == Event::Closed)
+				window.close();
+			if (event.type == Event::MouseButtonPressed)
+			{
+				Vector2i mousePos = Mouse::getPosition(window);
+
+				if (event.mouseButton.button == Mouse::Left && easyS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					player.setDifficulty(Easy);
+					confirmSound.play();
+					titleScreenM.stop();
+					previousScreen = screen;
+					if (loadCampain == true)
+					{
+						screen = Playing;
+						loadCampain = false;
+						if (UfinalBoss == true)
+							state = finalBoss;
+						else if (Univeau3C == true)
+							state = niveau3C;
+						else if (Univeau3B == true)
+							state = niveau3B;
+						else if (Univeau3A == true)
+							state = niveau3A;
+						else if (Univeau2C == true)
+							state = niveau2C;
+						else if (Univeau2B == true)
+							state = niveau2B;
+						else if (Univeau2A == true)
+							state = niveau2A;
+						else if (Univeau1C == true)
+							state = niveau1C;
+						else if (Univeau1B == true)
+							state = niveau1B;
+						else
+							state = niveau1A;
+					}
+					else if (loadEdited == true)
+					{
+						screen = Editor;
+						loadEdited = false;
+					}
+					
+				}
+				if (event.mouseButton.button == Mouse::Left && normalS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					player.setDifficulty(Normal);
+					confirmSound.play();
+					titleScreenM.stop();
+					previousScreen = screen;
+					if (loadCampain == true)
+					{
+						screen = Playing;
+						loadCampain = false;
+						if (UfinalBoss == true)
+							state = finalBoss;
+						else if (Univeau3C == true)
+							state = niveau3C;
+						else if (Univeau3B == true)
+							state = niveau3B;
+						else if (Univeau3A == true)
+							state = niveau3A;
+						else if (Univeau2C == true)
+							state = niveau2C;
+						else if (Univeau2B == true)
+							state = niveau2B;
+						else if (Univeau2A == true)
+							state = niveau2A;
+						else if (Univeau1C == true)
+							state = niveau1C;
+						else if (Univeau1B == true)
+							state = niveau1B;
+						else
+							state = niveau1A;
+					}
+					else if (loadEdited == true)
+					{
+						screen = Editor;
+						loadEdited = false;
+					}
+					
+				}
+				if (event.mouseButton.button == Mouse::Left && hardcoreS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					player.setDifficulty(Hardcore);
+					confirmSound.play();
+					titleScreenM.stop();
+					previousScreen = screen;
+					if (loadCampain == true)
+					{
+						screen = Playing;
+						loadCampain = false;
+						if (UfinalBoss == true)
+							state = finalBoss;
+						else if (Univeau3C == true)
+							state = niveau3C;
+						else if (Univeau3B == true)
+							state = niveau3B;
+						else if (Univeau3A == true)
+							state = niveau3A;
+						else if (Univeau2C == true)
+							state = niveau2C;
+						else if (Univeau2B == true)
+							state = niveau2B;
+						else if (Univeau2A == true)
+							state = niveau2A;
+						else if (Univeau1C == true)
+							state = niveau1C;
+						else if (Univeau1B == true)
+							state = niveau1B;
+						else
+							state = niveau1A;
+					}
+					else if (loadEdited == true)
+					{
+						screen = Editor;
+						loadEdited = false;
+					}
+				}
+				if (event.mouseButton.button == Mouse::Left && backS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					confirmSound.play();
+					titleScreenM.stop();
+					screen = previousScreen;
+				}
+			}
+		}
+		window.draw(SetDifficultyS);
+		window.draw(hardcoreS);
+		window.draw(easyS);
+		window.draw(normalS);
+		window.draw(backS);
+	}
 	if (screen == EreaseData)
 		window.close();
 	if (screen == Menu) {
@@ -912,75 +1095,21 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		title.setOutlineColor(sf::Color::Black);
 		title.setOutlineThickness(6);
 		title.setPosition(665, 100);
-
-		closeS.setTexture(closeT);
-		closeS.setPosition(200, 400);  
-		closeS.setScale(2, 2);
-		
-
-		confirmS.setTexture(confirmT);
-		confirmS.setPosition(400, 400);  
-		confirmS.setScale(2, 2);
-		
-
-		editorS.setTexture(editorT);
-		editorS.setPosition(759, 400);  
-		editorS.setScale(2, 2);
-		
-
-		cancelS.setTexture(cancelT);
-		cancelS.setPosition(200, 400);  
-		cancelS.setScale(2, 2);
-		
-
-		dataS.setTexture(dataT);
-		dataS.setPosition(759, 800); 
-		dataS.setScale(2, 2);
-		
-
-		easyS.setTexture(easyT);
+		closeS.setPosition(200, 400);
+		confirmS.setPosition(400, 400);
+		editorS.setPosition(759, 400);
+		cancelS.setPosition(200, 400);
+		dataS.setPosition(759, 800);
 		easyS.setPosition(200, 400);
-		easyS.setScale(2, 2);
-		
-
-		hardcoreS.setTexture(hardcoreT);
-		hardcoreS.setPosition(200, 400); 
-		hardcoreS.setScale(2, 2);
-
-		menuS.setTexture(menuT);
-		menuS.setPosition(200, 400); 
-		menuS.setScale(2, 2);
-
-		normalS.setTexture(normalT);
-		normalS.setPosition(200, 400); 
-		normalS.setScale(2, 2);
-
-		questS.setTexture(questT);
-		questS.setPosition(200, 400); 
-		questS.setScale(2, 2);
-
-		resumeS.setTexture(resumeT);
-		resumeS.setPosition(200, 400); 
-		resumeS.setScale(2, 2);
-
-		settingsS.setTexture(settingsT);
-		settingsS.setPosition(200, 400); 
-		settingsS.setScale(2, 2);
-		
-
-		buyS.setTexture(buyT);
-		buyS.setPosition(200, 400);  
-		buyS.setScale(2, 2);
-		
-
-		yesS.setTexture(yesT);
-		yesS.setPosition(200, 400);  
-		yesS.setScale(2, 2);
-		
-
-		noS.setTexture(noT);
+		hardcoreS.setPosition(200, 400);
+		menuS.setPosition(200, 400);
+		normalS.setPosition(200, 400);
+		questS.setPosition(200, 400);
+		resumeS.setPosition(200, 400);
+		settingsS.setPosition(200, 400);
+		buyS.setPosition(200, 400);
+		yesS.setPosition(200, 400);
 		noS.setPosition(200, 400);  
-		noS.setScale(2, 2);
 		
 
 
@@ -995,13 +1124,16 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 
 				if (event.mouseButton.button == Mouse::Left && editorS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
 				{
+					confirmSound.play();
 					state = niveauEDIT;
 					titleScreenM.stop();
 					previousScreen = screen;
-					screen = Editor;
+					screen = SetDifficulty;
+					loadEdited = true;
 				}
 				if (event.mouseButton.button == Mouse::Left && dataS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
 				{
+					confirmSound.play();
 					titleScreenM.stop();
 					previousScreen = screen;
 					screen = EreaseData;

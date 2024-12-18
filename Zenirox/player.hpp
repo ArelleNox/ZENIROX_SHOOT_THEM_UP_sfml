@@ -21,7 +21,7 @@ public:
 	float up = -5;
 	float down = 5;
 	Ship color = Default;
-	Difficulty difficulty = Easy;
+	Difficulty difficulty = Normal;
 	Sprite sprite;
 	Texture texture;
 	Sound impact;
@@ -42,6 +42,7 @@ public:
 	void checkOutOfScreen();
 	void increaseScore(int toIncrease);
 	void decreaseScore(Text &scoreText, int toDecrease);
+	void setDifficulty(Difficulty difficulty);
 };
 
 

@@ -51,7 +51,7 @@ Player::Player() : attackCooldown(seconds(0.2)), boostDuration(seconds(2.5)) {
 		HP = 2000;
 		maxHP = 2000;
 		maxShield = 1000;
-		attack = attack * 2;
+		attack = 20;
 	}
 	if (difficulty == Hardcore)
 	{
@@ -78,4 +78,33 @@ void Player::decreaseScore(Text& scoreText, int toDecrease)
 	currentScore -= toDecrease;
 	if (currentScore < 0)
 		currentScore = 0;
+}
+
+void Player::setDifficulty(Difficulty difficulty)
+{
+
+	{
+		if (difficulty == Easy)
+		{
+			maxHP = 2000;
+			maxShield = 1000;
+			attack = 20;
+		}
+		else if (difficulty == Normal)
+		{
+			maxHP = 1000;
+			maxShield = 500;
+			attack = 10;
+		}
+		else if (difficulty == Hardcore)
+		{
+			maxHP = 500;
+			maxShield = 250;
+			attack = 10;
+		}
+		if (HP > maxHP)
+		{
+			HP = maxHP;
+		}
+	}
 }
