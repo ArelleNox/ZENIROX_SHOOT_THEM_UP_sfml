@@ -862,7 +862,8 @@ void Game::levelP(Player& player, EnemyManager& eManager, ObstacleManager& oMana
 
 void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& background, Starparallaxe& star, fastStarparallaxe& faststar, Healthbar& healthbar, EnemyManager& eManager, ProjectileManager& pManager, ObstacleManager& oManager, UtilitaryManager& uManager, ExplosionManager& exManager, Clock& clock, Text& scoreText, Font& scoreFont, RectangleShape& interface, Music& playing, Music& boss, Music& finalBossM, vector<Sound>& playerShot, SoundBuffer& shot, Text& totalScoreText)
 {
-
+	if (screen == EreaseData)
+		window.close();
 	if (screen == Menu) {
 
 
@@ -889,7 +890,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		
 
 		editorS.setTexture(editorT);
-		editorS.setPosition(665, 400);  
+		editorS.setPosition(759, 400);  
 		editorS.setScale(2, 2);
 		
 
@@ -899,7 +900,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		
 
 		dataS.setTexture(dataT);
-		dataS.setPosition(665, 800); 
+		dataS.setPosition(759, 800); 
 		dataS.setScale(2, 2);
 		
 
@@ -954,6 +955,22 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		{
 			if (event.type == Event::Closed)
 				window.close();
+			if (event.type == Event::MouseButtonPressed)
+			{
+				Vector2i mousePos = Mouse::getPosition(window);
+
+				if (event.mouseButton.button == Mouse::Left && editorS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					state = niveauEDIT;
+					titleScreenM.stop();
+					screen = Editor;
+				}
+				if (event.mouseButton.button == Mouse::Left && dataS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					titleScreenM.stop();
+					screen = EreaseData;
+				}
+			}
 			if (event.type == Event::KeyPressed)
 			{
 				if (event.key.code == Keyboard::Enter || event.key.code == Keyboard::Escape)
