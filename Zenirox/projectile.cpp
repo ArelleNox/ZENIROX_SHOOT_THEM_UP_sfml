@@ -96,7 +96,11 @@ ProjectileManager::~ProjectileManager() {
 					if (manager.getEnemies()[i]->shield == 0)
 						manager.getEnemies()[i]->HP -= player.attack;
 					else
+					{
 						manager.getEnemies()[i]->shield -= player.attack;
+						if (manager.getEnemies()[i]->shield < 0)
+							manager.getEnemies()[i]->shield = 0;
+					}
 					player.increaseScore(5);
 					if (manager.getEnemies()[i]->HP <= 0 && manager.getEnemies()[i]->id != BOSS1 && manager.getEnemies()[i]->id != BOSS2 && manager.getEnemies()[i]->id != BOSS3 && manager.getEnemies()[i]->id != BOSS4)
 						player.increaseScore(100);
