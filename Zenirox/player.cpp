@@ -102,9 +102,6 @@ void Player::setDifficulty(Difficulty difficulty)
 			maxShield = 250;
 			attack = 10;
 		}
-		if (HP > maxHP)
-		{
-			HP = maxHP;
-		}
+		HP = maxHP;
 	}
 }

@@ -18,7 +18,7 @@ class fastStarparallaxe;
 
 using namespace std;
 using namespace sf;
-enum Screen{Menu, Settings, Playing, Editor, NextLevel, Lost, Win, EreaseData, SetDifficulty};
+enum Screen{Menu, Settings, Playing, Editor, NextLevel, Lost, Win, EreaseData, SetDifficulty, Shop};
 
 enum gameState {
 	niveauEDIT, niveau1A, niveau1B, niveau1C, niveau2A, niveau2B, niveau2C, niveau3A, niveau3B, niveau3C, finalBoss
@@ -53,6 +53,7 @@ public:
 	sf::Texture yesT;
 	sf::Texture noT;
 	sf::Texture backT;
+	sf::Texture shopT;
 
 	sf::Sprite backgroundSprite;
 	sf::Sprite closeS;
@@ -71,6 +72,7 @@ public:
 	sf::Sprite yesS;
 	sf::Sprite noS;
 	sf::Sprite backS;
+	sf::Sprite shopS;
 
 	sf::Font font;
 

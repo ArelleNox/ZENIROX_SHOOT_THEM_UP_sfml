@@ -123,6 +123,11 @@ Game::Game() : hoveredOption(-1) {
 	backS.setTexture(backT);
 	backS.setScale(2, 2);
 
+	//Load the texture and set the sprite
+	if (!shopT.loadFromFile("button/shop.png")) throw runtime_error("Erreur: texture de back introuvable");
+	shopS.setTexture(shopT);
+	
+
 	//Musique de défaite
 	if (!lose.openFromFile("sounds/lose.ogg")) throw runtime_error("Echec lors de l'ouverture de la musique de defaite");
 
@@ -133,6 +138,7 @@ Game::Game() : hoveredOption(-1) {
 	//Musique écran titre
 	if (!titleScreenM.openFromFile("sounds/titlescreen.ogg")) throw runtime_error("Echec lors de l'ouverture de l'opening");
 	titleScreenM.setLoop(true);
+	titleScreenM.setVolume(50);
 
 	//Musique niveau suivant
 	if (!nextLevelM.openFromFile("sounds/nextlevel.ogg")) throw runtime_error("Echec lors de l'ouverture de la musique de niveau suivant");
@@ -1068,7 +1074,6 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 				if (event.mouseButton.button == Mouse::Left && backS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
 				{
 					confirmSound.play();
-					titleScreenM.stop();
 					screen = previousScreen;
 				}
 			}
@@ -1080,10 +1085,46 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		window.draw(backS);
 	}
 	if (screen == EreaseData)
-		window.close();
+	{
+		Sprite EreaseDataS;
+		Texture EreaseDataT;
+		if (!EreaseDataT.loadFromFile("erease-Red.png")) throw runtime_error("Erreur: texture du fond non chargée");
+		EreaseDataS.setTexture(EreaseDataT);
+		confirmS.setPosition(1160, 519);
+		cancelS.setPosition(360, 519);
+
+		Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == Event::Closed)
+				window.close();
+			if (event.type == Event::MouseButtonPressed)
+			{
+				Vector2i mousePos = Mouse::getPosition(window);
+
+				if (event.mouseButton.button == Mouse::Left && cancelS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					confirmSound.play();
+					screen = previousScreen;
+				}
+				if (event.mouseButton.button == Mouse::Left && confirmS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					confirmSound.play();
+					screen = previousScreen;
+					removeData(player, *this);
+					saveData(player, *this);
+					openData(player, *this);
+				}
+			}
+		}
+		window.draw(EreaseDataS);
+		window.draw(confirmS);
+		window.draw(cancelS);
+	}
 	if (screen == Menu) {
 
-
+		if (titleScreenM.getStatus() != Sound::Playing)
+			titleScreenM.play();
 		backgroundSprite.setTexture(backgroundTexture);
 		backgroundSprite.setPosition(0, 0);
 
@@ -1095,21 +1136,12 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		title.setOutlineColor(sf::Color::Black);
 		title.setOutlineThickness(6);
 		title.setPosition(665, 100);
-		closeS.setPosition(200, 400);
-		confirmS.setPosition(400, 400);
-		editorS.setPosition(759, 400);
-		cancelS.setPosition(200, 400);
-		dataS.setPosition(759, 800);
-		easyS.setPosition(200, 400);
-		hardcoreS.setPosition(200, 400);
-		menuS.setPosition(200, 400);
-		normalS.setPosition(200, 400);
-		questS.setPosition(200, 400);
-		resumeS.setPosition(200, 400);
-		settingsS.setPosition(200, 400);
-		buyS.setPosition(200, 400);
-		yesS.setPosition(200, 400);
-		noS.setPosition(200, 400);  
+		closeS.setPosition(510, 733); closeS.setScale(1.5, 1.5);
+		editorS.setPosition(1110, 321); editorS.setScale(1.5, 1.5);
+		dataS.setPosition(1110, 733); dataS.setScale(1.5, 1.5);
+		questS.setPosition(510, 321); questS.setScale(1.5, 1.5);
+		settingsS.setPosition(510, 527); settingsS.setScale(1.5, 1.5);
+		shopS.setPosition(1110, 527); shopS.setScale(1.5, 1.5);
 		
 
 
@@ -1126,7 +1158,6 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 				{
 					confirmSound.play();
 					state = niveauEDIT;
-					titleScreenM.stop();
 					previousScreen = screen;
 					screen = SetDifficulty;
 					loadEdited = true;
@@ -1134,9 +1165,34 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 				if (event.mouseButton.button == Mouse::Left && dataS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
 				{
 					confirmSound.play();
-					titleScreenM.stop();
 					previousScreen = screen;
 					screen = EreaseData;
+				}
+				if (event.mouseButton.button == Mouse::Left && questS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					confirmSound.play();
+					previousScreen = screen;
+					screen = SetDifficulty;
+					loadCampain = true; //Load campain veut dire charger Quest (Playing)
+				}
+				if (event.mouseButton.button == Mouse::Left && settingsS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					confirmSound.play();
+					previousScreen = screen;
+					screen = Settings;
+					window.close();
+				}
+				if (event.mouseButton.button == Mouse::Left && shopS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					confirmSound.play();
+					previousScreen = screen;
+					screen = Shop;
+					window.close();
+				}
+				if (event.mouseButton.button == Mouse::Left && closeS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					confirmSound.play();
+					window.close();
 				}
 			}
 			if (event.type == Event::KeyPressed)
@@ -1147,7 +1203,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		}
 		window.draw(backgroundSprite);
 		window.draw(title);
-		//window.draw(closeS);
+		window.draw(closeS);
 		//window.draw(confirmS);
 		window.draw(editorS);
 		//window.draw(cancelS);
@@ -1156,12 +1212,13 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		//window.draw(hardcoreS);
 		//window.draw(menuS);
 		//window.draw(normalS);
-		//window.draw(questS);
+		window.draw(questS);
 		//window.draw(resumeS);
-		//window.draw(settingsS);
+		window.draw(settingsS);
 		//window.draw(buyS);
 		//window.draw(yesS);
 		//window.draw(noS);
+		window.draw(shopS);
 	}
 
 
@@ -1409,7 +1466,6 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 					default:
 						break;
 					}
-					saveCurrentScore(player);
 					player.currentScore = 0;
 					coin.setPosition(0, 50);
 					coin.setScale(0.2, 0.2);
@@ -1449,8 +1505,8 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		Sprite down;
 		Texture upT;
 		Texture downT;
-		if (!upT.loadFromFile("up.png")) throw runtime_error("Impossible de charger le bouton haut");
-		if (!downT.loadFromFile("down.png")) throw runtime_error("Impossible de charger le bouton bas");
+		if (!upT.loadFromFile("button/up.png")) throw runtime_error("Impossible de charger le bouton haut");
+		if (!downT.loadFromFile("button/down.png")) throw runtime_error("Impossible de charger le bouton bas");
 		up.setTexture(upT);
 		down.setTexture(downT);
 		up.setPosition(500, 400);
