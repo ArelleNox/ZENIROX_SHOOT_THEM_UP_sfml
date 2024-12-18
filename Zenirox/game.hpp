@@ -18,7 +18,7 @@ class fastStarparallaxe;
 
 using namespace std;
 using namespace sf;
-enum screen{Menu, Start, Settings, Exit, Playing, Editor, NextLevel, Lost, Win};
+enum screen{Menu, Start, Settings, Exit, Playing, Editor, NextLevel, Lost, Win, EreaseData};
 
 enum gameState {
 	niveauEDIT, niveau1A, niveau1B, niveau1C, niveau2A, niveau2B, niveau2C, niveau3A, niveau3B, niveau3C, finalBoss
