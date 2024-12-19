@@ -54,6 +54,7 @@ public:
 	sf::Texture noT;
 	sf::Texture backT;
 	sf::Texture shopT;
+	sf::Texture continueT;
 
 	sf::Sprite backgroundSprite;
 	sf::Sprite closeS;
@@ -73,6 +74,7 @@ public:
 	sf::Sprite noS;
 	sf::Sprite backS;
 	sf::Sprite shopS;
+	sf::Sprite continueS;
 
 	sf::Font font;
 
