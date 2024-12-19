@@ -217,6 +217,7 @@ void Game::level1A(Player& player, EnemyManager &eManager, ObstacleManager& oMan
 	if (state == niveau1A && loadLevel == true && isFightingBoss == false && Univeau1A == true)
 	{
 		currentLevelText.setString("TIER: 1 - LEVEL: 1");
+		Background background("palier1Test.jpg", -31);
 		background.setupPalier1();
 		doLoadBackground = false;
 		finalhours.stop();
@@ -290,6 +291,7 @@ void Game::level1B(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	
 	if (state == niveau1B && loadLevel == true && isFightingBoss == false && Univeau1B == true)
 	{
+		Background background("palier1Test.jpg", -31);
 		currentLevelText.setString("TIER: 1 - LEVEL: 2");
 		background.setupPalier1();
 		doLoadBackground = false;
@@ -358,6 +360,7 @@ void Game::level1C(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 {
 	if (state == niveau1C && loadLevel == true && isFightingBoss == false && Univeau1C == true)
 	{
+		Background background("palier1Test.jpg", -31);
 		currentLevelText.setString("TIER: 1 - LEVEL: 3");
 		background.setupPalier1();
 		finalhours.stop();
@@ -426,6 +429,7 @@ void Game::level2A(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 	
 	if (state == niveau2A && loadLevel == true && isFightingBoss == false && Univeau2A == true)
 	{
+		Background background("palier22.png", -31);
 		currentLevelText.setString("TIER: 2 - LEVEL: 1");
 		background.setupPalier2();
 		finalhours.stop();
@@ -494,6 +498,7 @@ void Game::level2B(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 
 	if (state == niveau2B && loadLevel == true && isFightingBoss == false && Univeau2B == true)
 	{
+		Background background("palier22.png", -31);
 		currentLevelText.setString("TIER: 2 - LEVEL: 2");
 		background.setupPalier2();
 		finalhours.stop();
@@ -562,6 +567,7 @@ void Game::level2C(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 
 	if (state == niveau2C && loadLevel == true && isFightingBoss == false && Univeau2C == true)
 	{
+		Background background("palier22.png", -31);
 		currentLevelText.setString("TIER: 2 - LEVEL: 3");
 		background.setupPalier2();
 		finalhours.stop();
@@ -630,6 +636,7 @@ void Game::level3A(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 
 	if (state == niveau3A && loadLevel == true && isFightingBoss == false && Univeau3A == true)
 	{
+		Background background("palier3.jpg", -31);
 		currentLevelText.setString("TIER: 3 - LEVEL: 1");
 		background.setupPalier3();
 		finalhours.stop();
@@ -699,6 +706,7 @@ void Game::level3B(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 
 	if (state == niveau3B && loadLevel == true && isFightingBoss == false && Univeau3B == true)
 	{
+		Background background("palier3.jpg", -31);
 		currentLevelText.setString("TIER: 3 - LEVEL: 2");
 		background.setupPalier3();
 		finalhours.stop();
@@ -773,6 +781,7 @@ void Game::level3C(Player& player, EnemyManager& eManager, ObstacleManager& oMan
 
 	if (state == niveau3C && loadLevel == true && isFightingBoss == false && Univeau3C == true)
 	{
+		Background background("palier3.jpg", -31);
 		currentLevelText.setString("TIER: 3 - LEVEL: 3");
 		background.setupPalier3();
 		finalhours.stop();
@@ -851,6 +860,7 @@ void Game::level4(Player& player, EnemyManager& eManager, ObstacleManager& oMana
 {
 	if (state == finalBoss && loadLevel == true && isFightingBoss == false && UfinalBoss == true)
 	{
+		Background background("palier44.jpg", -31);
 		currentLevelText.setString("FINAL BOSS");
 		background.setupPalier4();
 		star.sprite.setColor(Color(245, 194, 254));

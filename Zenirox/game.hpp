@@ -13,13 +13,13 @@
 #include "obstacle.hpp"
 #include "powerups.hpp"
 
+using namespace std;
+using namespace sf;
+
 class Starparallaxe;
 class fastStarparallaxe;
 
-using namespace std;
-using namespace sf;
-enum Screen{Menu, Settings, Playing, Editor, NextLevel, Lost, Win, EreaseData, SetDifficulty, Shop, Paused};
-
+enum Screen{Menu, Settings, Playing, Editor, NextLevel, Lost, Win, EreaseData, SetDifficulty, Shop};
 enum gameState {
 	niveauEDIT, niveau1A, niveau1B, niveau1C, niveau2A, niveau2B, niveau2C, niveau3A, niveau3B, niveau3C, finalBoss
 };
