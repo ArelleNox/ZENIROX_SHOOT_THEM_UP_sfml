@@ -119,6 +119,8 @@ public:
 	Screen previousScreen;
 	ID* alias = &nb1;
 	Clock gameClock;
+	Clock settingsClock;
+	Time settingsCooldown = seconds(0.05);
 	Time gameDuration;
 	ID  nb1, nb2, nb3, nb4, nb5, nb6, nb7, nb8, nb9, nb10, bossID = ENNEMI1;
 	Text currentLevelText;

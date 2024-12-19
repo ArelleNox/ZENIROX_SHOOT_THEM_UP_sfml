@@ -1103,9 +1103,10 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 					confirmSound.play();
 					screen = previousScreen;
 				}
-				if (event.mouseButton.button == Mouse::Left && settingsS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				if (event.mouseButton.button == Mouse::Left && settingsS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)) && settingsClock.getElapsedTime().asSeconds() > settingsCooldown.asSeconds())
 				{
 					confirmSound.play();
+					settingsClock.restart();
 					screen = Settings;
 				}
 			}
@@ -1152,9 +1153,10 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 				confirmSound.play();
 				screen = previousScreen;
 			}
-			if (event.mouseButton.button == Mouse::Left && shopS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+			if (event.mouseButton.button == Mouse::Left && shopS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)) && settingsClock.getElapsedTime().asSeconds() > settingsCooldown.asSeconds())
 			{
 				confirmSound.play();
+				settingsClock.restart();
 				screen = Shop;
 			}
 			if (event.mouseButton.button == Mouse::Left && inventoryShipS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
