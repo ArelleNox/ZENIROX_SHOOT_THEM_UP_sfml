@@ -45,19 +45,6 @@ void Background::setupPalier1() {
     sprite2.setTexture(texture);
 }
 
-// Setup for Palier 11
-void Background::setupPalier11() {
-    if (!texture.loadFromFile("palier11.png")) {
-        throw std::runtime_error("Failed to load texture");
-    }
-    sprite.setTexture(texture);
-
-    if (!texture2.loadFromFile("palier11.png")) {
-        throw std::runtime_error("Failed to load texture");
-    }
-    sprite2.setTexture(texture2);
-}
-
 // Setup for Palier 2
 void Background::setupPalier2()
 {
@@ -65,11 +52,7 @@ void Background::setupPalier2()
         throw std::runtime_error("Failed to load texture");
     }
     sprite.setTexture(texture);
-
-    if (!texture2.loadFromFile("palier22.png")) {
-        throw std::runtime_error("Failed to load texture");
-    }
-    sprite2.setTexture(texture2);
+    sprite2.setTexture(texture);
 }
 
 // Setup for Palier 3
@@ -78,11 +61,7 @@ void Background::setupPalier3() {
         throw std::runtime_error("Failed to load texture");
     }
     sprite.setTexture(texture);
-
-    if (!texture2.loadFromFile("palier3.jpg")) {
-        throw std::runtime_error("Failed to load texture");
-    }
-    sprite2.setTexture(texture2);
+    sprite2.setTexture(texture);
 }
 
 // Setup for Palier 4
@@ -91,9 +70,5 @@ void Background::setupPalier4() {
         throw std::runtime_error("Failed to load texture");
     }
     sprite.setTexture(texture);
-
-    if (!texture2.loadFromFile("palier44.jpg")) {
-        throw std::runtime_error("Failed to load texture");
-    }
-    sprite2.setTexture(texture2);
+    sprite2.setTexture(texture);
 }

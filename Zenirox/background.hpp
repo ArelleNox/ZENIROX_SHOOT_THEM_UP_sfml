@@ -3,14 +3,6 @@
 
 #include <SFML/Graphics.hpp>
 
-/*enum palier {
-    palier1 = 1,
-    palier11 = 11,
-    palier2 = 2,
-    palier3 = 3,
-    palier4 = 4,
-};*/
-
 class Background {
 private:
     float scrollSpeed;
@@ -28,7 +20,6 @@ public:
     void draw(sf::RenderWindow& window);
 
     void setupPalier1();
-    void setupPalier11();
     void setupPalier2();
     void setupPalier3();
     void setupPalier4();
