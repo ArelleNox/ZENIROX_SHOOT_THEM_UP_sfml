@@ -130,6 +130,7 @@ Game::Game() : hoveredOption(-1) {
 	//Load the texture and set the sprite
 	if (!shopT.loadFromFile("button/shop.png")) throw runtime_error("Erreur: texture de back introuvable");
 	shopS.setTexture(shopT);
+	shopS.setScale(2, 2);
 
 	//Load the texture and set the sprite
 	if (!continueT.loadFromFile("button/continue.png")) throw runtime_error("Erreur: texture de continue introuvable");
@@ -141,6 +142,9 @@ Game::Game() : hoveredOption(-1) {
 	resetS.setTexture(resetT);
 	resetS.setScale(2, 2);
 	
+	if (!pauseT.loadFromFile("button/pause.png")) throw runtime_error("Texture du bouton de pause inaccessible");
+	pauseS.setTexture(pauseT);
+	pauseS.setScale(2, 2);
 
 	//Musique de défaite
 	if (!lose.openFromFile("sounds/lose.ogg")) throw runtime_error("Echec lors de l'ouverture de la musique de defaite");
@@ -998,6 +1002,35 @@ void Game::levelP(Player& player, EnemyManager& eManager, ObstacleManager& oMana
 
 void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& background, Starparallaxe& star, fastStarparallaxe& faststar, Healthbar& healthbar, EnemyManager& eManager, ProjectileManager& pManager, ObstacleManager& oManager, UtilitaryManager& uManager, ExplosionManager& exManager, Clock& clock, Text& scoreText, Font& scoreFont, RectangleShape& interface, Music& playing, Music& boss, Music& finalBossM, vector<Sound>& playerShot, SoundBuffer& shot, Text& totalScoreText)
 {
+	if (screen == Paused)
+	{
+		resumeS.setPosition(780, 485);
+		Sprite pauseBackgroundS;
+		Texture pauseBackgroundT;
+		if (!pauseBackgroundT.loadFromFile("pause.png")) throw runtime_error("Erreur lors du chargement de l'ecran de pause");
+		pauseBackgroundS.setTexture(pauseBackgroundT);
+
+		Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == Event::Closed)
+				window.close();
+			if (event.type == Event::KeyPressed)
+			{
+				if (event.key.code == Keyboard::Escape)
+					screen = previousScreen;
+			}
+			if (event.type == Event::MouseButtonPressed)
+			{
+				Vector2i mousePos = Mouse::getPosition(window);
+				if (event.mouseButton.button == Mouse::Left && resumeS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+					screen = previousScreen;
+			}
+
+		}
+		window.draw(pauseBackgroundS);
+		window.draw(resumeS);
+	}
 	if (screen == Shop)
 	{
 			Sprite shopBackgroundS;
@@ -1102,6 +1135,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		backS.setScale(2, 2);
 		backS.setPosition(360, 860);
 		shopS.setPosition(1163, 860);
+		shopS.setScale(2, 2);
 		settingsBackgroundS.setTexture(settingsBackgroundT);
 
 		Event event;
@@ -2601,6 +2635,8 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 	{
 		coin.setScale(0.2, 0.2);
 		coin.setPosition(0, 45);
+		pauseS.setScale(1, 1);
+		pauseS.setPosition(1100, 0);
 		if (state != niveauEDIT)
 		{
 			if(state == niveau1A && Univeau1A == true)
@@ -2668,8 +2704,25 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 			if (event.type == Event::Closed)
 				window.close();
 			if (event.type == Event::KeyPressed)
+			{
 				if (event.key.code == Keyboard::Enter)
 					window.close();
+				if (event.key.code == Keyboard::Escape)
+				{
+					previousScreen = screen;
+					screen = Paused;
+				}
+			}
+			if (event.type == Event::MouseButtonPressed)
+			{
+				Vector2i mousePos = Mouse::getPosition(window);
+
+				if (event.mouseButton.button == Mouse::Left && pauseS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					previousScreen = screen;
+					screen = Paused;
+				}
+			}
 
 		}
 
@@ -2830,6 +2883,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		window.draw(scoreText);
 		window.draw(coin);
 		window.draw(currentLevelText);
+		window.draw(pauseS);
 		window.draw(healthbar.psprite);
 		if (player.shield > 0)
 			window.draw(healthbar.pShield);

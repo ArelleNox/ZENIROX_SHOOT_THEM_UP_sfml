@@ -18,7 +18,7 @@ class fastStarparallaxe;
 
 using namespace std;
 using namespace sf;
-enum Screen{Menu, Settings, Playing, Editor, NextLevel, Lost, Win, EreaseData, SetDifficulty, Shop};
+enum Screen{Menu, Settings, Playing, Editor, NextLevel, Lost, Win, EreaseData, SetDifficulty, Shop, Paused};
 
 enum gameState {
 	niveauEDIT, niveau1A, niveau1B, niveau1C, niveau2A, niveau2B, niveau2C, niveau3A, niveau3B, niveau3C, finalBoss
@@ -29,73 +29,75 @@ class Game {
 private:
 	
 
-	std::vector<sf::Text> menuOptions;    // Text objects for menu options
+	std::vector<Text> menuOptions;    // Text objects for menu options
 	int hoveredOption;                    // Index of the hovered option
-	sf::Text title;                       
+	Text title;                       
 
 public:
 	Game();
 
-	sf::Texture backgroundTexture;
-	sf::Texture closeT;
-	sf::Texture confirmT;
-	sf::Texture editorT;
-	sf::Texture cancelT;
-	sf::Texture dataT;
-	sf::Texture easyT;
-	sf::Texture hardcoreT;
-	sf::Texture menuT;
-	sf::Texture normalT;
-	sf::Texture questT;
-	sf::Texture resumeT;
-	sf::Texture settingsT;
-	sf::Texture buyT;
-	sf::Texture yesT;
-	sf::Texture noT;
-	sf::Texture backT;
-	sf::Texture shopT;
-	sf::Texture continueT;
-	sf::Texture resetT;
-	sf::Texture buyShip1T;
-	sf::Texture buyShip2T;
-	sf::Texture buyShip3T;
-	sf::Texture inventoryShipT;
-	sf::Texture inventoryShip1T;
-	sf::Texture inventoryShip2T;
-	sf::Texture inventoryShip3T;
+	Texture backgroundTexture;
+	Texture closeT;
+	Texture confirmT;
+	Texture editorT;
+	Texture cancelT;
+	Texture dataT;
+	Texture easyT;
+	Texture hardcoreT;
+	Texture menuT;
+	Texture normalT;
+	Texture questT;
+	Texture resumeT;
+	Texture settingsT;
+	Texture buyT;
+	Texture yesT;
+	Texture noT;
+	Texture backT;
+	Texture shopT;
+	Texture continueT;
+	Texture resetT;
+	Texture buyShip1T;
+	Texture buyShip2T;
+	Texture buyShip3T;
+	Texture inventoryShipT;
+	Texture inventoryShip1T;
+	Texture inventoryShip2T;
+	Texture inventoryShip3T;
+	Texture pauseT;
 
 
-	sf::Sprite backgroundSprite;
-	sf::Sprite closeS;
-	sf::Sprite confirmS;
-	sf::Sprite editorS;
-	sf::Sprite cancelS;
-	sf::Sprite dataS;
-	sf::Sprite easyS;
-	sf::Sprite hardcoreS;
-	sf::Sprite menuS;
-	sf::Sprite normalS;
-	sf::Sprite questS;
-	sf::Sprite resumeS;
-	sf::Sprite settingsS;
-	sf::Sprite buyS;
-	sf::Sprite yesS;
-	sf::Sprite yes2S;
-	sf::Sprite noS;
-	sf::Sprite no2S;
-	sf::Sprite backS;
-	sf::Sprite shopS;
-	sf::Sprite continueS;
-	sf::Sprite resetS;
-	sf::Sprite buyShip1S;
-	sf::Sprite buyShip2S;
-	sf::Sprite buyShip3S;
-	sf::Sprite inventoryShipS;
-	sf::Sprite inventoryShip1S;
-	sf::Sprite inventoryShip2S;
-	sf::Sprite inventoryShip3S;
+	Sprite backgroundSprite;
+	Sprite closeS;
+	Sprite confirmS;
+	Sprite editorS;
+	Sprite cancelS;
+	Sprite dataS;
+	Sprite easyS;
+	Sprite hardcoreS;
+	Sprite menuS;
+	Sprite normalS;
+	Sprite questS;
+	Sprite resumeS;
+	Sprite settingsS;
+	Sprite buyS;
+	Sprite yesS;
+	Sprite yes2S;
+	Sprite noS;
+	Sprite no2S;
+	Sprite backS;
+	Sprite shopS;
+	Sprite continueS;
+	Sprite resetS;
+	Sprite buyShip1S;
+	Sprite buyShip2S;
+	Sprite buyShip3S;
+	Sprite inventoryShipS;
+	Sprite inventoryShip1S;
+	Sprite inventoryShip2S;
+	Sprite inventoryShip3S;
+	Sprite pauseS;
 
-	sf::Font font;
+	Font font;
 
 	Music nextLevelM;
 	Music victoryM;
