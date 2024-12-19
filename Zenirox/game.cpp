@@ -109,14 +109,18 @@ Game::Game() : hoveredOption(-1) {
 		throw runtime_error("Erreur : texture de close introuvable.");
 	}
 	yesS.setTexture(yesT);
-	yesS.setScale(2, 2);
+	yesS.setScale(1.5, 1.5);
+	yes2S.setTexture(yesT);
+	yes2S.setScale(1.5, 1.5);
 
 	//Load the texture and set the sprite
 	if (!noT.loadFromFile("button/no.png")) {
 		throw runtime_error("Erreur : texture de close introuvable.");
 	}
 	noS.setTexture(noT);
-	noS.setScale(2, 2);
+	noS.setScale(1.5, 1.5);
+	no2S.setTexture(noT);
+	no2S.setScale(1.5, 1.5);
 
 	//Load the texture and set the sprite
 	if (!backT.loadFromFile("button/back.png")) throw runtime_error("Erreur: texture de back introuvable");
@@ -148,7 +152,7 @@ Game::Game() : hoveredOption(-1) {
 	//Musique écran titre
 	if (!titleScreenM.openFromFile("sounds/titlescreen.ogg")) throw runtime_error("Echec lors de l'ouverture de l'opening");
 	titleScreenM.setLoop(true);
-	titleScreenM.setVolume(50);
+	titleScreenM.setVolume(15);
 
 	//Musique niveau suivant
 	if (!nextLevelM.openFromFile("sounds/nextlevel.ogg")) throw runtime_error("Echec lors de l'ouverture de la musique de niveau suivant");
@@ -180,6 +184,22 @@ Game::Game() : hoveredOption(-1) {
 	currentLevelText.setCharacterSize(40);
 	currentLevelText.setOutlineColor(Color::Black);
 	currentLevelText.setOutlineThickness(4);
+
+	//Sprites DLC
+	if (!inventoryShipT.loadFromFile("inventory/ship.png")) throw runtime_error("Erreur lors du chargement de la texture d'inventaire du vaisseau par défaut");
+	if (!inventoryShip1T.loadFromFile("inventory/ship1.png")) throw runtime_error("Erreur lors du chargement de la texture d'inventaire du vaisseau 1");
+	if (!inventoryShip2T.loadFromFile("inventory/ship2.png")) throw runtime_error("Erreur lors du chargement de la texture d'inventaire du vaisseau 2");
+	if (!inventoryShip3T.loadFromFile("inventory/ship3.png")) throw runtime_error("Erreur lors du chargement de la texture d'inventaire du vaisseau 3");
+	if (!buyShip1T.loadFromFile("shop/ship1.png")) throw runtime_error("Erreur chargement texture shop ship1");
+	if (!buyShip2T.loadFromFile("shop/ship2.png")) throw runtime_error("Erreur chargement texture shop ship2");
+	if (!buyShip3T.loadFromFile("shop/ship3.png")) throw runtime_error("Erreur chargement texture shop ship3");
+	inventoryShipS.setTexture(inventoryShipT);
+	inventoryShip1S.setTexture(inventoryShip1T);
+	inventoryShip2S.setTexture(inventoryShip2T);
+	inventoryShip3S.setTexture(inventoryShip3T);
+	buyShip1S.setTexture(buyShip1T);
+	buyShip2S.setTexture(buyShip2T);
+	buyShip3S.setTexture(buyShip3T);
 }
 
 
@@ -879,6 +899,7 @@ void Game::level4(Player& player, EnemyManager& eManager, ObstacleManager& oMana
 		previousScreen = screen;
 		hasWon = true;
 		screen = Win;
+
 		saveData(player, *this);
 		openData(player, *this);
 	}
@@ -898,11 +919,11 @@ void Game::levelP(Player& player, EnemyManager& eManager, ObstacleManager& oMana
 		setGameDuration(240);
 		toKill = 10;
 
-
+		if(EloadObstacle == true)
+			oManager.creerObstacle(4700, 500);
 		eManager.creerEnemy(nb1, 1000, 600);
 		eManager.creerEnemy(nb2, 2500, 300);
 		eManager.creerEnemy(nb3, 4000, 700);
-		oManager.creerObstacle(4700, 500);
 		eManager.creerEnemy(nb4, 5500, 100);
 		eManager.creerEnemy(nb5, 7000, 800);
 		eManager.creerEnemy(nb6, 8500, 400);
@@ -933,26 +954,215 @@ void Game::levelP(Player& player, EnemyManager& eManager, ObstacleManager& oMana
 		isFightingBoss = true;
 		toKill = 1;
 		eManager.creerEnemy(bossID, 1400, 700);
-		if (player.difficulty != Hardcore)
+		if (EloadPowerups == true)
 		{
-			uManager.creerUtilitary(shield, 2000, 700);
-			uManager.creerUtilitary(battery, 6000, 500);
-			uManager.creerUtilitary(heart, 10000, 300);
+			if (player.difficulty == Easy)
+			{
+				uManager.creerUtilitary(shield, 2000, 700);
+				uManager.creerUtilitary(battery, 6000, 500);
+				uManager.creerUtilitary(heart, 10000, 300);
+			}
+			else if (player.difficulty == Hardcore)
+			{
+				uManager.creerUtilitary(evilBattery, 2000, 200);
+				uManager.creerUtilitary(evilShield, 6000, 300);
+				uManager.creerUtilitary(evilHeart, 10000, 700);
+			}
+			else if (player.difficulty == Normal)
+			{
+				uManager.creerUtilitary(shield, 2000, 700);
+				uManager.creerUtilitary(battery, 6000, 500);
+				uManager.creerUtilitary(heart, 10000, 300);
+				uManager.creerUtilitary(evilBattery, 2000, 200);
+				uManager.creerUtilitary(evilShield, 6000, 300);
+				uManager.creerUtilitary(evilHeart, 10000, 700);
+			}
 		}
 	}
 	if (isFightingBoss == true && toKill == 0 && state == niveauEDIT)
 	{
+		isFightingBoss = false;
+		doLoadBackground = true;
+		loadLevel = true;
+		boss.stop();
 		previousScreen = screen;
-		screen = NextLevel;
+		screen = Editor;
+		counter = 1;
+		currentID = 0;
+		previousScreen = SetDifficulty;
+
+
 	}
 
 }
 
 void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& background, Starparallaxe& star, fastStarparallaxe& faststar, Healthbar& healthbar, EnemyManager& eManager, ProjectileManager& pManager, ObstacleManager& oManager, UtilitaryManager& uManager, ExplosionManager& exManager, Clock& clock, Text& scoreText, Font& scoreFont, RectangleShape& interface, Music& playing, Music& boss, Music& finalBossM, vector<Sound>& playerShot, SoundBuffer& shot, Text& totalScoreText)
 {
+	if (screen == Shop)
+	{
+			Sprite shopBackgroundS;
+			Texture shopBackgroundT;
+			if (!shopBackgroundT.loadFromFile("shop.png")) throw runtime_error("Erreur chargement fond shop");
+			buyShip1S.setPosition(112, 351);
+			buyShip2S.setPosition(810, 351);
+			buyShip3S.setPosition(1508, 351);
+			backS.setScale(2, 2);
+			backS.setPosition(360, 860);
+			settingsS.setPosition(1163, 860);
+			settingsS.setScale(2, 2);
+			coin.setScale(0.26, 0.26);
+			coin.setPosition(880, 5);
+			totalScoreText.setScale(1, 1);
+			setTotalScoreText(player, scoreFont, totalScoreText);
+			totalScoreText.setPosition(880, 0);
+			
+
+
+			shopBackgroundS.setTexture(shopBackgroundT);
+
+			Event event;
+
+			while (window.pollEvent(event))
+				if (event.type == Event::Closed)
+					window.close();
+			if (event.type == Event::MouseButtonPressed)
+			{
+				Vector2i mousePos = Mouse::getPosition(window);
+
+				if (player.UShip1 == false && event.mouseButton.button == Mouse::Left && buyShip1S.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					if (player.totalScore >= 2500)
+					{
+						player.buy.play();
+						player.totalScore -= 2500;
+						player.UShip1 = true;
+						saveData(player, *this);
+					}
+					else
+						impossibleAction.play();
+				}
+				if (player.UShip2 == false && event.mouseButton.button == Mouse::Left && buyShip2S.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					if (player.totalScore >= 4000)
+					{
+						player.buy.play();
+						player.totalScore -= 4000;
+						player.UShip2 = true;
+						saveData(player, *this);
+					}
+					else
+						impossibleAction.play();
+				}
+				if (player.UShip3 == false && event.mouseButton.button == Mouse::Left && buyShip3S.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					if (player.totalScore >= 7500)
+					{
+						player.buy.play();
+						player.totalScore -= 7500;
+						player.UShip3 = true;
+						saveData(player, *this);
+					}
+					else
+						impossibleAction.play();
+				}
+				if (event.mouseButton.button == Mouse::Left && backS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					confirmSound.play();
+					screen = previousScreen;
+				}
+				if (event.mouseButton.button == Mouse::Left && settingsS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					confirmSound.play();
+					screen = Settings;
+				}
+			}
+
+			
+			window.draw(shopBackgroundS);
+			if (player.UShip1 == false)
+				window.draw(buyShip1S);
+			if (player.UShip2 == false)
+				window.draw(buyShip2S);
+			if (player.UShip3 == false)
+				window.draw(buyShip3S);
+			window.draw(backS);
+			window.draw(settingsS);
+			window.draw(coin);
+			window.draw(totalScoreText);
+	}
 	if (screen == Settings)
 	{
-		window.close();
+		Sprite settingsBackgroundS;
+		Texture settingsBackgroundT;
+		if (!settingsBackgroundT.loadFromFile("inventory.png")) throw runtime_error("Erreur chargement fond inventaire");
+		inventoryShipS.setPosition(49, 471);
+		inventoryShip1S.setPosition(561, 471);
+		inventoryShip2S.setPosition(1059, 471);
+		inventoryShip3S.setPosition(1571, 471);
+		backS.setScale(2, 2);
+		backS.setPosition(360, 860);
+		shopS.setPosition(1163, 860);
+		settingsBackgroundS.setTexture(settingsBackgroundT);
+
+		Event event;
+
+		while(window.pollEvent(event))
+			if(event.type == Event::Closed)
+				window.close();
+		if (event.type == Event::MouseButtonPressed)
+		{
+			Vector2i mousePos = Mouse::getPosition(window);
+
+			if (event.mouseButton.button == Mouse::Left && backS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+			{
+				confirmSound.play();
+				screen = previousScreen;
+			}
+			if (event.mouseButton.button == Mouse::Left && shopS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+			{
+				confirmSound.play();
+				screen = Shop;
+			}
+			if (event.mouseButton.button == Mouse::Left && inventoryShipS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+			{
+				confirmSound.play();
+				player.ship = Default;
+				player.changeShip();
+				screen = previousScreen;
+			}
+			if (player.UShip1 == true && event.mouseButton.button == Mouse::Left && inventoryShip1S.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+			{
+				confirmSound.play();
+				player.ship = Ship1;
+				player.changeShip();
+				screen = previousScreen;
+			}
+			if (player.UShip2 == true && event.mouseButton.button == Mouse::Left && inventoryShip2S.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+			{
+				confirmSound.play();
+				player.ship = Ship2;
+				player.changeShip();
+				screen = previousScreen;
+			}
+			if (player.UShip3 == true && event.mouseButton.button == Mouse::Left && inventoryShip3S.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+			{
+				confirmSound.play();
+				player.ship = Ship3;
+				player.changeShip();
+				screen = previousScreen;
+			}
+		}
+
+		window.draw(settingsBackgroundS);
+		window.draw(inventoryShipS);
+		if(player.UShip1 == true)
+			window.draw(inventoryShip1S);
+		if(player.UShip2 == true)
+			window.draw(inventoryShip2S);
+		if(player.UShip3 == true)
+			window.draw(inventoryShip3S);
+		window.draw(backS);
+		window.draw(shopS);
 	}
 
 	if (screen == SetDifficulty)
@@ -1167,6 +1377,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 	}
 
 	if (screen == Menu) {
+		setTotalScoreText(player, scoreFont, totalScoreText);
 		editorM.stop();
 		if (titleScreenM.getStatus() != Sound::Playing)
 			titleScreenM.play();
@@ -1206,12 +1417,14 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 					previousScreen = screen;
 					screen = SetDifficulty;
 					loadEdited = true;
+					openData(player, *this);
 				}
 				if (event.mouseButton.button == Mouse::Left && dataS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
 				{
 					confirmSound.play();
 					previousScreen = screen;
 					screen = EreaseData;
+					openData(player, *this);
 				}
 				if (event.mouseButton.button == Mouse::Left && questS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
 				{
@@ -1219,19 +1432,21 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 					previousScreen = screen;
 					screen = SetDifficulty;
 					loadCampain = true; //Load campain veut dire charger Quest (Playing)
+					openData(player, *this);
 				}
 				if (event.mouseButton.button == Mouse::Left && settingsS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
 				{
 					confirmSound.play();
 					previousScreen = screen;
 					screen = Settings;
+					openData(player, *this);
 				}
 				if (event.mouseButton.button == Mouse::Left && shopS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
 				{
 					confirmSound.play();
 					previousScreen = screen;
 					screen = Shop;
-					window.close();
+					openData(player, *this);
 				}
 				if (event.mouseButton.button == Mouse::Left && closeS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
 				{
@@ -1617,6 +1832,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 
 	if (screen == NextLevel)
 	{
+		editorM.stop();
 		if (player.difficulty != Hardcore)
 			player.HP = player.maxHP;
 		else
@@ -1662,7 +1878,6 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 					isFightingBoss = false;
 					counter = 1;
 					state = niveauEDIT;
-					previousScreen = screen;
 					screen = Editor;
 					nextLevelM.stop();
 					break;
@@ -1740,6 +1955,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 					case niveauEDIT:
 						saveCurrentScore(player);
 						saveData(player, *this);
+						openData(player, *this);
 						loadLevel = true;
 						doLoadBackground = true;
 						isFightingBoss = false;
@@ -1832,8 +2048,6 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 					switch (state)
 					{
 					case niveauEDIT:
-						saveCurrentScore(player);
-						saveData(player, *this);
 						loadLevel = true;
 						doLoadBackground = true;
 						isFightingBoss = false;
@@ -2101,6 +2315,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 
 	if (screen == Editor)
 	{
+		player.shield = 0;
 		if(editorM.getStatus() != Sound::Playing)
 			editorM.play();
 		vector <ID> IDlist{ ENNEMI1, ENNEMI2, ENNEMI3, BOSS1, BOSS2, BOSS3, BOSS4 };
@@ -2138,6 +2353,16 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		backS.setPosition(140, 835);
 		cancelS.setScale(1.5, 1.5);
 		cancelS.setPosition(140, 480);
+		yesS.setPosition(1480, 359);
+		yes2S.setPosition(1480, 655);
+		if (EloadObstacle == true)
+			yesS.setTexture(yesT);
+		else
+			yesS.setTexture(noT);
+		if (EloadPowerups == true)
+			yes2S.setTexture(yesT);
+		else
+			yes2S.setTexture(noT);
 		alias = &IDlist[currentID];
 		switch (*alias)
 		{
@@ -2184,6 +2409,22 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 					}
 					else
 						impossibleAction.play();
+				}
+				if (event.mouseButton.button == Mouse::Left && yesS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)) || event.key.code == Keyboard::Down)
+				{
+					confirmSound.play();
+					if (EloadObstacle == false)
+						EloadObstacle = true;
+					else
+						EloadObstacle = false;
+				}
+				if (event.mouseButton.button == Mouse::Left && yes2S.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)) || event.key.code == Keyboard::Down)
+				{
+					confirmSound.play();
+					if (EloadPowerups == false)
+						EloadPowerups = true;
+					else
+						EloadPowerups = false;
 				}
 				if (event.mouseButton.button == Mouse::Left && down.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)) || event.key.code == Keyboard::Down)
 				{
@@ -2350,12 +2591,16 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		window.draw(enemySprite);
 		window.draw(up);
 		window.draw(down);
+		window.draw(yesS);
+		window.draw(yes2S);
 	}
 
 	/////////////////////////////////////////////////////////////////////
 
 	if (screen == Playing)
 	{
+		coin.setScale(0.2, 0.2);
+		coin.setPosition(0, 45);
 		if (state != niveauEDIT)
 		{
 			if(state == niveau1A && Univeau1A == true)

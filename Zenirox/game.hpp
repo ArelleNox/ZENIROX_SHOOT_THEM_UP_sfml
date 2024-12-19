@@ -56,6 +56,14 @@ public:
 	sf::Texture shopT;
 	sf::Texture continueT;
 	sf::Texture resetT;
+	sf::Texture buyShip1T;
+	sf::Texture buyShip2T;
+	sf::Texture buyShip3T;
+	sf::Texture inventoryShipT;
+	sf::Texture inventoryShip1T;
+	sf::Texture inventoryShip2T;
+	sf::Texture inventoryShip3T;
+
 
 	sf::Sprite backgroundSprite;
 	sf::Sprite closeS;
@@ -72,11 +80,20 @@ public:
 	sf::Sprite settingsS;
 	sf::Sprite buyS;
 	sf::Sprite yesS;
+	sf::Sprite yes2S;
 	sf::Sprite noS;
+	sf::Sprite no2S;
 	sf::Sprite backS;
 	sf::Sprite shopS;
 	sf::Sprite continueS;
 	sf::Sprite resetS;
+	sf::Sprite buyShip1S;
+	sf::Sprite buyShip2S;
+	sf::Sprite buyShip3S;
+	sf::Sprite inventoryShipS;
+	sf::Sprite inventoryShip1S;
+	sf::Sprite inventoryShip2S;
+	sf::Sprite inventoryShip3S;
 
 	sf::Font font;
 
@@ -108,10 +125,11 @@ public:
 	bool doLoadBackground = true;
 	bool Univeau1A, loadLevel = true;
 	bool loadCampain, loadEdited, hasWon = false;
-	bool Univeau2A, Univeau3A, Univeau1B, Univeau2B, Univeau3B, Univeau1C, Univeau2C, Univeau3C, UfinalBoss, isFightingBoss = false;
+	bool Univeau2A = false, Univeau3A = false, Univeau1B = false, Univeau2B = false, Univeau3B = false, Univeau1C = false, Univeau2C = false, Univeau3C = false, UfinalBoss = false, isFightingBoss = false;
 	int toKill = 0;
 	int counter = 1;
 	int currentID = 0;
+	bool EloadObstacle, EloadPowerups = false;
 
 
 	void setGameDuration(float duration);

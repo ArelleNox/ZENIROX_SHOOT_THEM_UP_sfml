@@ -6,7 +6,7 @@
 using namespace sf;
 
 enum Difficulty { Easy, Normal, Hardcore };
-enum Ship {Default, Red, Green, Turquoise, Rose, Orange, Jaune};
+enum Ship {Default, Ship1, Ship2, Ship3};
 
 class Player
 {
@@ -20,12 +20,17 @@ public:
 	int attack = 10;
 	float up = -5;
 	float down = 5;
-	Ship color = Default;
+	Ship ship = Default;
+	bool UShip1 = false;
+	bool UShip2 = false;
+	bool UShip3 = false;
 	Difficulty difficulty = Normal;
 	Sprite sprite;
 	Texture texture;
 	Sound impact;
 	SoundBuffer impactB;
+	Sound buy;
+	SoundBuffer buyB;
 	Sound bonus;
 	Sound malus;
 	SoundBuffer bonusB;
@@ -43,6 +48,7 @@ public:
 	void increaseScore(int toIncrease);
 	void decreaseScore(Text &scoreText, int toDecrease);
 	void setDifficulty(Difficulty defDifficulty);
+	void changeShip();
 };
 
 

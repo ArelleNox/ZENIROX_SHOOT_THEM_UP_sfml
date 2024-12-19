@@ -50,6 +50,14 @@ void openData(Player &player, Game &game) {
 	game.Univeau3C = nv3C;
 	game.UfinalBoss = FB;
 	game.hasWon = HW;
+	scoreFile.close();
+	ifstream inventoryFile("inventory.txt");
+	bool U1, U2, U3;
+	inventoryFile >> boolalpha >> U1 >> U2 >> U3;
+	player.UShip1 = U1;
+	player.UShip2 = U2;
+	player.UShip3 = U3;
+	inventoryFile.close();
 }
 void saveData(Player player, Game &game)
 {
@@ -92,6 +100,10 @@ void saveData(Player player, Game &game)
 	{
 		scoreFile << player.totalScore << ' ' << boolalpha << true << ' ' << true << ' ' << true << ' ' << true << ' ' << true << ' ' << true << ' ' << true << ' ' << true << ' ' << true << ' ' << game.hasWon << ' ';
 	}
+	scoreFile.close();
+	ofstream inventoryFile("inventory.txt");
+	inventoryFile << boolalpha << player.UShip1 << ' ' << player.UShip2 << ' ' << player.UShip3;
+	inventoryFile.close();
 }
 void saveCurrentScore(Player& player)
 {
@@ -113,11 +125,19 @@ void removeData(Player& player, Game &game)
 	game.Univeau3C = false;
 	game.UfinalBoss = false;
 	game.hasWon = false;
+	game.state = niveau1A;
+	scoreFile.close();
+	ofstream inventoryFile("inventory.txt");
+	inventoryFile << boolalpha << false << ' ' << false << ' ' << false;
+	player.UShip1 = false;
+	player.UShip2 = false;
+	player.UShip3 = false;
+	inventoryFile.close();
 }
 void resetQuest(Player &player, Game& game)
 {
 	ofstream scoreFile("score.txt");
-	scoreFile << player.totalScore << boolalpha << game.Univeau1B << ' ' << false << ' ' << false << ' ' << false << ' ' << false << ' ' << false << ' ' << false << ' ' << false << ' ' << false << ' ' << false;
+	scoreFile << player.totalScore << boolalpha << false << ' ' << false << ' ' << false << ' ' << false << ' ' << false << ' ' << false << ' ' << false << ' ' << false << ' ' << false << ' ' << false;
 	game.Univeau1B = false;
 	game.Univeau1C = false;
 	game.Univeau2A = false;
