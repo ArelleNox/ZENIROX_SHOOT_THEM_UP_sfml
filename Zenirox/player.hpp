@@ -42,7 +42,7 @@ public:
 	void checkOutOfScreen();
 	void increaseScore(int toIncrease);
 	void decreaseScore(Text &scoreText, int toDecrease);
-	void setDifficulty(Difficulty difficulty);
+	void setDifficulty(Difficulty defDifficulty);
 };
 
 

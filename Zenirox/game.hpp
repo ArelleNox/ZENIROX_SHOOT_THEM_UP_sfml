@@ -55,6 +55,7 @@ public:
 	sf::Texture backT;
 	sf::Texture shopT;
 	sf::Texture continueT;
+	sf::Texture resetT;
 
 	sf::Sprite backgroundSprite;
 	sf::Sprite closeS;
@@ -75,6 +76,7 @@ public:
 	sf::Sprite backS;
 	sf::Sprite shopS;
 	sf::Sprite continueS;
+	sf::Sprite resetS;
 
 	sf::Font font;
 
@@ -105,7 +107,7 @@ public:
 
 	bool doLoadBackground = true;
 	bool Univeau1A, loadLevel = true;
-	bool loadCampain, loadEdited = false;
+	bool loadCampain, loadEdited, hasWon = false;
 	bool Univeau2A, Univeau3A, Univeau1B, Univeau2B, Univeau3B, Univeau1C, Univeau2C, Univeau3C, UfinalBoss, isFightingBoss = false;
 	int toKill = 0;
 	int counter = 1;

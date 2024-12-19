@@ -80,9 +80,9 @@ void Player::decreaseScore(Text& scoreText, int toDecrease)
 		currentScore = 0;
 }
 
-void Player::setDifficulty(Difficulty difficulty)
+void Player::setDifficulty(Difficulty defDifficulty)
 {
-
+	difficulty = defDifficulty;
 	{
 		if (difficulty == Easy)
 		{

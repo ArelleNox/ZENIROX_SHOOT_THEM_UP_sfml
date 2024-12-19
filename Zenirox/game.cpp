@@ -131,6 +131,11 @@ Game::Game() : hoveredOption(-1) {
 	if (!continueT.loadFromFile("button/continue.png")) throw runtime_error("Erreur: texture de continue introuvable");
 	continueS.setTexture(continueT);
 	continueS.setScale(2, 2);
+
+	//Load the texture and set the sprite
+	if (!resetT.loadFromFile("button/reset.png")) throw runtime_error("Erreur: texture du bouton reset inrouvable");
+	resetS.setTexture(resetT);
+	resetS.setScale(2, 2);
 	
 
 	//Musique de défaite
@@ -872,7 +877,10 @@ void Game::level4(Player& player, EnemyManager& eManager, ObstacleManager& oMana
 	if (isFightingBoss == true && toKill == 0 && state == finalBoss)
 	{
 		previousScreen = screen;
+		hasWon = true;
 		screen = Win;
+		saveData(player, *this);
+		openData(player, *this);
 	}
 	
 }
@@ -946,6 +954,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 	{
 		window.close();
 	}
+
 	if (screen == SetDifficulty)
 	{
 		openData(player, *this);
@@ -1105,6 +1114,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		window.draw(normalS);
 		window.draw(backS);
 	}
+
 	if (screen == EreaseData)
 	{
 		Sprite EreaseDataS;
@@ -1113,6 +1123,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		EreaseDataS.setTexture(EreaseDataT);
 		confirmS.setPosition(1160, 519);
 		cancelS.setPosition(360, 519);
+		resetS.setPosition(760, 778);
 
 		Event event;
 		while (window.pollEvent(event))
@@ -1137,12 +1148,24 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 					saveData(player, *this);
 					openData(player, *this);
 				}
+				if (event.mouseButton.button == Mouse::Left && resetS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)) && hasWon == true)
+				{
+					confirmSound.play();
+					screen = previousScreen;
+					resetQuest(player, *this);
+					state = niveau1A;
+					saveData(player, *this);
+					openData(player, *this);
+				}
 			}
 		}
 		window.draw(EreaseDataS);
 		window.draw(confirmS);
 		window.draw(cancelS);
+		if(hasWon == true)
+		window.draw(resetS);
 	}
+
 	if (screen == Menu) {
 		editorM.stop();
 		if (titleScreenM.getStatus() != Sound::Playing)
@@ -1242,9 +1265,15 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		window.draw(shopS);
 	}
 
-
 	if (screen == Win)
 	{
+		resetS.setPosition(764, 872);
+		settingsS.setScale(2, 2);
+		settingsS.setPosition(192, 872);
+		closeS.setScale(2, 2);
+		closeS.setPosition(1328, 872);
+		menuS.setScale(2, 2);
+		menuS.setPosition(1329, 642);
 		finalBossM.stop();
 		boss.stop();
 		playing.stop();
@@ -1263,24 +1292,71 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		{
 			if (event.type == Event::Closed)
 			{
-				window.close();
 				saveCurrentScore(player);
 				saveData(player, *this);
+				openData(player, *this);
+				window.close();
 			}
 			if (event.type == Event::KeyPressed)
 			{
 				if (event.key.code == Keyboard::Enter)
 				{
-					window.close();
 					saveCurrentScore(player);
 					saveData(player, *this);
+					openData(player, *this);
+					window.close();
+				}
+			}
+			if (event.type == Event::MouseButtonPressed)
+			{
+				Vector2i mousePos = Mouse::getPosition(window);
+
+				if (event.mouseButton.button == Mouse::Left && resetS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					confirmSound.play();
+					screen = previousScreen;
+					resetQuest(player, *this);
+					state = niveau1A;
+					saveData(player, *this);
+					openData(player, *this);
+				}
+
+				if (event.mouseButton.button == Mouse::Left && settingsS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					confirmSound.play();
+					previousScreen = screen;
+					screen = Settings;
+				}
+				if (event.mouseButton.button == Mouse::Left && closeS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					saveCurrentScore(player);
+					saveData(player, *this);
+					openData(player, *this);
+					window.close();
+				}
+				if (event.mouseButton.button == Mouse::Left && menuS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					saveCurrentScore(player);
+					saveData(player, *this);
+					previousScreen = screen;
+					victoryM.stop();
+					screen = Menu;
 				}
 			}
 		}
 		window.draw(winBackground);
+		window.draw(settingsS);
+		window.draw(closeS);
+		window.draw(resetS);
+		window.draw(menuS);
 	}
+
 	if (screen == Lost)
 	{
+		menuS.setPosition(192 , 714);
+		closeS.setPosition(760 , 714);
+		closeS.setScale(2, 2);
+		continueS.setPosition(1328, 714);
 		Sprite lostScreen;
 		Texture lostScreenT;
 		if (!lostScreenT.loadFromFile("lostscreen.png")) throw runtime_error("Erreur lors du chargement de l'ecran de defaite");
@@ -1374,12 +1450,177 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 					}
 				}
 			}
+			if (event.type == Event::MouseButtonPressed)
+			{
+				Vector2i mousePos = Mouse::getPosition(window);
+
+				if (event.mouseButton.button == Mouse::Left && continueS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					confirmSound.play();
+					switch (state)
+					{
+					case niveauEDIT:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						previousScreen = screen;
+						screen = Editor;
+						counter = 1;
+						break;
+					case niveau1A:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case niveau1B:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case niveau1C:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case niveau2A:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case niveau2B:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case niveau2C:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case niveau3A:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case niveau3B:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case niveau3C:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case finalBoss:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					default:
+						break;
+					}
+					lose.stop();
+					player.HP = player.maxHP;
+					if (state != niveauEDIT)
+					{
+						previousScreen = screen;
+						screen = Playing;
+					}
+				}
+
+				if (event.mouseButton.button == Mouse::Left && menuS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					confirmSound.play();
+					switch (state)
+					{
+					case niveauEDIT:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						previousScreen = screen;
+						screen = Editor;
+						counter = 1;
+						break;
+					case niveau1A:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case niveau1B:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case niveau1C:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case niveau2A:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case niveau2B:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case niveau2C:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case niveau3A:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case niveau3B:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case niveau3C:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					case finalBoss:
+						isFightingBoss = false;
+						loadLevel = true;
+						doLoadBackground = true;
+						break;
+					default:
+						break;
+					}
+					player.HP = player.maxHP;
+					lose.stop();
+					confirmSound.play();
+					previousScreen = screen;
+					screen = Menu;
+					counter = 1;
+					currentID = 0;
+				}
+				if (event.mouseButton.button == Mouse::Left && closeS.getGlobalBounds().contains(static_cast<Vector2f>(mousePos)))
+				{
+					window.close();
+				}
+			}
 		}
 		window.draw(lostScreen);
+		window.draw(continueS);
+		window.draw(closeS);
+		window.draw(menuS);
 	}
 
 	if (screen == NextLevel)
 	{
+		if (player.difficulty != Hardcore)
+			player.HP = player.maxHP;
+		else
+			player.shield = 0;
 		continueS.setPosition(764, 872);
 		settingsS.setScale(2, 2);
 		settingsS.setPosition(192, 872);
@@ -1857,6 +2098,7 @@ void Game::run(RenderWindow& window, Player& player, Sprite& coin, Background& b
 		window.draw(continueS);
 		window.draw(menuS);
 	}
+
 	if (screen == Editor)
 	{
 		if(editorM.getStatus() != Sound::Playing)

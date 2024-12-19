@@ -11,4 +11,5 @@ void openData(Player &player, Game &game);
 void saveData(Player player, Game &game);
 void saveCurrentScore(Player &player);
 void removeData(Player& player, Game &game);
+void resetQuest(Player& player, Game& game);
 #endif
