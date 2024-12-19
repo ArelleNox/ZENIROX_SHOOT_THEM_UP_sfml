@@ -44,7 +44,6 @@ int main() {
 	Healthbar healthbar;
 	healthbar.setTextureList();
 
-	// Initialiser l'horloge pour gérer le deltaTime
 	sf::Clock clock;
 
 	ProjectileManager pManager;
@@ -71,8 +70,6 @@ int main() {
 	else
 		game.state = niveau1A;
 
-
-
 	ObstacleManager oManager;
 
 	UtilitaryManager uManager;
@@ -81,7 +78,6 @@ int main() {
 
 	Music playing;
 	Music boss;
-
 	Music finalBossM;
 	
 	if (!playing.openFromFile("sounds/playing.ogg")) throw runtime_error("Musique de combat classique non chargee");
@@ -126,6 +122,13 @@ int main() {
 	while (window.isOpen()){
 		//Chargement des niveaux
 		game.run(window, player, coin, background, star, faststar, healthbar, eManager, pManager, oManager, uManager, exManager, clock, scoreText, scoreFont, interface, playing, boss, finalBossM, playerShot, shot, totalScoreText);
+
+
+
+
+
+
+
 		if(game.state == niveauEDIT && game.isFightingBoss == false)
 		{
 			for (int i = 0; i < eManager.getEnemies().size(); i++)

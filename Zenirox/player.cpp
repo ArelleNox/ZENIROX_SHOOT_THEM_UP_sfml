@@ -100,7 +100,7 @@ void Player::setDifficulty(Difficulty defDifficulty)
 		{
 			maxHP = 2000;
 			maxShield = 1000;
-			attack = 20;
+			attack = 200;
 		}
 		else if (difficulty == Normal)
 		{
